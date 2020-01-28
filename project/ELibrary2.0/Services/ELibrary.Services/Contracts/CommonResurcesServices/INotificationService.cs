@@ -7,14 +7,14 @@
 
     public interface INotificationService
     {
-        string AddMessageAtDB(string userId, string textOfMessage);
+        string AddNotificationAtDB(string userId, string textOfNotification);
 
-        NotificationNavBarViewModel GetMessagesNavBar(string userId);
+        NotificationsNavBarViewModel GetNotificationsNavBar(string userId);
 
-        NotificationsViewModel GetMessagesPreparedPage(string userId);
+        NotificationsViewModel GetNotificationsPreparedPage(string userId);
 
 
-        NotificationsViewModel GetMessagesChangePage(NotificationsViewModel model, string userId, int pageIndex);
+        NotificationsViewModel GetNotificationsChangePage(NotificationsViewModel model, string userId, int pageIndex);
 
     }
 }

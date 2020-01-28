@@ -8,9 +8,13 @@
     using ELibrary.Data.Models;
     using ELibrary.Data.Repositories;
     using ELibrary.Data.Seeding;
+    using ELibrary.Services.CommonResurcesServices;
+    using ELibrary.Services.Contracts.CommonResurcesServices;
+    using ELibrary.Services.Contracts.UserServices;
     using ELibrary.Services.Data;
     using ELibrary.Services.Mapping;
     using ELibrary.Services.Messaging;
+    using ELibrary.Services.UserServices;
     using ELibrary.Web.ViewModels;
 
     using Microsoft.AspNetCore.Builder;
@@ -59,6 +63,14 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+
+            // common services
+            services.AddTransient<IGenreService, GenreService>();
+            services.AddTransient<INotificationService, NotificationService>();
+
+            // User services
+            services.AddTransient<IAddBookService, AddBookService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
