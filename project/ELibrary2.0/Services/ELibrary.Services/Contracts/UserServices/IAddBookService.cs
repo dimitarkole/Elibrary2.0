@@ -1,13 +1,19 @@
 ﻿namespace ELibrary.Services.Contracts.UserServices
 {
-    using ELibrary.Web.ViewModels.User;
     using System;
     using System.Collections.Generic;
     using System.Text;
+
+    using ELibrary.Web.ViewModels.User;
 
     public interface IAddBookService
     {
         AddBookViewModel PreparedAddBookPage();
 
+        string AddBook(AddBookViewModel model, string userId);
+
+        AddBookViewModel GetBookDataById(string bookId);
+
+        List<object> EditBook(AddBookViewModel model, string userId);
     }
 }

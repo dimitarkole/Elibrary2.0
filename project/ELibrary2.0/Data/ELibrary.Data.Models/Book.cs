@@ -43,6 +43,8 @@
 
         [DataType(DataType.MultilineText)]
         public virtual string Review { get; set; }
+        
+        public virtual string Commentar { get; set; }
 
         public virtual string Logo { get; set; }
 
@@ -51,7 +53,10 @@
         [Column(TypeName = "decimal(18, 2)")]
         public virtual double Price { get; set; }
 
-        public virtual CurrencyValues Currency { get; set; }
+        public virtual CurrencyValues Currencys { get; set; }
+
+        public virtual string Currency { get; set; }
+
 
         // Audit info
         public DateTime CreatedOn { get; set; }

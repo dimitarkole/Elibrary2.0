@@ -12,6 +12,7 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.CreatedOn = DateTime.UtcNow;
+            this.Books = new List<Book>();
         }
 
         public virtual string Id { get; set; }
@@ -20,12 +21,14 @@
 
         // Audit info
         public DateTime CreatedOn { get; set; }
-        
+
         public DateTime? ModifiedOn { get; set; }
 
         // Deletable entity
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public List<Book> Books { get; set; }
     }
 }
