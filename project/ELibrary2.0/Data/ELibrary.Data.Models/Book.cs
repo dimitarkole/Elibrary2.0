@@ -27,7 +27,7 @@
 
         public virtual string CatalogNumber { get; set; }
 
-        public virtual string Tittle { get; set; }
+        public virtual string Title { get; set; }
 
         public virtual string Author { get; set; }
 

@@ -11,7 +11,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize(Roles = GlobalConstants.UserRoleName)]
-    [Area("Administration")]
+    [Area("User")]
     public class UserController : BaseController
     {
     }

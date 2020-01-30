@@ -36,7 +36,7 @@
             var genreId = model.GenreId;
 
             var catalogNumber = model.CatalogNumber;
-            var result = this.CheckDublicateBook(title, author, catalogNumber, userId);
+            var result = this.CheckDublicateBookAdd(title, author, catalogNumber, userId);
             if (result == null)
             {
                 var user = this.context.Users.FirstOrDefault(u => u.Id == userId);
@@ -46,7 +46,7 @@
 
                 var newBook = new Book()
                 {
-                    Tittle = title,
+                    Title = title,
                     Author = author,
                     GenreId = genreId,
                     Genre = genreObj,
@@ -63,9 +63,8 @@
                 this.context.Books.Add(newBook);
                 genreObj.Books.Add(newBook);
                 this.context.SaveChanges();
-                result = "Успешно добавена книганата!";
+                result = "Successfull added book!";
                 this.messageService.AddNotificationAtDB(userId, result);
-
             }
 
             return result;
@@ -73,7 +72,51 @@
 
         public List<object> EditBook(AddBookViewModel model, string userId)
         {
-            throw new NotImplementedException();
+            var author = model.Author;
+            var title = model.Title;
+            var genreId = model.GenreId;
+            var bookId = model.BookId;
+
+            var catalogNumber = model.CatalogNumber;
+            var checkResult = this.CheckDublicateBookEdit(title, author, catalogNumber, userId, bookId);
+            var result = new List<object>();
+            result.Add(model);
+            if (checkResult == null)
+            {
+                var genreObj = this.context.Genres.FirstOrDefault(g =>
+                  g.Id == genreId
+                  && g.DeletedOn == null);
+                var book = this.context.Books.FirstOrDefault(b => b.Id == bookId);
+                model.Genres = this.genreService.GetAllGenres();
+                model.BookId = bookId;
+
+                if (book != null)
+                {
+                    checkResult = this.ChackeInputData(title, author, catalogNumber);
+                    if (checkResult == string.Empty)
+                    {
+                        book.Author = author;
+                        book.CatalogNumber = catalogNumber;
+                        book.Currency = model.Currency;
+                        book.Logo = model.Logo;
+                        book.Price = model.Price;
+                        book.Review = model.Review;
+                        book.WhereIsBook = model.WhereIsBook;
+                        book.GenreId = genreId;
+                        book.Title = title;
+                        book.Genre = genreObj;
+                        book.Commentar = model.Commentar;
+
+                        genreObj.Books.Add(book);
+                        this.context.SaveChanges();
+                        checkResult = "Successfull edited book!!";
+                        this.messageService.AddNotificationAtDB(userId, checkResult);
+                    }
+
+                }
+            }
+            result.Add(checkResult);
+            return result;
         }
 
         public AddBookViewModel GetBookDataById(string bookId)
@@ -92,10 +135,10 @@
             return model;
         }
 
-        private string CheckDublicateBook(string title, string author, string catalogNumber, string userId)
+        private string CheckDublicateBookAdd(string title, string author, string catalogNumber, string userId)
         {
             var bookCheker1 = this.context.Books.Where(b =>
-                   b.Tittle == title
+                   b.Title == title
                    && b.Author == author
                    && b.UserId == userId
                    && b.DeletedOn == null
@@ -118,10 +161,37 @@
             return "Книганата същесвува в библиотеката Ви!";
         }
 
-        private string ChackeInputData(string bookName, string author, string catalogNumber)
+        private string CheckDublicateBookEdit(string title, string author, string catalogNumber, string userId, string bookId)
+        {
+            var bookCheker1 = this.context.Books.Where(b =>
+                       b.Id != bookId
+                       && b.Title == title
+                       && b.Author == author
+                       && b.UserId == userId
+                       && b.CatalogNumber.Equals(catalogNumber) == true
+                       && b.DeletedOn == null)
+                   .ToList();
+            if (bookCheker1.Count == 0)
+            {
+                var bookCheker2 = this.context.Books.FirstOrDefault(b =>
+                       b.Id != bookId
+                       && b.CatalogNumber == catalogNumber
+                       && b.DeletedOn == null);
+                if (bookCheker2 == null)
+                {
+                    return "The catalog number is duplicated!";
+                }
+
+                return null;
+            }
+
+            return "There is such book at your library!";
+        }
+
+        private string ChackeInputData(string title, string author, string catalogNumber)
         {
             StringBuilder errors = new StringBuilder();
-            if (string.IsNullOrEmpty(bookName) || string.IsNullOrWhiteSpace(bookName) || bookName.Length < 5)
+            if (string.IsNullOrEmpty(title) || string.IsNullOrWhiteSpace(title) || title.Length < 5)
             {
                 errors.AppendLine("Името на книгата трябва да има поне 5 символа!");
             }
