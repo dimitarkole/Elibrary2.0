@@ -16,12 +16,7 @@
             this.CreatedOn = DateTime.UtcNow;
         }
 
-        public enum CurrencyValues
-        {
-            USD,
-            EURO,
-            LV,
-        }
+       
 
         public virtual string Id { get; set; }
 
@@ -44,16 +39,15 @@
         [DataType(DataType.MultilineText)]
         public virtual string Review { get; set; }
         
-        public virtual string Commentar { get; set; }
-
         public virtual string Logo { get; set; }
+
+        public virtual string EBookFile { get; set; }
+
 
         [Range(1, 10000)]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18, 2)")]
         public virtual double Price { get; set; }
-
-        public virtual CurrencyValues Currencys { get; set; }
 
         public virtual string Currency { get; set; }
 

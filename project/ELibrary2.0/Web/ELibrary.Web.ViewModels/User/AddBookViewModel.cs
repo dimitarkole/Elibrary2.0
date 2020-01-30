@@ -7,8 +7,17 @@
 
     using ELibrary.Web.ViewModels.CommonResurces;
     using Microsoft.AspNetCore.Http;
+    
     public class AddBookViewModel
     {
+        public AddBookViewModel()
+        {
+            this.Currencys = new List<string>();
+            this.Currencys.Add("$");
+            this.Currencys.Add("€");
+            this.Currencys.Add("LV");
+        }
+
         public string BookId { get; set; }
 
         [Display(Name = "Title")]
@@ -39,6 +48,8 @@
         [Display(Name = "Price")]
         [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public double Price { get; set; }
+
+        public List<string> Currencys { get; set; }
 
         [Display(Name = "Currency")]
         public string Currency { get; set; }

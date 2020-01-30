@@ -8,6 +8,8 @@
     {
         public Notification()
         {
+            this.Id = Guid.NewGuid().ToString();
+
             this.CreatedOn = DateTime.UtcNow;
         }
 

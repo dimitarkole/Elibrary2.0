@@ -52,7 +52,7 @@
                     Genre = genreObj,
                     UserId = userId,
                     CatalogNumber = catalogNumber,
-                    Commentar = model.Commentar,
+                    //Commentar = model.Commentar,
                     User = user,
                     Currency = model.Currency,
                     Logo = model.Logo,
@@ -105,7 +105,7 @@
                         book.GenreId = genreId;
                         book.Title = title;
                         book.Genre = genreObj;
-                        book.Commentar = model.Commentar;
+                        //book.Commentar = model.Commentar;
 
                         genreObj.Books.Add(book);
                         this.context.SaveChanges();
@@ -150,7 +150,7 @@
                   b.CatalogNumber == catalogNumber
                   && b.UserId == userId
                   && b.DeletedOn == null);
-                if (bookCheker2 == null)
+                if (bookCheker2 != null)
                 {
                     return "Каталожният номер съвпада с каталожния номер на друга книга!";
                 }
