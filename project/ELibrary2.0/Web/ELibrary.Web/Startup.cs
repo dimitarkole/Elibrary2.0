@@ -69,6 +69,7 @@
             services.AddTransient<INotificationService, NotificationService>();
 
             // User services
+            services.AddTransient<IAllAddedBooksServices, AllAddedBooksServices>();
             services.AddTransient<IAddBookService, AddBookService>();
 
         }

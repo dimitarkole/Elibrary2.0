@@ -18,11 +18,15 @@
 
             <div class="form-group">
                 <label asp-for="Logo" class="control-label"></label>
-                <input asp-for="Logo" class="form-control" />
+                <input asp-for="LogoPhoto" class="form-control" />
                 <span asp-validation-for="Logo" class="text-danger"></span>
             </div>
 
-        
+            <div class="form-group">
+                <label asp-for="Logo" class="control-label"></label>
+                <input asp-for="EFormat" class="form-control" />
+                <span asp-validation-for="Logo" class="text-danger"></span>
+            </div>
            
         </div>
         <div class="col-md-1">
@@ -53,10 +57,18 @@
                 </select>
                 <span asp-validation-for="GenreId" class="text-danger"></span>
             </div>
+            
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
+                add
+                <img src="#" alt="Alternate Text" width="200" />
+
+            </div>
+
+            <div class="form-group">
+
                 <label asp-for="Price" class="control-label"></label>
                 <div class="row">
                     <div class="col-md-9">
@@ -74,20 +86,25 @@
 
                 <span asp-validation-for="Price" class="text-danger"></span>
                 <span asp-validation-for="Currency" class="text-danger"></span>
-
             </div>
         </div>
-    </div>
+        </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="form-group">
-                <label asp-for="Review" class="control-label" ></label>
+                <label asp-for="Review" class="control-label"></label>
                 <textarea asp-for="Review" class="form-control" rows="10" cols="100">
     
                 </textarea>
                 <span asp-validation-for="Review" class="text-danger"></span>
             </div>
 
+           
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="WhereIsBook" class="control-label"></label>
                 <textarea asp-for="WhereIsBook" class="form-control" rows="10" cols="100">

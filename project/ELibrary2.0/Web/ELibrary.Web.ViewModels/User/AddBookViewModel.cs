@@ -59,6 +59,9 @@
 
         public IFormFile LogoPhoto { get; set; }
 
+        public IFormFile EFormat { get; set; }
+
+
 
         [Display(Name = "Review Text")]
         [StringLength(5000, MinimumLength = 10)]
