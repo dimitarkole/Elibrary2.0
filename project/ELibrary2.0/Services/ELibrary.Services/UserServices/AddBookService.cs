@@ -52,7 +52,6 @@
                     Genre = genreObj,
                     UserId = userId,
                     CatalogNumber = catalogNumber,
-                    //Commentar = model.Commentar,
                     User = user,
                     Currency = model.Currency,
                     Logo = model.Logo,
@@ -105,8 +104,7 @@
                         book.GenreId = genreId;
                         book.Title = title;
                         book.Genre = genreObj;
-                        //book.Commentar = model.Commentar;
-
+                        book.EBookFile = model.EFormatString;
                         genreObj.Books.Add(book);
                         this.context.SaveChanges();
                         checkResult = "Successfull edited book!!";
@@ -121,7 +119,19 @@
 
         public AddBookViewModel GetBookDataById(string bookId)
         {
-            throw new NotImplementedException();
+            var book = this.context.Books.FirstOrDefault(b => b.Id == bookId);
+            var genres = this.genreService.GetAllGenres();
+            var model = new AddBookViewModel()
+            {
+                BookId = bookId,
+                Author = book.Author,
+                Title = book.Title,
+                GenreId = book.GenreId,
+                Genres = genres,
+                CatalogNumber = book.CatalogNumber,
+                Logo = book.Logo,
+            };
+            return model;
         }
 
         public AddBookViewModel PreparedAddBookPage()

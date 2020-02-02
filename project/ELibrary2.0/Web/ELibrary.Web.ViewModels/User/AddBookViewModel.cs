@@ -61,6 +61,9 @@
 
         public IFormFile EFormat { get; set; }
 
+        public string EFormatString { get; set; }
+
+
 
 
         [Display(Name = "Review Text")]

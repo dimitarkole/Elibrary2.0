@@ -17,30 +17,10 @@
 
     public class AddBookController : UserController
     {
-        private readonly IAddBookService addBookService;
-        private readonly INotificationService notificationService;
-        private string userId;
-
-        private readonly UserManager<ApplicationUser> userManager;
-        private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly ILogger<LogoutModel> logger;
-        private readonly IHostingEnvironment hostingEnvironment;
-        public AddBookController(
-            IAddBookService addBookService,
-            INotificationService notificationService,
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            ILogger<LogoutModel> logger,
-            IHostingEnvironment hostingEnvironment)
+        public AddBookController(IAddBookService addBookService, INotificationService notificationService, IAllAddedBooksServices allAddedBooksServices, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(addBookService, notificationService, allAddedBooksServices, userManager, signInManager, logger, hostingEnvironment)
         {
-            this.addBookService = addBookService;
-            this.notificationService = notificationService;
-
-            this.userManager = userManager;
-            this.signInManager = signInManager;
-            this.logger = logger;
-            this.hostingEnvironment = hostingEnvironment;
         }
+
 
         // AddBook Page - HttpGet
         [Authorize]
@@ -73,15 +53,7 @@
             return this.View(returnModel);
         }
 
-        private IActionResult StartUp()
-        {
-            this.userId = this.userManager.GetUserId(this.User);
-            this.ViewData["UserType"] = "library";
-
-            var messages = this.notificationService.GetNotificationsNavBar(this.userId);
-            this.ViewData["MessageNavBar"] = messages;
-            return null;
-        }
+       
 
     }
 }
