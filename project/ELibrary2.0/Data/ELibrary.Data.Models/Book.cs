@@ -16,11 +16,12 @@
             this.CreatedOn = DateTime.UtcNow;
         }
 
-       
-
         public virtual string Id { get; set; }
 
         public virtual string CatalogNumber { get; set; }
+
+        public virtual string VirtualOrReal { get; set; }
+
 
         public virtual string Title { get; set; }
 

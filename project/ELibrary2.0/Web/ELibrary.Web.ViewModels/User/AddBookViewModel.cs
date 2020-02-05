@@ -16,6 +16,8 @@
             this.Currencys.Add("$");
             this.Currencys.Add("€");
             this.Currencys.Add("LV");
+
+            this.VirtualOrReal = "Real";
         }
 
         public string BookId { get; set; }
@@ -40,8 +42,6 @@
         [Required(ErrorMessage = "Please select genre!")]
         public string GenreId { get; set; }
 
-        [Display(Name = "Commentar")]
-        public string Commentar { get; set; }
 
         public List<GenreListViewModel> Genres { get; set; }
 
@@ -73,5 +73,9 @@
         [Display(Name = "Book location at library")]
         [StringLength(100)]
         public string WhereIsBook { get; set; }
+
+        [Display(Name = "Virtual or Rela")]
+        [StringLength(100)]
+        public string VirtualOrReal { get; set; }
     }
 }

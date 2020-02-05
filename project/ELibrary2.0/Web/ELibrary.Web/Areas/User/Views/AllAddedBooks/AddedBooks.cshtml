@@ -7,15 +7,8 @@
 
     <div class="container" style="background:#f7f7f7">
         <div class="row">
-            <div class="col-md-12">
-                <h2>Всички добавени книги</h2>
-
-                <hr />
-            </div>
-        </div>
-        <div class="row">
             <h4 class="col-md-12">
-                Търсене на книга:
+                Search:
             </h4>
         </div>
         <div class="row">
@@ -25,13 +18,13 @@
 
             <div class="col-md-6">
                 <div class="form-group row">
-                    <label asp-for="SearchBook.CatalogNumber" class="control-label col-md-3">Кат. номер</label>
+                    <label asp-for="SearchBook.CatalogNumber" class="control-label col-md-3">№</label>
                     <input asp-for="SearchBook.CatalogNumber" class="form-control col-md-9" />
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group row">
-                    <label asp-for="SearchBook.Title" class="control-label col-md-3">Заглавие</label>
+                    <label asp-for="SearchBook.Title" class="control-label col-md-3">Title</label>
                     <input asp-for="SearchBook.Title" class="form-control col-md-9" />
                 </div>
             </div>
@@ -40,13 +33,13 @@
         <div class="row" style="background:#f7f7f7">
             <div class="col-md-6">
                 <div class="form-group row">
-                    <label asp-for="SearchBook.Author" class="control-label col-md-3">Автор</label>
+                    <label asp-for="SearchBook.Author" class="control-label col-md-3">Author</label>
                     <input asp-for="SearchBook.Author" class="form-control col-md-9" />
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group row">
-                    <label asp-for="SearchBook.GenreId" class="control-label  col-md-3">Жанр</label>
+                    <label asp-for="SearchBook.GenreId" class="control-label  col-md-3">Genre</label>
 
                     <select asp-for="SearchBook.GenreId" class="col-md-9">
                         @if (Model.Genres != null)
@@ -66,7 +59,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group row">
-                    <label asp-for="CountBooksOfPage" class="control-label  col-md-3">Покажи</label>
+                    <label asp-for="CountBooksOfPage" class="control-label  col-md-3">View</label>
 
                     <select asp-for="CountBooksOfPage" class="col-md-9">
                         @foreach (var count in Model.CountBooksOfPageList)
@@ -79,7 +72,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group row">
-                    <label asp-for="SortMethodId" class="control-label  col-md-3">Сортирай по</label>
+                    <label asp-for="SortMethodId" class="control-label  col-md-3">Sort by</label>
 
                     <select asp-for="SortMethodId" class="col-md-9">
                         @foreach (var SortMethod in Model.SortMethods)
@@ -116,7 +109,7 @@
                 <div class=" col-md-1">
                     <div class="row">
 
-                        <label class="control-label  col-md-8">Кат. номер</label>
+                        <label class="control-label  col-md-8">№</label>
 
                     </div>
                 </div>
@@ -124,7 +117,7 @@
                     <div class="row">
                         <span class=" col-md-2"></span>
 
-                        <label class="control-label  col-md-8">Заглавие</label>
+                        <label class="control-label  col-md-8">Title</label>
                         <span class=" col-md-2"> </span>
 
                     </div>
@@ -132,7 +125,7 @@
                 <div class=" col-md-3">
                     <div class="row">
                         <span class=" col-md-2">  </span>
-                        <label class="control-label  col-md-8">Автор</label>
+                        <label class="control-label  col-md-8">Author</label>
                         <span class=" col-md-2">  </span>
 
                     </div>
@@ -141,7 +134,7 @@
                 <div class=" col-md-1">
                     <div class="row">
                         <span class=" col-md-2">  </span>
-                        <label class="control-label  col-md-8">Жанр</label>
+                        <label class="control-label  col-md-8">Genre</label>
                         <span class=" col-md-2">  </span>
 
                     </div>
@@ -149,7 +142,7 @@
                 <div class=" col-md-3">
                     <div class="row">
                         <span class=" col-md-2">  </span>
-                        <label class="control-label  col-md-8">Къде се намира</label>
+                        <label class="control-label  col-md-8">Library location</label>
                         <span class=" col-md-2">  </span>
 
                     </div>
@@ -158,7 +151,7 @@
                     <div class="row">
                         <label class="control-label  col-md-8">
 
-                            Редактирай
+                            Edit
                         </label>
                         <span class=" col-md-2">  </span>
 
@@ -168,7 +161,7 @@
                 <div class=" col-md-1">
                     <div class="row">
                         <span class=" col-md-2">  </span>
-                        <label class="control-label  col-md-8">Премахни</label>
+                        <label class="control-label  col-md-8">Delete</label>
                         <span class=" col-md-2">  </span>
 
                     </div>

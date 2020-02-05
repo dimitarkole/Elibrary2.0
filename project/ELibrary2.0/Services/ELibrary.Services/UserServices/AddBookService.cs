@@ -58,6 +58,7 @@
                     Price = model.Price,
                     Review = model.Review,
                     WhereIsBook = model.WhereIsBook,
+                    VirtualOrReal = model.VirtualOrReal,
                 };
                 this.context.Books.Add(newBook);
                 genreObj.Books.Add(newBook);
@@ -105,6 +106,7 @@
                         book.Title = title;
                         book.Genre = genreObj;
                         book.EBookFile = model.EFormatString;
+                        book.VirtualOrReal = model.VirtualOrReal;
                         genreObj.Books.Add(book);
                         this.context.SaveChanges();
                         checkResult = "Successfull edited book!!";
@@ -130,6 +132,11 @@
                 Genres = genres,
                 CatalogNumber = book.CatalogNumber,
                 Logo = book.Logo,
+                Currency = book.Currency,
+                EFormatString = book.EBookFile,
+                Price = book.Price,
+                Review = book.Review,
+                WhereIsBook = book.WhereIsBook,
             };
             return model;
         }

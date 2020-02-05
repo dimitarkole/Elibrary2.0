@@ -32,33 +32,147 @@
             <div class="classy-nav-container breakpoint-off">
                 <div class="container">
                     <!-- Classy Menu -->
+                    <!-- Classy Menu -->
+                    <nav class="classy-navbar justify-content-between" id="dentoNav">
+                        <!-- Logo -->
+                        <a asp-area="" asp-controller="LibraryAccount" asp-action="Index" class="nav-brand">
+                            <img src="~/img/core-img/logo.png" style="width:85px" />
+                        </a>
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+                        <!-- Menu -->
+                        <div class="classy-menu">
+                            
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul>
+                                      <partial name="_LoginPartial" />
+    
+                                    
 
-                    <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                        <div class="container">
-                            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                                <!-- Logo -->
-                                <img src="~/img/core-img/logo.png" style="width:85px" />
-                            </a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                                    aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                                <partial name="_LoginPartial" />
-                                <ul class="navbar-nav flex-grow-1">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                    <li>
+                                        <a asp-area="" asp-controller="LibraryAccount" asp-action="Notification">
+                                            <div class="row align-items-center">
+                                                <div class="col-4">
+                                                    <input type="image" src="~/img/bg-img/Notification.png" name="name" style="width:35px; height:35px;" value="" />
+
+                                                </div>
+
+
+                                            </div>
+                                        </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
+
+                                    <li>
+                                        <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">
+                                            dad
+                                        </a>
+                                        <ul class="dropdown">
+
+                                            <li>
+                                                <a asp-area="" asp-controller="LibraryAccount" asp-action="Index" title="Manage">
+                                                    Начало
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-area="" asp-controller="LibraryAccount" asp-action="Profile">
+                                                    Профил
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a asp-area="" asp-controller="LibraryAccount" asp-action="AllBooks">
+                                                    Добавени книги
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a asp-area="" asp-controller="LibraryAccount" asp-action="GiveBook">
+                                                    Дай книга
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a asp-area="" asp-controller="LibraryAccount" asp-action="GivenBooks">
+                                                    Дадени книги
+                                                </a>
+                                            </li>
+
+
+
+                                            <li>
+                                                <a asp-area="" asp-controller="LibraryAccount" asp-action="LogOut">
+                                                    Изход
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                                    </li>
+
+
+
+
                                 </ul>
                             </div>
+                            <!-- Nav End -->
                         </div>
                     </nav>
+                    <!--<nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            < a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <!-- Logo
+                <img src="~/img/core-img/logo.png" style="width:85px" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                    id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown button
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+
+                    </li>
+
+                </ul>
+
+
+            </div>
+
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button"
+                    id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown button
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </div>
+    </nav>-->
+
 
                 </div>
             </div>

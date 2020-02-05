@@ -112,7 +112,7 @@
             var result = this.addBookService.EditBook(model, this.userId);
             var returnModel = result[0];
             this.ViewData["message"] = result[1];
-            return this.View(returnModel);
+            return this.View(model);
         }
     }
 }
