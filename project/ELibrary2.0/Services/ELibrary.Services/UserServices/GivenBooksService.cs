@@ -52,11 +52,11 @@ namespace ELibrary.Services.UserServices
 
                 this.context.SaveChanges();
 
-                result.Add("Успершно изтриване на взета книгата!");
+                result.Add("Successfull deleted given book!");
             }
             else
             {
-                result.Add("Няма дадена книга на този потребител!");
+                result.Add("There has not any given book like selected!");
             }
 
             return result;
@@ -90,7 +90,8 @@ namespace ELibrary.Services.UserServices
                     FirstName = gb.User.FirstName,
                     LastName = gb.User.LastName,
                     UserName = gb.User.UserName,
-
+                    Logo = gb.Book.Logo,
+                    Email = gb.User.Email,
                     ReturnedOn = gb.ReturnedOn,
                     CreatedOn = gb.CreatedOn,
                 });
@@ -113,7 +114,7 @@ namespace ELibrary.Services.UserServices
             var genre = new GenreListViewModel()
             {
                 Id = null,
-                Name = "Изберете жанр",
+                Name = "Select genre",
             };
 
             genres.Add(genre);
@@ -169,7 +170,7 @@ namespace ELibrary.Services.UserServices
             {
                 givenBook.ReturnedOn = DateTime.UtcNow;
                 this.context.SaveChanges();
-                var message = $"Успершно връщане на книгата!";
+                var message = $"Successfull returned book!";
 
                 result.Add(message);
                 this.notificationService.AddNotificationAtDB(userId, message);
@@ -177,7 +178,7 @@ namespace ELibrary.Services.UserServices
             }
             else
             {
-                result.Add("Няма дадена книга на този потребител!");
+                result.Add("There has not any given book like selected!");
             }
 
             return result;
@@ -197,21 +198,21 @@ namespace ELibrary.Services.UserServices
             {
                 var book = this.context.Books.FirstOrDefault(b => b.Id == givenBook.BookId);
 
-                var message = $"Напомняне за връщане на книгата - {book.Title} {book.Author}!";
+                var message = $"Please return book - {book.Title} {book.Author}!";
                 this.notificationService.AddNotificationAtDB(givenBook.UserId, message);
 
-                result.Add("Успершно изпратено напомняне за връщане на книга!");
+                result.Add("Successfull send notification for returning book!");
             }
             else
             {
-                result.Add("Не успершно изпратено напомняне за връщане на книга!");
+                result.Add("Unuccessfull send notification for returning book!");
             }
 
             return result;
         }
 
         private IQueryable<GivenBookViewModel> SelectBooks(
-          string bookName,
+          string title,
           string author,
           string genreId,
           string firstName,
@@ -225,9 +226,9 @@ namespace ELibrary.Services.UserServices
                 givenBooks = givenBooks.Where(b => b.CatalogNumber.Contains(catalogNumber));
             }
 
-            if (bookName != null)
+            if (title != null)
             {
-                givenBooks = givenBooks.Where(b => b.Title.Contains(bookName));
+                givenBooks = givenBooks.Where(b => b.Title.Contains(title));
             }
 
             if (author != null)

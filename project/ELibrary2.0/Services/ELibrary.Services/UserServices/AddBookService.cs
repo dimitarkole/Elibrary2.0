@@ -169,13 +169,13 @@
                   && b.DeletedOn == null);
                 if (bookCheker2 != null)
                 {
-                    return "Каталожният номер съвпада с каталожния номер на друга книга!";
+                    return "The catalog number is dublicate with other book!";
                 }
 
                 return null;
             }
 
-            return "Книганата същесвува в библиотеката Ви!";
+            return "There is no book like that at your library!";
         }
 
         private string CheckDublicateBookEdit(string title, string author, string catalogNumber, string userId, string bookId)
@@ -210,17 +210,17 @@
             StringBuilder errors = new StringBuilder();
             if (string.IsNullOrEmpty(title) || string.IsNullOrWhiteSpace(title) || title.Length < 5)
             {
-                errors.AppendLine("Името на книгата трябва да има поне 5 символа!");
+                errors.AppendLine("The book title must be more 5 letter!");
             }
 
             if (string.IsNullOrEmpty(author) || string.IsNullOrWhiteSpace(author) || author.Length < 5)
             {
-                errors.AppendLine("Името на автора трябва да има поне 5 символа!");
+                errors.AppendLine("The author name must be more 5 letter!");
             }
 
             if (string.IsNullOrEmpty(catalogNumber) || string.IsNullOrWhiteSpace(catalogNumber) || author.Length < 3)
             {
-                errors.AppendLine("Каталожният номер трябва да има поне 3 символа!");
+                errors.AppendLine("The catalog number title must be more 3 letter!");
             }
 
             return errors.ToString().Trim();

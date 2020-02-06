@@ -83,7 +83,7 @@
             var genre = new GenreListViewModel()
             {
                 Id = null,
-                Name = "Изберете жанр",
+                Name = "Select genre",
             };
 
             genres.Add(genre);

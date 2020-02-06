@@ -31,6 +31,20 @@
             this.notificationService = notificationService;
             this.allBooksServices = allBooksServices;
         }
+        public GiveBookViewModel PreparedPage(string userId)
+        {
+            var allBooks = this.allBooksServices.PreparedPage(userId);
+            var allUsers = this.userService.PreparedPage();
+
+            var model = new GiveBookViewModel()
+            {
+                AllBooks = allBooks,
+                AllUsers = allUsers,
+                SelectedBook = new BookViewModel(),
+                SelectedUser = new UserViewModel(),
+            };
+            return model;
+        }
 
         public GiveBookViewModel GiveBookSearchBook(
             GiveBookViewModel model,
@@ -195,10 +209,10 @@
                     this.context.SaveChanges();
 
                     var libraryMessage = this.context.Users.FirstOrDefault(u => u.Id == userId);
-                    var message = $"Успешно взета книга от {libraryMessage.Email} - {libraryMessage.Email}!";
+                    var message = $"Successfull taken book - {libraryMessage.Email} - {libraryMessage.Email}!";
                     this.notificationService.AddNotificationAtDB(selectedUserId, message);
 
-                    message = $"Успешно дадена книгана на {user.FirstName} {user.LastName} - {user.Email}!";
+                    message = $"Successfull given book - {user.FirstName} {user.LastName} - {user.Email}!";
                     this.notificationService.AddNotificationAtDB(userId, message);
                     result.Add(message);
                     returnModel.SelectedBook = selectedBook;
@@ -260,12 +274,12 @@
             StringBuilder result = new StringBuilder();
             if (string.IsNullOrEmpty(selectedUserId))
             {
-                result.AppendLine("Моля изберете потребител");
+                result.AppendLine("Please selelect user!");
             }
 
             if (string.IsNullOrEmpty(selectedBookId))
             {
-                result.AppendLine("Моля изберете книга");
+                result.AppendLine("Please selelect book!");
             }
 
             return result.ToString().Trim();
@@ -280,25 +294,12 @@
 
             if (chackGettetBook != null)
             {
-                return "Книгата е дадена на друг потребител!";
+                return "The book is taken by other user!";
             }
 
             return null;
         }
 
-        public GiveBookViewModel PreparedPage(string userId)
-        {
-            var allBooks = this.allBooksServices.PreparedPage(userId);
-            var allUsers = this.userService.PreparedPage();
-
-            var model = new GiveBookViewModel()
-            {
-                AllBooks = allBooks,
-                AllUsers = allUsers,
-                SelectedBook = new BookViewModel(),
-                SelectedUser = new UserViewModel(),
-            };
-            return model;
-        }
+       
     }
 }

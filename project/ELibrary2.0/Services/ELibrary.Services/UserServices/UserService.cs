@@ -109,7 +109,7 @@
           string sortMethodId,
           IQueryable<UserViewModel> users)
         {
-            if (sortMethodId == "Email адрес а-я")
+            if (sortMethodId == "Email a-z")
             {
                 users = users.OrderBy(u => u.Email);
             }
