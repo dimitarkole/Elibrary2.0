@@ -22,9 +22,13 @@
     public class UserController : BaseController
     {
         protected readonly IAddBookService addBookService;
-        protected readonly INotificationService notificationService;
-        protected string userId;
         protected readonly IAllAddedBooksServices allAddedBooksServices;
+        protected readonly IGiveBookService giveBookService;
+        protected readonly IUserService userService;
+
+        protected readonly INotificationService notificationService;
+        protected readonly IGenreService genreService;
+        protected string userId;
 
         protected readonly UserManager<ApplicationUser> userManager;
         protected readonly SignInManager<ApplicationUser> signInManager;
@@ -35,6 +39,8 @@
             IAddBookService addBookService,
             INotificationService notificationService,
             IAllAddedBooksServices allAddedBooksServices,
+            IGiveBookService giveBookService,
+            IUserService userService,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<LogoutModel> logger,
@@ -43,6 +49,10 @@
             this.addBookService = addBookService;
             this.notificationService = notificationService;
             this.allAddedBooksServices = allAddedBooksServices;
+            this.genreService = genreService;
+            this.giveBookService = giveBookService;
+            this.userService = userService;
+
 
             this.userManager = userManager;
             this.signInManager = signInManager;

@@ -19,7 +19,7 @@
 
     public class AllAddedBooksController : UserController
     {
-        public AllAddedBooksController(IAddBookService addBookService, INotificationService notificationService, IAllAddedBooksServices allAddedBooksServices, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(addBookService, notificationService, allAddedBooksServices, userManager, signInManager, logger, hostingEnvironment)
+        public AllAddedBooksController(IAddBookService addBookService, INotificationService notificationService, IAllAddedBooksServices allAddedBooksServices, IGiveBookService giveBookService, IUserService userService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(addBookService, notificationService, allAddedBooksServices, giveBookService, userService, userManager, signInManager, logger, hostingEnvironment)
         {
         }
 
