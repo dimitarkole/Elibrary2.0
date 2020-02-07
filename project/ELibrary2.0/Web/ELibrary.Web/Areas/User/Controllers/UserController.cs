@@ -24,7 +24,11 @@
         protected readonly IAddBookService addBookService;
         protected readonly IAllAddedBooksServices allAddedBooksServices;
         protected readonly IGiveBookService giveBookService;
+        protected readonly IGivenBooksService givenBooksService;
+
         protected readonly IUserService userService;
+        protected readonly ITakenBooksService takenBooksService;
+
 
         protected readonly INotificationService notificationService;
         protected readonly IGenreService genreService;
@@ -40,7 +44,9 @@
             INotificationService notificationService,
             IAllAddedBooksServices allAddedBooksServices,
             IGiveBookService giveBookService,
+            IGivenBooksService givenBooksService,
             IUserService userService,
+            ITakenBooksService takenBooksService,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<LogoutModel> logger,
@@ -51,8 +57,10 @@
             this.allAddedBooksServices = allAddedBooksServices;
             this.genreService = genreService;
             this.giveBookService = giveBookService;
-            this.userService = userService;
+            this.givenBooksService = givenBooksService;
 
+            this.userService = userService;
+            this.takenBooksService = takenBooksService;
 
             this.userManager = userManager;
             this.signInManager = signInManager;

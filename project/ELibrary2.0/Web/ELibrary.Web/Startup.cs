@@ -86,6 +86,7 @@
             services.AddTransient<IGiveBookService, GiveBookService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IGivenBooksService, GivenBooksService>();
+            services.AddTransient<ITakenBooksService, TakenBooksService>();
 
 
         }
