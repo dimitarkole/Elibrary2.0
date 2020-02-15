@@ -34,6 +34,9 @@
 
         public string SortMethodId { get; set; }
 
+        public string LogoLocation { get; set; }
+
+
         public List<string> SortMethods { get; set; }
 
         public List<GenreListViewModel> Genres { get; set; }

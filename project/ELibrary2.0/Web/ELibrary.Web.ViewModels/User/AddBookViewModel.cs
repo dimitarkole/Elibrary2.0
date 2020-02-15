@@ -1,13 +1,11 @@
 ﻿namespace ELibrary.Web.ViewModels.User
 {
+    using ELibrary.Web.ViewModels.CommonResurces;
+    using Microsoft.AspNetCore.Http;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
 
-    using ELibrary.Web.ViewModels.CommonResurces;
-    using Microsoft.AspNetCore.Http;
-    
     public class AddBookViewModel
     {
         public AddBookViewModel()
@@ -19,6 +17,19 @@
 
             this.VirtualOrReal = "Real";
         }
+
+        public string AvatarLocation { get; set; }
+        public IFormFile Photo { get; set; }
+
+        public string LogoLocation { get; set; }
+
+        
+        public IFormFile Logo { get; set; }
+
+        public string PDFLocation { get; set; }
+
+        [Display(Name = "PDF Online version")]
+        public IFormFile PDF { get; set; }
 
         public string BookId { get; set; }
 
@@ -54,17 +65,7 @@
         [Display(Name = "Currency")]
         public string Currency { get; set; }
 
-        [Display(Name = "Logo")]
-        public string Logo { get; set; }
-
-        public IFormFile LogoPhoto { get; set; }
-
-        public IFormFile EFormat { get; set; }
-
         public string EFormatString { get; set; }
-
-
-
 
         [Display(Name = "Review Text")]
         [StringLength(5000, MinimumLength = 10)]

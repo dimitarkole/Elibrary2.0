@@ -20,11 +20,9 @@
 
         public virtual ApplicationUser User { get; set; }
 
-
         public virtual string BookId { get; set; }
 
         public virtual Book Book { get; set; }
-
 
         public virtual DateTime CreatedOn { get; set; }
 

@@ -44,22 +44,8 @@
                      g.Id == genreId
                      && g.DeletedOn == null);
 
-                var newBook = new Book()
-                {
-                    Title = title,
-                    Author = author,
-                    GenreId = genreId,
-                    Genre = genreObj,
-                    UserId = userId,
-                    CatalogNumber = catalogNumber,
-                    User = user,
-                    Currency = model.Currency,
-                    Logo = model.Logo,
-                    Price = model.Price,
-                    Review = model.Review,
-                    WhereIsBook = model.WhereIsBook,
-                    VirtualOrReal = model.VirtualOrReal,
-                };
+                var newBook = this.CreateNewBook(model, user, userId, genreObj);
+
                 this.context.Books.Add(newBook);
                 genreObj.Books.Add(newBook);
                 this.context.SaveChanges();
@@ -69,6 +55,8 @@
 
             return result;
         }
+
+      
 
         public List<object> EditBook(AddBookViewModel model, string userId)
         {
@@ -98,7 +86,7 @@
                         book.Author = author;
                         book.CatalogNumber = catalogNumber;
                         book.Currency = model.Currency;
-                        book.Logo = model.Logo;
+                        book.Logo = model.LogoLocation;
                         book.Price = model.Price;
                         book.Review = model.Review;
                         book.WhereIsBook = model.WhereIsBook;
@@ -131,7 +119,7 @@
                 GenreId = book.GenreId,
                 Genres = genres,
                 CatalogNumber = book.CatalogNumber,
-                Logo = book.Logo,
+                LogoLocation = book.Logo,
                 Currency = book.Currency,
                 EFormatString = book.EBookFile,
                 Price = book.Price,
@@ -224,6 +212,27 @@
             }
 
             return errors.ToString().Trim();
+        }
+
+        private Book CreateNewBook(AddBookViewModel model, ApplicationUser user, string userId, Genre genreObj)
+        {
+            var newBook = new Book()
+            {
+                Title = model.Title,
+                Author = model.Author,
+                GenreId = model.GenreId,
+                Genre = genreObj,
+                UserId = userId,
+                CatalogNumber = model.CatalogNumber,
+                User = user,
+                Currency = model.Currency,
+                Logo = model.LogoLocation,
+                Price = model.Price,
+                Review = model.Review,
+                WhereIsBook = model.WhereIsBook,
+                VirtualOrReal = model.VirtualOrReal,
+            };
+            return newBook;
         }
     }
 }

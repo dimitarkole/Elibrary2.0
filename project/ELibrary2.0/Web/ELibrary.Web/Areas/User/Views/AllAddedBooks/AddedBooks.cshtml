@@ -173,54 +173,57 @@
 
             @foreach (var book in @Model.Books)
             {
+        <div class="row">
+            <label class="control-label  col-md-1">
+                <img src="@book.Logo" alt="Alternate Text" />
+            </label>
+            <label class="control-label  col-md-1">
+                @if (book.CatalogNumber != null)
+                {
+                    @book.CatalogNumber.Substring(0, Math.Min(book.CatalogNumber.Length, 9))
+                }
+            </label>
+
+            <label class="control-label  col-md-1">
+                @if (book.Title != null)
+                {
+                    @book.Title.Substring(0, Math.Min(book.Title.Length, 18))
+                }
+            </label>
+            <label class="control-label  col-md-3">
+                @if (book.Author != null)
+                {
+                    @book.Author.Substring(0, Math.Min(book.Author.Length, 27))
+                }
+
+            </label>
+            <label class="control-label  col-md-1">
+                @if (book.GenreName != null)
+                {
+                    @book.GenreName.Substring(0, Math.Min(book.GenreName.Length, 9))
+                }
+
+            </label>
+            <label class="control-label  col-md-3">
+
+            </label>
+
+            <div class=" col-md-1">
                 <div class="row">
-                    <label class="control-label  col-md-1">
-                        @if (book.CatalogNumber != null)
-                        {
-                            @book.CatalogNumber.Substring(0, Math.Min(book.CatalogNumber.Length, 9))
-                        }
-                    </label>
+                    <span class=" col-md-2">  </span>
+                    <input type="image" src="~/img/bg-img/edit.jpg" asp-action="EditBookAddedBook" asp-area="User" asp-controller="AllAddedBooks" asp-route-id="@book.BookId" class="btn btn-primary col-md-8" />
+                    <span class=" col-md-2">  </span>
 
-                    <label class="control-label  col-md-2">
-                        @if (book.Title != null)
-                        {
-                            @book.Title.Substring(0, Math.Min(book.Title.Length, 18))
-                        }
-                    </label>
-                    <label class="control-label  col-md-3">
-                        @if (book.Author != null)
-                        {
-                            @book.Author.Substring(0, Math.Min(book.Author.Length, 27))
-                        }
-
-                    </label>
-                    <label class="control-label  col-md-1">
-                        @if (book.GenreName != null)
-                        {
-                            @book.GenreName.Substring(0, Math.Min(book.GenreName.Length, 9))
-                        }
-
-                    </label>
-                    <label class="control-label  col-md-3">
-                       
-                    </label>
-
-                    <div class=" col-md-1">
-                        <div class="row">
-                            <span class=" col-md-2">  </span>
-                            <input type="image" src="~/img/bg-img/edit.jpg" asp-action="EditBookAddedBook" asp-area="User" asp-controller="AllAddedBooks" asp-route-id="@book.BookId" class="btn btn-primary col-md-8" />
-                            <span class=" col-md-2">  </span>
-
-                        </div>
-                    </div>
-                    <div class="col-md-1">
-                        <div class="row">
-                            <span class=" col-md-2">  </span>
-                            <input type="image" src="~/img/bg-img/delete.png" asp-action="DeleteBook" asp-area="User" asp-controller="AllAddedBooks" asp-route-id="@book.BookId" class="btn btn-primary col-md-8" />
-                            <span class="col-md-2">  </span>
-                        </div>
-                    </div>
                 </div>
+            </div>
+            <div class="col-md-1">
+                <div class="row">
+                    <span class=" col-md-2">  </span>
+                    <input type="image" src="~/img/bg-img/delete.png" asp-action="DeleteBook" asp-area="User" asp-controller="AllAddedBooks" asp-route-id="@book.BookId" class="btn btn-primary col-md-8" />
+                    <span class="col-md-2">  </span>
+                </div>
+            </div>
+        </div>
                 <br />
             }
         </div>

@@ -25,58 +25,37 @@
             <div id="dento-load"></div>
         </div>
     </div>
-    <!-- ***** Header Area Start ***** -->
     <header class="header-area">
+       
+        <!-- Top Header End -->
         <!-- Main Header Start -->
-        <div class="main-header-area">
             <div class="classy-nav-container breakpoint-off">
                 <div class="container">
                     <!-- Classy Menu -->
-                    <!-- Classy Menu -->
                     <nav class="classy-navbar justify-content-between" id="dentoNav">
-                        <!-- Logo -->
                         <a asp-area="" asp-controller="LibraryAccount" asp-action="Index" class="nav-brand">
                             <img src="~/img/core-img/logo.png" style="width:85px" />
                         </a>
                         <!-- Navbar Toggler -->
                         <div class="classy-navbar-toggler">
-                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                             <span class="navbarToggler"><span></span><span></span><span></span></span>
                         </div>
                         <!-- Menu -->
                         <div class="classy-menu">
-                            
+
                             <!-- Nav Start -->
                             <div class="classynav">
-                                <ul>
-                                      <partial name="_LoginPartial" />
-    
-                                    
-
-                                    <li>
-                                        <a asp-area="" asp-controller="LibraryAccount" asp-action="Notification">
-                                            <div class="row align-items-center">
-                                                <div class="col-4">
-                                                    <input type="image" src="~/img/bg-img/Notification.png" name="name" style="width:35px; height:35px;" value="" />
-
-                                                </div>
-
-
-                                            </div>
-                                        </a>
-                                    </li>
-
-
+                                <ul id="nav">
+                                    <partial name="_LoginPartial" />
 
                                 </ul>
                             </div>
                             <!-- Nav End -->
                         </div>
-                    </nav>
-                 
 
+                    </nav>
                 </div>
             </div>
-        </div>
     </header>
     <hr />
 

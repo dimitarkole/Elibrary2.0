@@ -10,24 +10,20 @@
 <h4>@ViewData["message"]</h4>
 
 <hr />
-<form asp-action="AddBook">
+<form asp-action="AddBook" enctype="multipart/form-data">
 
     <div class="row">
         <div class="col-md-3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <div class="form-group">
+            <div class="form-group row">
                 <label asp-for="Logo" class="control-label"></label>
-                <input asp-for="LogoPhoto" class="form-control" />
-                <span asp-validation-for="Logo" class="text-danger"></span>
+                <input asp-for="Logo" class="form-control" />
+            </div>
+            <div class="form-group row">
+                <label asp-for="PDF" class="control-label"></label>
+                <input asp-for="PDF" class="form-control" />
             </div>
 
-            <div class="form-group">
-                <label asp-for="Logo" class="control-label"></label>
-                <input asp-for="EFormat" class="form-control" />
-                <span asp-validation-for="Logo" class="text-danger"></span>
-            </div>
-           
         </div>
         <div class="col-md-1">
         </div>

@@ -44,4 +44,9 @@
     <ProjectReference Include="..\ELibrary.Web.Infrastructure\ELibrary.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\ELibrary.Web.ViewModels\ELibrary.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\img\BooksLogo\" />
+    <Folder Include="wwwroot\img\BooksOnlineVersion\" />
+  </ItemGroup>
 </Project>
