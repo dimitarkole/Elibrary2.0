@@ -15,15 +15,15 @@
             this.Currencys.Add("€");
             this.Currencys.Add("LV");
 
-            this.VirtualOrReal = "Real";
+            this.VirtualOrReal = "Реална";
         }
 
         public string AvatarLocation { get; set; }
+
         public IFormFile Photo { get; set; }
 
         public string LogoLocation { get; set; }
 
-        
         public IFormFile Logo { get; set; }
 
         public string PDFLocation { get; set; }

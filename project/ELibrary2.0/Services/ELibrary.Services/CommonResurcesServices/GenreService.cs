@@ -19,16 +19,6 @@
             this.context = context;
         }
 
-        public DbSet<Setting> Settings { get; set; }
-
-        public DbSet<Book> Books { get; set; }
-
-        public DbSet<Genre> Genres { get; set; }
-
-        public DbSet<GetBook> GetBooks { get; set; }
-
-        public DbSet<Notification> Notification { get; set; }
-
         public List<GenreListViewModel> GetAllGenres()
         {
             var genres = this.context.Genres.Select(g => new GenreListViewModel()

@@ -41,7 +41,7 @@
             {
                 deleteBook.DeletedOn = DateTime.UtcNow;
                 this.context.SaveChanges();
-                string result = "Succesull deleted book!";
+                string result = "Успешно изтрита книга!";
                 this.messageService.AddNotificationAtDB(userId, result);
             }
 
@@ -83,7 +83,7 @@
             var genre = new GenreListViewModel()
             {
                 Id = null,
-                Name = "Select genre",
+                Name = "Избери жанр",
             };
 
             genres.Add(genre);
@@ -127,23 +127,23 @@
             string sortMethodId,
             IQueryable<BookViewModel> books)
         {
-            if (sortMethodId == "Title a-z")
+            if (sortMethodId == "Заглавие а-я")
             {
                 books = books.OrderByDescending(b => b.Title);
             }
-            else if (sortMethodId == "Author a-z")
+            else if (sortMethodId == "Автор а-я")
             {
                 books = books.OrderBy(b => b.Author);
             }
-            else if (sortMethodId == "Author z-a")
+            else if (sortMethodId == "Автор я-а")
             {
                 books = books.OrderByDescending(b => b.Author);
             }
-            else if (sortMethodId == "Genre a-z")
+            else if (sortMethodId == "Жанр а-я")
             {
                 books = books.OrderBy(b => b.GenreName);
             }
-            else if (sortMethodId == "Genre z-a")
+            else if (sortMethodId == "Жанр я-а")
             {
                 books = books.OrderByDescending(b => b.GenreName);
             }

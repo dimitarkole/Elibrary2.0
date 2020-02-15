@@ -52,11 +52,11 @@ namespace ELibrary.Services.UserServices
 
                 this.context.SaveChanges();
 
-                result.Add("Successfull deleted given book!");
+                result.Add("Успешно изтрита дадена книга!");
             }
             else
             {
-                result.Add("There has not any given book like selected!");
+                result.Add("Няма такава дадена книга!");
             }
 
             return result;
@@ -114,7 +114,7 @@ namespace ELibrary.Services.UserServices
             var genre = new GenreListViewModel()
             {
                 Id = null,
-                Name = "Select genre",
+                Name = "Избери жанр",
             };
 
             genres.Add(genre);
@@ -170,7 +170,8 @@ namespace ELibrary.Services.UserServices
             {
                 givenBook.ReturnedOn = DateTime.UtcNow;
                 this.context.SaveChanges();
-                var message = $"Successfull returned book!";
+                var user = this.context.Users.FirstOrDefault(u => u.Id == userId);
+                var message = $"Успеешно върната книга от - {user.FirstName} {user.LastName} - {user.Email}!";
 
                 result.Add(message);
                 this.notificationService.AddNotificationAtDB(userId, message);
@@ -178,7 +179,7 @@ namespace ELibrary.Services.UserServices
             }
             else
             {
-                result.Add("There has not any given book like selected!");
+                result.Add("Избраната книга за връщане не е намерена!");
             }
 
             return result;
@@ -198,14 +199,14 @@ namespace ELibrary.Services.UserServices
             {
                 var book = this.context.Books.FirstOrDefault(b => b.Id == givenBook.BookId);
 
-                var message = $"Please return book - {book.Title} {book.Author}!";
+                var message = $"Моля върнете книгата - {book.Title} {book.Author} с каталожен номер {book.CatalogNumber}!";
                 this.notificationService.AddNotificationAtDB(givenBook.UserId, message);
 
-                result.Add("Successfull send notification for returning book!");
+                result.Add("Успешно изпратено съобщение за връщане на книга!");
             }
             else
             {
-                result.Add("Unuccessfull send notification for returning book!");
+                result.Add("Неуспешно изпратено съобщение за връщане на книга!");
             }
 
             return result;
@@ -263,35 +264,29 @@ namespace ELibrary.Services.UserServices
            string sortMethodId,
            IQueryable<GivenBookViewModel> givenBooks)
         {
-            if (sortMethodId == "Title z-a")
+            if (sortMethodId == "Заглавие а-я")
             {
-                givenBooks = givenBooks.OrderByDescending(x => x.ReturnedOn)
-                    .ThenByDescending(b => b.Title);
+                givenBooks = givenBooks.OrderByDescending(b => b.Title);
             }
-            else if (sortMethodId == "Author a-z")
+            else if (sortMethodId == "Автор а-я")
             {
-                givenBooks = givenBooks.OrderByDescending(x => x.ReturnedOn)
-                    .ThenBy(b => b.Author);
+                givenBooks = givenBooks.OrderBy(b => b.Author);
             }
-            else if (sortMethodId == "Author z-a")
+            else if (sortMethodId == "Автор я-а")
             {
-                givenBooks = givenBooks.OrderByDescending(x => x.ReturnedOn)
-                    .ThenByDescending(b => b.Author);
+                givenBooks = givenBooks.OrderByDescending(b => b.Author);
             }
-            else if (sortMethodId == "Genre a-z")
+            else if (sortMethodId == "Жанр а-я")
             {
-                givenBooks = givenBooks.OrderByDescending(x => x.ReturnedOn)
-                    .ThenBy(b => b.GenreName);
+                givenBooks = givenBooks.OrderBy(b => b.GenreName);
             }
-            else if (sortMethodId == "Genre z-a")
+            else if (sortMethodId == "Жанр я-а")
             {
-                givenBooks = givenBooks.OrderByDescending(x => x.ReturnedOn)
-                    .ThenByDescending(b => b.GenreName);
+                givenBooks = givenBooks.OrderByDescending(b => b.GenreName);
             }
             else
             {
-                givenBooks = givenBooks.OrderByDescending(x => x.ReturnedOn)
-                    .ThenBy(b => b.Title);
+                givenBooks = givenBooks.OrderBy(b => b.Title);
             }
 
             return givenBooks;

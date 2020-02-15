@@ -9,8 +9,8 @@
         public AllUsersViewModel()
         {
             this.SortMethods = new List<string>();
-            this.SortMethods.Add("Email a-z");
-            this.SortMethods.Add("Email z-a");
+            this.SortMethods.Add("Email а-я");
+            this.SortMethods.Add("Email я-а");
 
             this.CountUsersOfPageList = new List<int>();
 

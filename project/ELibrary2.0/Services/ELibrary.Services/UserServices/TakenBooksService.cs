@@ -83,7 +83,7 @@ namespace ELibrary.Services.UserServices
             var genre = new GenreListViewModel()
             {
                 Id = null,
-                Name = "Изберете жанр",
+                Name = "Избери жанр",
             };
 
             genres.Add(genre);
@@ -150,27 +150,27 @@ namespace ELibrary.Services.UserServices
          string sortMethodId,
          IQueryable<TakenBookViewModel> getbooks)
         {
-            if (sortMethodId == "Title a-z")
+            if (sortMethodId == "Заглавие а-я")
             {
                 getbooks = getbooks.OrderByDescending(b => b.ReturnedOn)
                     .ThenByDescending(b => b.Title);
             }
-            else if (sortMethodId == "Author a-z")
+            else if (sortMethodId == "Автор а-я")
             {
                 getbooks = getbooks.OrderByDescending(b => b.ReturnedOn)
                     .ThenBy(b => b.Author);
             }
-            else if (sortMethodId == "Author z-a")
+            else if (sortMethodId == "Автор я-а")
             {
                 getbooks = getbooks.OrderByDescending(b => b.ReturnedOn)
                     .ThenByDescending(b => b.Author);
             }
-            else if (sortMethodId == "Genre a-z")
+            else if (sortMethodId == "Жанр а-я")
             {
                 getbooks = getbooks.OrderByDescending(b => b.ReturnedOn)
                     .ThenBy(b => b.Genre);
             }
-            else if (sortMethodId == "Genre z-a")
+            else if (sortMethodId == "Жанр я-а")
             {
                 getbooks = getbooks.OrderByDescending(b => b.ReturnedOn)
                     .ThenByDescending(b => b.Genre);

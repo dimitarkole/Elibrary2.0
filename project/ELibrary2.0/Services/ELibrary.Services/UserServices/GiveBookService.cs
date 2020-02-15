@@ -209,10 +209,12 @@
                     this.context.SaveChanges();
 
                     var libraryMessage = this.context.Users.FirstOrDefault(u => u.Id == userId);
-                    var message = $"Successfull taken book - {libraryMessage.Email} - {libraryMessage.Email}!";
+                    var message = $"Успешно взета книга -{book.Title}, написана от {book.Author}," +
+                         $"  с каталожен номер {book.CatalogNumber}" +
+                    $" добавена от {libraryMessage.Email}!";
                     this.notificationService.AddNotificationAtDB(selectedUserId, message);
 
-                    message = $"Successfull given book - {user.FirstName} {user.LastName} - {user.Email}!";
+                    message = $"Успешно дадена книга на - {user.FirstName} {user.LastName} - {user.Email}!";
                     this.notificationService.AddNotificationAtDB(userId, message);
                     result.Add(message);
                     returnModel.SelectedBook = selectedBook;
@@ -274,12 +276,12 @@
             StringBuilder result = new StringBuilder();
             if (string.IsNullOrEmpty(selectedUserId))
             {
-                result.AppendLine("Please selelect user!");
+                result.AppendLine("Моля изберете потребител!");
             }
 
             if (string.IsNullOrEmpty(selectedBookId))
             {
-                result.AppendLine("Please selelect book!");
+                result.AppendLine("Моля изберете книга!");
             }
 
             return result.ToString().Trim();
@@ -294,12 +296,10 @@
 
             if (chackGettetBook != null)
             {
-                return "The book is taken by other user!";
+                return "Книгата е взета от читател за четене!";
             }
 
             return null;
         }
-
-       
     }
 }

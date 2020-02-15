@@ -49,14 +49,12 @@
                 this.context.Books.Add(newBook);
                 genreObj.Books.Add(newBook);
                 this.context.SaveChanges();
-                result = "Successfull added book!";
+                result = "Успешно добавена книга!";
                 this.messageService.AddNotificationAtDB(userId, result);
             }
 
             return result;
         }
-
-      
 
         public List<object> EditBook(AddBookViewModel model, string userId)
         {
@@ -80,9 +78,6 @@
 
                 if (book != null)
                 {
-                    checkResult = this.ChackeInputData(title, author, catalogNumber);
-                    if (checkResult == string.Empty)
-                    {
                         book.Author = author;
                         book.CatalogNumber = catalogNumber;
                         book.Currency = model.Currency;
@@ -97,9 +92,8 @@
                         book.VirtualOrReal = model.VirtualOrReal;
                         genreObj.Books.Add(book);
                         this.context.SaveChanges();
-                        checkResult = "Successfull edited book!!";
+                        checkResult = "Успешно редактирана книга!";
                         this.messageService.AddNotificationAtDB(userId, checkResult);
-                    }
 
                 }
             }
@@ -157,13 +151,13 @@
                   && b.DeletedOn == null);
                 if (bookCheker2 != null)
                 {
-                    return "The catalog number is dublicate with other book!";
+                    return "Каталожният номер доблира каталожния номер на друга книга!";
                 }
 
                 return null;
             }
 
-            return "There is no book like that at your library!";
+            return "Вече има такава книга в библиотеката Ви!";
         }
 
         private string CheckDublicateBookEdit(string title, string author, string catalogNumber, string userId, string bookId)
@@ -184,35 +178,16 @@
                        && b.DeletedOn == null);
                 if (bookCheker2 == null)
                 {
-                    return "The catalog number is duplicated!";
+                    return "Каталожният номер доблира каталожния номер на друга книга!";
                 }
 
                 return null;
             }
 
-            return "There is such book at your library!";
+            return "Вече има такава книга в библиотеката Ви!";
         }
 
-        private string ChackeInputData(string title, string author, string catalogNumber)
-        {
-            StringBuilder errors = new StringBuilder();
-            if (string.IsNullOrEmpty(title) || string.IsNullOrWhiteSpace(title) || title.Length < 5)
-            {
-                errors.AppendLine("The book title must be more 5 letter!");
-            }
-
-            if (string.IsNullOrEmpty(author) || string.IsNullOrWhiteSpace(author) || author.Length < 5)
-            {
-                errors.AppendLine("The author name must be more 5 letter!");
-            }
-
-            if (string.IsNullOrEmpty(catalogNumber) || string.IsNullOrWhiteSpace(catalogNumber) || author.Length < 3)
-            {
-                errors.AppendLine("The catalog number title must be more 3 letter!");
-            }
-
-            return errors.ToString().Trim();
-        }
+      
 
         private Book CreateNewBook(AddBookViewModel model, ApplicationUser user, string userId, Genre genreObj)
         {

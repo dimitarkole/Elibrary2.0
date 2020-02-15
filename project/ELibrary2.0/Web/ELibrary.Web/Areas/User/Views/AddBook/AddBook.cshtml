@@ -1,50 +1,55 @@
 ﻿@model ELibrary.Web.ViewModels.User.AddBookViewModel
 
 @{
-    ViewData["Title"] = "Add new book";
+    ViewData["Title"] = "Добавяне на нова книга";
 }
-
-<h1>Add new book</h1>
-
-<h4>Add new book</h4>
-<h4>@ViewData["message"]</h4>
-
 <hr />
 <form asp-action="AddBook" enctype="multipart/form-data">
-
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-7">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group row">
-                <label asp-for="Logo" class="control-label"></label>
+                <label asp-for="Logo" class="control-label">Лого</label>
                 <input asp-for="Logo" class="form-control" />
             </div>
-            <div class="form-group row">
+            <!--<div class="form-group row">
                 <label asp-for="PDF" class="control-label"></label>
                 <input asp-for="PDF" class="form-control" />
-            </div>
+            </div>-->
 
         </div>
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-4">
+    </div>
+    <div class="row">
+        <div class="col-md-7">
             <div class="form-group">
-                <label asp-for="CatalogNumber" class="control-label"></label>
+                <label asp-for="CatalogNumber" class="control-label">Каталожен номер</label>
                 <input asp-for="CatalogNumber" class="form-control" />
                 <span asp-validation-for="CatalogNumber" class="text-danger"></span>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
+                <label asp-for="Title" class="control-label">Заглавие</label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
             <div class="form-group">
-                <label asp-for="Author" class="control-label"></label>
+                <label asp-for="Author" class="control-label">Автор</label>
                 <input asp-for="Author" class="form-control" />
                 <span asp-validation-for="Author" class="text-danger"></span>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
             <div class="form-group">
-                <label asp-for="GenreId" class="control-label"></label>
+                <label asp-for="GenreId" class="control-label">Жанр</label>
                 <select asp-for="GenreId" class="form-control">
                     @foreach (var genre in Model.Genres)
                     {
@@ -53,19 +58,13 @@
                 </select>
                 <span asp-validation-for="GenreId" class="text-danger"></span>
             </div>
-            
         </div>
+    </div>
 
-        <div class="col-md-4">
+    <div class="row">
+        <div class="col-md-7">
             <div class="form-group">
-                add
-                <img src="#" alt="Alternate Text" width="200" />
-
-            </div>
-
-            <div class="form-group">
-
-                <label asp-for="Price" class="control-label"></label>
+                <label asp-for="Price" class="control-label">Цена</label>
                 <div class="row">
                     <div class="col-md-9">
                         <input asp-for="Price" class="form-control" type="number" onchange="setTwoNumberDecimal()" min="0" step="0.10" value="0.00" />
@@ -84,37 +83,53 @@
                 <span asp-validation-for="Currency" class="text-danger"></span>
             </div>
         </div>
-        </div>
+    </div>
+
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-7">
             <div class="form-group">
                 <label asp-for="Review" class="control-label"></label>
                 <textarea asp-for="Review" class="form-control" rows="10" cols="100">
     
                 </textarea>
                 <span asp-validation-for="Review" class="text-danger"></span>
-            </div>
 
-           
+            </div>
         </div>
-        <div class="col-md-6">
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
             <div class="form-group">
-                <label asp-for="WhereIsBook" class="control-label"></label>
+                <label asp-for="Review" class="control-label"></label>
+                <textarea asp-for="Review" class="form-control" rows="10" cols="100">
+    
+                </textarea>
+                <span asp-validation-for="Review" class="text-danger"></span>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <div class="form-group">
+                <label asp-for="WhereIsBook" class="control-label">Къде се намира книгата в библиотеката:</label>
                 <textarea asp-for="WhereIsBook" class="form-control" rows="10" cols="100">
     
                 </textarea>
                 <span asp-validation-for="WhereIsBook" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
         </div>
     </div>
-</form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class="row">
+        <div class="col-md-6">
+        </div>
+        <input type="submit" value="Добави" class="col-md-1 btn btn-primary" />
+
+    </div>
+</form>
 
 <script>
     function setTwoNumberDecimal(event) {

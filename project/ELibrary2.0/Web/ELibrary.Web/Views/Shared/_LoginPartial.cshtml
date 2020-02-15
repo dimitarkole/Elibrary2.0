@@ -19,22 +19,23 @@
             @if (this.User.IsInRole(GlobalConstants.UserRoleName))
             {
                 <li>
-                    <a class="nav-link text-dark" asp-area="User" asp-controller="AddBook" asp-action="AddBook" title="AddBook">Add new book</a>
+                    <a class="nav-link text-dark" asp-area="User" asp-controller="AddBook" asp-action="AddBook" title="AddBook">Добави книга</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="User" asp-controller="AllAddedBooks" asp-action="AddedBooks" title="AddedBooks">All added books</a>
+                    <a class="nav-link text-dark" asp-area="User" asp-controller="AllAddedBooks" asp-action="AddedBooks" title="AddedBooks">Всички добавени книги</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="User" asp-controller="GiveBook" asp-action="GiveBook" title="GiveBook">Give book</a>
+                    <a class="nav-link text-dark" asp-area="User" asp-controller="GiveBook" asp-action="GiveBook" title="GiveBook">Дай книга</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="User" asp-controller="TakenBooks" asp-action="TakenBooks" title="TakenBooks">Taken Books</a>
+                    <a class="nav-link text-dark" asp-area="User" asp-controller="GivenBooks" asp-action="GivenBooks" title="GivenBooks">Дадени книги</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="User" asp-controller="GivenBooks" asp-action="GivenBooks" title="GivenBooks">Given Books</a>
+                    <a class="nav-link text-dark" asp-area="User" asp-controller="TakenBooks" asp-action="TakenBooks" title="TakenBooks">Взети книги</a>
                 </li>
-                
-           }
+
+
+            }
         </ul>
 
     </li>

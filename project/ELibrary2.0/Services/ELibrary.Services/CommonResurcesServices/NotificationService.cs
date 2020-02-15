@@ -119,7 +119,5 @@
             var returnModel = this.GetNotificationsChangePage(model, userId, 1);
             return returnModel;
         }
-
-      
     }
 }

@@ -10,12 +10,12 @@
         public GivenBooksViewModel()
         {
             this.SortMethods = new List<string>();
-            this.SortMethods.Add("Title a-z");
-            this.SortMethods.Add("Title z-a");
-            this.SortMethods.Add("Author a-z");
-            this.SortMethods.Add("Author z-a");
-            this.SortMethods.Add("Genre a-z");
-            this.SortMethods.Add("Genre z-a");
+            this.SortMethods.Add("Заглавие а-я");
+            this.SortMethods.Add("Заглавие я-а");
+            this.SortMethods.Add("Автор а-я");
+            this.SortMethods.Add("Автор я-а");
+            this.SortMethods.Add("Жанр а-я");
+            this.SortMethods.Add("Жанр я-а");
             this.SortMethodId = this.SortMethods[0];
 
             this.CountBooksOfPageList = new List<int>();
