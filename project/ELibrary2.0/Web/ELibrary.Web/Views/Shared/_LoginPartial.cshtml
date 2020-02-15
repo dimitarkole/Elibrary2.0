@@ -8,7 +8,7 @@
 @if (this.SignInManager.IsSignedIn(this.User))
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(this.User.Identity.Name)!</a>
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравей, @(this.User.Identity.Name)!</a>
         <ul class="dropdown">
             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
@@ -33,15 +33,13 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="User" asp-controller="TakenBooks" asp-action="TakenBooks" title="TakenBooks">Взети книги</a>
                 </li>
-
-
             }
         </ul>
 
     </li>
 
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="User" asp-controller="AddBook" asp-action="AddBook" title="AddBook">Add new book</a>
+        <a class="nav-link text-dark" asp-area="User" asp-controller="AddBook" asp-action="AddBook" title="AddBook">+Добавяни нова книга</a>
     </li>
    
 
@@ -58,10 +56,10 @@
 else //if ((this.User.IsInRole(GlobalConstants.UserRoleName) == false)||(this.User.IsInRole(GlobalConstants.UserRoleName)==false))
 {
 <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Регистрирай се</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Вход</a>
 </li>
 }
 

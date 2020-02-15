@@ -23,6 +23,8 @@
         {
         }
 
+        [Authorize]
+        [HttpGet]
         public IActionResult AddedBooks()
         {
             var startUp = this.StartUp();

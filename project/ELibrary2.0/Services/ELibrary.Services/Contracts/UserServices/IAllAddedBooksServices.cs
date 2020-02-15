@@ -5,7 +5,6 @@
     using System.Text;
 
     using ELibrary.Web.ViewModels.User;
-    
 
     public interface IAllAddedBooksServices
     {

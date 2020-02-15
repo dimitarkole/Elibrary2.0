@@ -9,7 +9,9 @@
     using ELibrary.Data.Models;
     using ELibrary.Data.Repositories;
     using ELibrary.Data.Seeding;
+    using ELibrary.Services.BaseServices;
     using ELibrary.Services.CommonResurcesServices;
+    using ELibrary.Services.Contracts.BaseServices;
     using ELibrary.Services.Contracts.CommonResurcesServices;
     using ELibrary.Services.Contracts.UserServices;
     using ELibrary.Services.Data;
@@ -79,6 +81,11 @@
             // common services
             services.AddTransient<IGenreService, GenreService>();
             services.AddTransient<INotificationService, NotificationService>();
+
+            // bases services
+            services.AddTransient<IHomeService, HomeService>();
+            services.AddTransient<IViewBookService, ViewBookService>();
+
 
             // User services
             services.AddTransient<IAllAddedBooksServices, AllAddedBooksServices>();

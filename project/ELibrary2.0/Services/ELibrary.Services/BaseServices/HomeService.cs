@@ -1,16 +1,16 @@
-﻿namespace ELibrary.Services.UserServices
+﻿namespace ELibrary.Services.BaseServices
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using ELibrary.Data;
+    using ELibrary.Services.Contracts.BaseServices;
     using ELibrary.Services.Contracts.CommonResurcesServices;
-    using ELibrary.Services.Contracts.UserServices;
     using ELibrary.Web.ViewModels.CommonResurces;
     using ELibrary.Web.ViewModels.User;
 
-    public class AllAddedBooksServices : IAllAddedBooksServices
+    public class HomeService : IHomeService
     {
         private ApplicationDbContext context;
 
@@ -18,7 +18,7 @@
 
         private INotificationService messageService;
 
-        public AllAddedBooksServices(
+        public HomeService(
             ApplicationDbContext context,
             IGenreService genreService,
             INotificationService messageService)
@@ -28,28 +28,14 @@
             this.messageService = messageService;
         }
 
-        public AllAddedBooksViewModel ChangeActivePage(AllAddedBooksViewModel model, string userId, int newPage)
+        public AllAddedBooksViewModel PreparedPage()
         {
-            model.CurrentPage = newPage;
-            return this.GetBooks(model, userId);
-        }
-
-        public AllAddedBooksViewModel DeleteBook(string userId, AllAddedBooksViewModel model, string bookId)
-        {
-            var deleteBook = this.context.Books.FirstOrDefault(b => b.Id == bookId);
-            if (deleteBook != null)
-            {
-                deleteBook.DeletedOn = DateTime.UtcNow;
-                this.context.SaveChanges();
-                string result = "Успешно изтрита книга!";
-                this.messageService.AddNotificationAtDB(userId, result);
-            }
-
-            var returnModel = this.GetBooks(model, userId);
+            var model = new AllAddedBooksViewModel();
+            var returnModel = this.GetBooks(model);
             return returnModel;
         }
 
-        public AllAddedBooksViewModel GetBooks(AllAddedBooksViewModel model, string userId)
+        public AllAddedBooksViewModel GetBooks(AllAddedBooksViewModel model)
         {
             var bookCatalogNumber = model.SearchBook.CatalogNumber;
             var title = model.SearchBook.Title;
@@ -60,8 +46,7 @@
             var currentPage = model.CurrentPage;
 
             var books = this.context.Books.Where(b =>
-              b.DeletedOn == null
-              && b.UserId == userId)
+              b.DeletedOn == null)
               .Select(b => new BookViewModel()
               {
                   Author = b.Author,
@@ -117,16 +102,15 @@
             return returnModel;
         }
 
-        public AllAddedBooksViewModel PreparedPage(string userId)
+        public AllAddedBooksViewModel ChangeActivePage(AllAddedBooksViewModel model, int newPage)
         {
-            var model = new AllAddedBooksViewModel();
-            var returnModel = this.GetBooks(model, userId);
-            return returnModel;
+            model.CurrentPage = newPage;
+            return this.GetBooks(model);
         }
 
         private IQueryable<BookViewModel> SortBooks(
-            string sortMethodId,
-            IQueryable<BookViewModel> books)
+          string sortMethodId,
+          IQueryable<BookViewModel> books)
         {
             if (sortMethodId == "Заглавие а-я")
             {
@@ -185,5 +169,7 @@
 
             return books;
         }
+
+       
     }
 }
