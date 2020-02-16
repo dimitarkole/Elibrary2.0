@@ -5,10 +5,14 @@
 
     using ELibrary.Data.Common.Repositories;
     using ELibrary.Data.Models;
+    using ELibrary.Services.Contracts.CommonResurcesServices;
     using ELibrary.Services.Data;
+    using ELibrary.Web.Areas.Identity.Pages.Account;
     using ELibrary.Web.ViewModels.Settings;
-
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
 
     public class SettingsController : BaseController
     {
@@ -16,7 +20,8 @@
 
         private readonly IDeletableEntityRepository<Setting> repository;
 
-        public SettingsController(ISettingsService settingsService, IDeletableEntityRepository<Setting> repository)
+
+        public SettingsController(ISettingsService settingsService, IDeletableEntityRepository<Setting> repository, INotificationService notificationService, IGenreService genreService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(notificationService, genreService, userManager, signInManager, logger, hostingEnvironment)
         {
             this.settingsService = settingsService;
             this.repository = repository;

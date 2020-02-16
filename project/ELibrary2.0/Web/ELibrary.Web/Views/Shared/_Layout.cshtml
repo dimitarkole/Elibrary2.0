@@ -26,49 +26,49 @@
         </div>
     </div>
     <header class="header-area">
-       
+
         <!-- Top Header End -->
         <!-- Main Header Start -->
-            <div class="classy-nav-container breakpoint-off">
-                <div class="container">
-                    <!-- Classy Menu -->
-                    <nav class="classy-navbar justify-content-between" id="dentoNav">
-                        <a asp-area="" asp-controller="LibraryAccount" asp-action="Index" class="nav-brand">
-                            <img src="~/img/core-img/logo.png" style="width:85px" />
-                        </a>
-                        <!-- Navbar Toggler -->
-                        <div class="classy-navbar-toggler">
-                             <span class="navbarToggler"><span></span><span></span><span></span></span>
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <!-- Classy Menu -->
+                <nav class="classy-navbar justify-content-between" id="dentoNav">
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-brand">
+                        <img src="~/img/core-img/logo.png" style="width:85px" />
+                    </a>
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul id="nav">
+                                <partial name="_LoginPartial" />
+
+                            </ul>
                         </div>
-                        <!-- Menu -->
-                        <div class="classy-menu">
+                        <!-- Nav End -->
+                    </div>
 
-                            <!-- Nav Start -->
-                            <div class="classynav">
-                                <ul id="nav">
-                                    <partial name="_LoginPartial" />
-
-                                </ul>
-                            </div>
-                            <!-- Nav End -->
-                        </div>
-
-                    </nav>
-                </div>
+                </nav>
             </div>
+        </div>
     </header>
     <hr />
 
-   
-        <div class="breadcumb-area bg-img bg-gradient-overlay" style="background-image: url(img/bg-img/12.jpg);">
-            <div class="container h-100">
-                <div class="row h-100 align-items-center">
-                    <div class="col-12">
-                        <h2 class="title">@ViewData["Title"]</h2>
-                    </div>
+
+    <!--  <div class="breadcumb-area bg-img bg-gradient-overlay" style="background-image: url(img/bg-img/12.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <h2 class="title">ViewData["Title"]</h2>
                 </div>
             </div>
         </div>
+    </div>-->
 
     <div class="container">
         <partial name="_CookieConsentPartial" />

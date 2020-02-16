@@ -13,7 +13,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h3>@ViewData["message"]</h3>
+                    <p>@ViewData["message"]</p>
                 </div>
 
                 <div class="col-md-6">
@@ -131,8 +131,6 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     @book.Review.Substring(0, Math.Min(book.Review.Length, 140))
-                                    <br />
-                                    book.BookId= @book.BookId
                                 </div>
                             </div>
                         </div>

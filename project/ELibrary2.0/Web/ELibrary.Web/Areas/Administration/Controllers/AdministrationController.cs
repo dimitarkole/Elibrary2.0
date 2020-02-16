@@ -14,7 +14,7 @@
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     [Area("Administration")]
-    public class AdministrationController : BaseController
+    public class AdministrationController : Controller
     {
         protected readonly INotificationService notificationService;
         protected readonly IGenreService genreService;

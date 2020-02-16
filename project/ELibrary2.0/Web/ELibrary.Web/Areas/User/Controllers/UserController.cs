@@ -19,7 +19,7 @@
 
     [Authorize(Roles = GlobalConstants.UserRoleName)]
     [Area("User")]
-    public class UserController : BaseController
+    public class UserController : Controller
     {
         protected readonly IAddBookService addBookService;
         protected readonly IAllAddedBooksService allAddedBooksServices;

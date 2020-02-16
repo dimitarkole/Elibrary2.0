@@ -7,7 +7,38 @@
 
 @if (this.SignInManager.IsSignedIn(this.User))
 {
+    
+        var messages = ViewData["MessageNavBar"] as ELibrary.Web.ViewModels.CommonResurces.NotificationsNavBarViewModel;
+
+    
+
+    <li>
+        <a asp-area="" asp-controller="Notification" asp-action="Index">
+            <div class="row align-items-center">
+                <div class="col-4">
+                    <input type="image" src="~/img/bg-img/Notification.png" name="name" style="width:35px; height:35px;" value="" />
+
+                </div>
+
+                @if (messages.CountNotification < 99)
+                {
+                    <div class="col-4">
+                        @messages.CountNotification
+
+                    </div>
+                }
+                else
+                {
+                    <div class="col-4">
+                        +99
+
+                    </div>
+                }
+            </div>
+        </a>
+    </li>
     <li class="nav-item">
+
         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравей, @(this.User.Identity.Name)!</a>
         <ul class="dropdown">
             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
@@ -44,10 +75,14 @@
 
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="User" asp-controller="AddBook" asp-action="AddBook" title="AddBook">+Добавяни нова книга</a>
-    </li>
-   
+    if (this.User.IsInRole(GlobalConstants.UserRoleName))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="User" asp-controller="AddBook" asp-action="AddBook" title="AddBook">+Добавяни нова книга</a>
+        </li>
+    }
+
+
 
 
     <li class="nav-item">
@@ -61,11 +96,11 @@
 }
 else //if ((this.User.IsInRole(GlobalConstants.UserRoleName) == false)||(this.User.IsInRole(GlobalConstants.UserRoleName)==false))
 {
-<li class="nav-item">
-    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Регистрирай се</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Вход</a>
-</li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Регистрирай се</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Вход</a>
+    </li>
 }
 

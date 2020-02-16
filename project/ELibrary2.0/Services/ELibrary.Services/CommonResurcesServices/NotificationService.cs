@@ -96,10 +96,10 @@
             var viewNotifications = notifications.Skip((currentPage - 1) * countBooksOfPage)
                                 .Take(countBooksOfPage).ToList();
 
-            foreach (var Notification in viewNotifications)
+            foreach (var notification in viewNotifications)
             {
-                var NotificationContext = this.context.Notifications.FirstOrDefault(m => m.Id == Notification.Id);
-                NotificationContext.SeenOn = DateTime.UtcNow;
+                var notificationContext = this.context.Notifications.FirstOrDefault(m => m.Id == notification.Id);
+                notificationContext.SeenOn = DateTime.UtcNow;
                 this.context.SaveChanges();
             }
 
