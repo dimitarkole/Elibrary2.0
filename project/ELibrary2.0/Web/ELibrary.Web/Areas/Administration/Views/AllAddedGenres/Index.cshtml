@@ -1,0 +1,285 @@
+﻿@{
+    ViewData["Title"] = "Всички добавени жанрове";
+}
+@model ELibrary.Web.ViewModels.Administration.AllAddedGenresViewModel
+
+<form asp-action="AddedBooks" asp-route-returnUrl="@ViewData["URL"]">
+    <div class="row">
+        <div class="col-md-12">
+            <p>@ViewData["message"]</p>
+
+        </div>
+    </div>
+    <div class="container" style="background:#f7f7f7">
+        <div class="row">
+            <h4 class="col-md-12">
+                Търсене:
+            </h4>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>@ViewData["message"]</h3>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label asp-for="SearchBook.Name" class="control-label col-md-3">Кат. номер</label>
+                    <input asp-for="SearchBook.Name" class="form-control col-md-9" />
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label asp-for="CountGenresOfPage" class="control-label  col-md-3">Покажи</label>
+
+                    <select asp-for="CountGenresOfPage" class="col-md-9">
+                        @foreach (var count in Model.CountGenresOfPageList)
+                        {
+                            <option value="@count">@count</option>
+
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label asp-for="SortMethodId" class="control-label  col-md-3">Сортирай по</label>
+
+                    <select asp-for="SortMethodId" class="col-md-9">
+                        @foreach (var SortMethod in Model.SortMethods)
+                        {
+                            <option value="@SortMethod">@SortMethod</option>
+                        }
+                    </select>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="background:#f7f7f7">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <span class="text-danger col-md-10"></span>
+
+                    <input type="submit" value="Търси" asp-action="AddedBooksSearch" class="btn btn-primary col-md-2" />
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    @if (Model.Genres != null)
+    {
+        <div class="container">
+
+            <div class="row">
+                <div class=" col-md-1">
+                    <div class="row">
+
+                        <label class="control-label  col-md-8">№</label>
+
+                    </div>
+                </div>
+                <div class=" col-md-2">
+                    <div class="row">
+                        <span class=" col-md-2"></span>
+
+                        <label class="control-label  col-md-8">Заглавие</label>
+                        <span class=" col-md-2"> </span>
+
+                    </div>
+                </div>
+                <div class=" col-md-3">
+                    <div class="row">
+                        <span class=" col-md-2">  </span>
+                        <label class="control-label  col-md-8">Автор</label>
+                        <span class=" col-md-2">  </span>
+
+                    </div>
+                </div>
+
+                <div class=" col-md-1">
+                    <div class="row">
+                        <span class=" col-md-2">  </span>
+                        <label class="control-label  col-md-8">Жанр</label>
+                        <span class=" col-md-2">  </span>
+
+                    </div>
+                </div>
+                <div class=" col-md-3">
+                    <div class="row">
+                        <span class=" col-md-2">  </span>
+                        <label class="control-label  col-md-8">Къде е?</label>
+                        <span class=" col-md-2">  </span>
+
+                    </div>
+                </div>
+                <div class=" col-md-1">
+                    <div class="row">
+                        <label class="control-label  col-md-8">
+
+                            Редактирай
+                        </label>
+                        <span class=" col-md-2">  </span>
+
+                    </div>
+                </div>
+
+                <div class=" col-md-1">
+                    <div class="row">
+                        <span class=" col-md-2">  </span>
+                        <label class="control-label  col-md-8">Изтрий</label>
+                        <span class=" col-md-2">  </span>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <br />
+            <div class="row">
+                @{int index = 0;
+                }
+                @foreach (var genre in @Model.Genres)
+                {
+                    <div class="control-label  col-md-6" style="background:#f7f7f7">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                @genre.Name
+                            </div>
+                            <div class="control-label  col-md-8">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!--<small>|<a asp-action="EditBookAddedBook" asp-area="User" asp-controller="AllAddedBooks" asp-route-id="genre.Id">Edit</a></small>
+
+                        <small>|<a asp-action="DeleteBook" asp-area="User" asp-controller="AllAddedBooks" asp-route-id="genre.Id">Delete</a></small>
+    -->
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    if (index % 2 == 0)
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <br>
+                            </div>
+
+                        </div>
+
+                    }
+
+                }
+            </div>
+
+            @foreach (var genre in @Model.Genres)
+            {
+        <div class="row">
+            <label class="control-label  col-md-3">
+                @genre.Name
+            </label>
+
+            <label class="control-label  col-md-3">
+
+            </label>
+
+            <!--<div class=" col-md-1">
+            <div class="row">
+                <span class=" col-md-2">  </span>
+                <input type="image" src="~/img/bg-img/edit.jpg" asp-action="EditBookAddedBook" asp-area="User" asp-controller="AllAddedBooks" asp-route-id="genre.Id" class="btn btn-primary col-md-8" />
+                <span class=" col-md-2">  </span>
+
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="row">
+                <span class=" col-md-2">  </span>
+                <input type="image" src="~/img/bg-img/delete.png" asp-action="DeleteBook" asp-area="User" asp-controller="AllAddedBooks" asp-route-id="genre.Id" class="btn btn-primary col-md-8" />
+                <span class="col-md-2">  </span>
+            </div>
+        </div>
+    -->
+        </div>
+                <br />
+            }
+        </div>
+
+
+        <div class="container">
+            <div class="row">
+                <span class="col-md-2"></span>
+                <span class="col-md-1">Страници: </span>
+
+                <div class="btn-toolbar col-md-6" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group" role="group" aria-label="First group">
+                        @if (Model.CurrentPage > 1)
+                        {
+                            @if (Model.CurrentPage > 2)
+                            {
+                                <input type="submit" value="|<" asp-route-id="1" class="btn btn-primary" asp-action="ChangePageAddedBook" /> <span>&nbsp;</span>
+                            }
+                            <input type="submit" value="<" class="col-md-5 btn btn-primary" asp-route-id="@(Model.CurrentPage-1)" asp-action="ChangePageAddedBook" /> <span>&nbsp;</span>
+                        }
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Before Page group">
+                        @for (int i = Math.Max(Model.CurrentPage - 5, 1); i < Model.CurrentPage; i++)
+                        {
+                            <input type="submit" value="@i" asp-route-id="@i" asp-action="ChangePageAddedBook" class="btn btn-primary" /> <span>&nbsp;</span>
+
+                        }
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Active Page group">
+                        <input type="submit" value="@Model.CurrentPage" asp-route-id="@Model.CurrentPage" asp-action="ChangePageAddedBook" class="btn btn-primary" />	<span>&nbsp;</span>
+                    </div>
+
+                    <div class="btn-group" role="group" aria-label="After Page group">
+                        @for (int i = Model.CurrentPage + 1; i <= Math.Min(Model.CurrentPage + 5, Model.MaxCountPage); i++)
+                        {
+                            <input type="submit" value="@i" asp-route-id="@i" asp-action="ChangePageAddedBook" class="btn btn-primary" /> <span>&nbsp;</span>
+
+                        }
+                    </div>
+
+                    <div class="btn-group" role="group" aria-label="Last group">
+
+                        @if (Model.CurrentPage < Model.MaxCountPage)
+                        {
+                            <input type="submit" value=">" asp-route-id="@(Model.CurrentPage+1)" asp-action="ChangePageAddedBook" class="btn btn-primary" /><span>&nbsp;</span>
+                            @if (Model.CurrentPage < Model.MaxCountPage - 1)
+                            {
+                                <input type="submit" value=">|" asp-route-id="@Model.MaxCountPage" asp-action="ChangePageAddedBook" class="btn btn-primary" /><span>&nbsp;</span>
+                            }
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    There is no any book at your library!
+                </div>
+            </div>
+        </div>
+
+    }
+
+</form>
+
+

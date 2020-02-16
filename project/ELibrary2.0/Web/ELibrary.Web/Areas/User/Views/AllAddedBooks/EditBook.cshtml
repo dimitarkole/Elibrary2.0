@@ -3,20 +3,20 @@
 @{
     ViewData["Title"] = "Редактиране на книга";
 }
-
-<h1>Edit book</h1>
-
-<h4>Edit book</h4>
-<h4>@ViewData["message"]</h4>
-
 <hr />
 <form asp-action="EditBook" asp-area="User" asp-controller="AllAddedBooks">
+    <div class="row">
+        <div class="col-md-12">
+            <p>@ViewData["message"]</p>
+
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-7">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group row">
                 <label asp-for="Logo" class="control-label">Лого</label>
-                <input asp-for="Logo" class="form-control" accept="image/*"/>
+                <input asp-for="Logo" class="form-control" accept="image/*" />
             </div>
             <!--<div class="form-group row">
                 <label asp-for="PDF" class="control-label"></label>

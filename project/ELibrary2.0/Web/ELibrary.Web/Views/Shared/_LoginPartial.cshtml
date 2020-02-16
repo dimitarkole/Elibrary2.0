@@ -18,6 +18,9 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="Administration" asp-controller="AddGenre" asp-action="Index" title="Admin">Добавяне на жанр</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="AllAddedGenres" asp-action="Index">Всички жанрове</a>
+                </li>
             }
             @if (this.User.IsInRole(GlobalConstants.UserRoleName))
             {

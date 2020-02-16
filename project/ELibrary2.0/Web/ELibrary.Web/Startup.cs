@@ -79,7 +79,10 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+
+            // Admin services
             services.AddTransient<IAddGenreService, AddGenreService>();
+            services.AddTransient<IAllAddedGenresService, AllAddedGenresService>();
 
             // common services
             services.AddTransient<IGenreService, GenreService>();
@@ -91,7 +94,6 @@
 
 
             // User services
-            services.AddTransient<IAllAddedBooksServices, AllAddedBooksServices>();
             services.AddTransient<IAddBookService, AddBookService>();
             services.AddTransient<IGiveBookService, GiveBookService>();
             services.AddTransient<IUserService, UserService>();

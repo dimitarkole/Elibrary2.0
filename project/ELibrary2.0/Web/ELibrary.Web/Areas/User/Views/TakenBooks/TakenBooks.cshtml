@@ -5,12 +5,11 @@
 <form asp-action="TakenBooks" asp-route-returnUrl="@ViewData["URL"]">
     <div class="container" style="background:#f7f7f7">
         <div class="row">
-            <div class="col-md-12">
-                <h2>Всички взети книга</h2><br />
+        <div class="col-md-12">
+            <p>@ViewData["message"]</p>
 
-                <hr />
-            </div>
         </div>
+    </div>
         <div class="row">
             <h4 class="col-md-12">
                 Търсене:
