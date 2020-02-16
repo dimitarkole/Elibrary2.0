@@ -12,7 +12,7 @@
 
         string AddBook(AddBookViewModel model, string userId);
 
-        AddBookViewModel GetBookDataById(string bookId);
+        AddBookViewModel GetBookDataById(string genreId);
 
         List<object> EditBook(AddBookViewModel model, string userId);
     }

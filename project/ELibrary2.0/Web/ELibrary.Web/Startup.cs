@@ -9,8 +9,10 @@
     using ELibrary.Data.Models;
     using ELibrary.Data.Repositories;
     using ELibrary.Data.Seeding;
+    using ELibrary.Services.Admin;
     using ELibrary.Services.BaseServices;
     using ELibrary.Services.CommonResurcesServices;
+    using ELibrary.Services.Contracts.Admin;
     using ELibrary.Services.Contracts.BaseServices;
     using ELibrary.Services.Contracts.CommonResurcesServices;
     using ELibrary.Services.Contracts.UserServices;
@@ -77,6 +79,7 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<IAddGenreService, AddGenreService>();
 
             // common services
             services.AddTransient<IGenreService, GenreService>();

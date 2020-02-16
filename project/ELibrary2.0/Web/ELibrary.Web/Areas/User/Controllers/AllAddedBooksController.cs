@@ -27,12 +27,7 @@
         [HttpGet]
         public IActionResult AddedBooks()
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             var returnModel = this.allAddedBooksServices.PreparedPage(this.userId);
             return this.View(returnModel);
         }
@@ -42,11 +37,7 @@
         [HttpPost]
         public IActionResult AddedBooksSearch(AllAddedBooksViewModel model)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
+            this.StartUp();
 
             var returnModel = this.allAddedBooksServices.GetBooks(model, this.userId);
             return this.View("AddedBooks", returnModel);
@@ -57,11 +48,7 @@
         [HttpPost]
         public IActionResult DeleteBook(AllAddedBooksViewModel model, string id)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
+            this.StartUp();
 
             this.ViewData["message"] = "Успешно премахната книга";
             var returnModel = this.allAddedBooksServices.DeleteBook(this.userId, model, id);
@@ -72,11 +59,7 @@
         [Authorize]
         public IActionResult ChangePageAllBook(AllAddedBooksViewModel model, int id)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
+            this.StartUp();
 
             var returnModel = this.allAddedBooksServices.ChangeActivePage(model, this.userId, id);
             return this.View("AddedBooks", returnModel);
@@ -87,11 +70,7 @@
         [HttpPost]
         public IActionResult EditBookAddedBook(string id)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
+             this.StartUp();
 
             var model = this.addBookService.GetBookDataById(id);
             this.HttpContext.Session.SetString("editBookId", id);
@@ -103,11 +82,7 @@
         [HttpPost]
         public IActionResult EditBook(AddBookViewModel model)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
+            this.StartUp();
 
             var bookId = this.HttpContext.Session.GetString("editBookId");
             model.BookId = bookId;

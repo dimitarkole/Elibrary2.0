@@ -1,0 +1,37 @@
+﻿@model ELibrary.Web.ViewModels.Administration.AddGenreViewModel
+
+@{
+    ViewData["Title"] = "Добавяне на нова жанр";
+}
+<hr />
+<form asp-action="AddGenre" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>@ViewData["message"]</h4>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Име на жанр</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+        </div>
+        <input type="submit" value="Добави" class="col-md-1 btn btn-primary" />
+
+    </div>
+</form>
+
+<script>
+    function setTwoNumberDecimal(event) {
+        this.value = parseFloat(this.value).toFixed(2);
+    }
+</script>
+

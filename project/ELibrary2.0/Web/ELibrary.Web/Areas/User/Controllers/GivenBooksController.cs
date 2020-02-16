@@ -27,14 +27,8 @@
         [HttpGet]
         public IActionResult GivenBooks()
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             var returnModel = this.givenBooksService.PreparedPage(this.userId);
-
             return this.View(returnModel);
         }
 
@@ -43,12 +37,7 @@
         [HttpPost]
         public IActionResult ChangePageGivenBooks(GivenBooksViewModel model, int id)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             var returnModel = this.givenBooksService.ChangeActivePage(model, this.userId, id);
             return this.View("GivenBooks", returnModel);
         }
@@ -58,12 +47,7 @@
         [HttpPost]
         public IActionResult GivenBooksSearch(GivenBooksViewModel model)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             var returnModel = this.givenBooksService.GetGevenBooks(model, this.userId);
             return this.View("GivenBooks", returnModel);
         }
@@ -73,12 +57,7 @@
         [HttpPost]
         public IActionResult ReturningGivenBook(GivenBooksViewModel model, string id)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             var returnModel = this.givenBooksService.ReturningBook(model, this.userId, id);
             this.ViewData["message"] = returnModel[1];
             return this.View("GivenBooks", returnModel[0]);
@@ -89,12 +68,7 @@
         [HttpPost]
         public IActionResult DeleteGivenBook(GivenBooksViewModel model, string id)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             var returnModel = this.givenBooksService.DeletingBook(model, this.userId, id);
             return this.View("GivenBooks", returnModel[0]);
         }
@@ -105,12 +79,7 @@
         [HttpPost]
         public IActionResult SendMessageForReturningBook(GivenBooksViewModel model, string id)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             var returnModel = this.givenBooksService.SendMessageForReturningBook(model, this.userId, id);
             this.ViewData["message"] = returnModel[1];
             return this.View("GivenBooks", returnModel[0]);

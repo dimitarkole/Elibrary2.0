@@ -34,23 +34,23 @@
         public string BookId { get; set; }
 
         [Display(Name = "Title")]
-        [Required(ErrorMessage = "Please input title!")]
+        [Required(ErrorMessage = "Моля въведете заглавие!")]
         [StringLength(50, MinimumLength =5)]
         public string Title { get; set; }
 
         [Display(Name = "Author")]
         [StringLength(50, MinimumLength = 5)]
 
-        [Required(ErrorMessage = "Please input author!")]
+        [Required(ErrorMessage = "Моля въведете автор!")]
         public string Author { get; set; }
 
         [Display(Name = "Catalog number")]
         [StringLength(50, MinimumLength = 5)]
-        [Required(ErrorMessage = "Please input catalog number!")]
+        [Required(ErrorMessage = "Моля каталожен номер!")]
         public string CatalogNumber { get; set; }
 
         [Display(Name = "Genre")]
-        [Required(ErrorMessage = "Please select genre!")]
+        [Required(ErrorMessage = "Моля изберете жанр!")]
         public string GenreId { get; set; }
 
 
@@ -71,7 +71,7 @@
         [StringLength(5000, MinimumLength = 10)]
         public string Review { get; set; }
 
-        [Display(Name = "Book location at library")]
+        [Display(Name = "Локация на книгата в библиотеката")]
         [StringLength(100)]
         public string WhereIsBook { get; set; }
 

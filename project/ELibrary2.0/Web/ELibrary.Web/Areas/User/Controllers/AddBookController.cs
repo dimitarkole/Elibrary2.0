@@ -24,11 +24,7 @@
         [HttpGet]
         public IActionResult AddBook()
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
+            this.StartUp();
 
             var returnModel = this.addBookService.PreparedAddBookPage();
             return this.View(returnModel);
@@ -39,12 +35,7 @@
         [HttpPost]
         public IActionResult AddBook(AddBookViewModel model)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             model = this.UploadFiles(model);
 
             this.ViewData["message"] = this.addBookService.AddBook(model, this.userId);

@@ -31,6 +31,8 @@
         {
             var book = this.context.Books.FirstOrDefault(b => b.Id == bookId);
             var genre = this.context.Genres.FirstOrDefault(g => g.Id == book.GenreId);
+            var user = this.context.Users.FirstOrDefault(u => u.Id == book.UserId);
+
             ViewBookViewModel model = new ViewBookViewModel()
             {
                 Author = book.Author,
@@ -41,6 +43,9 @@
                 Logo = book.Logo,
                 Review = book.Review,
                 Title = book.Title,
+                UserEmailName = user.Email,
+                UserFirstName = user.FirstName,
+                UserLastName = user.LastName,
             };
             return model;
         }

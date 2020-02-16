@@ -29,12 +29,7 @@
         [HttpGet]
         public IActionResult GiveBook()
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             var model = this.giveBookService.PreparedPage(this.userId);
             return this.View(model);
         }
@@ -44,12 +39,7 @@
         [HttpPost]
         public IActionResult GiveBookSearchBook(GiveBookViewModel model)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             string selectedBookId = this.HttpContext.Session.GetString("SelectedBookId");
             string selecteduserId = this.HttpContext.Session.GetString("SelecteduserId");
             var returnModel = this.giveBookService.GiveBookSearchBook(
@@ -62,12 +52,7 @@
         [HttpPost]
         public IActionResult GiveBookSearchUser(GiveBookViewModel model)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             string selectedBookId = this.HttpContext.Session.GetString("SelectedBookId");
             string selecteduserId = this.HttpContext.Session.GetString("SelecteduserId");
             var returnModel = this.giveBookService.GiveBookSearchUser(
@@ -80,12 +65,7 @@
         [HttpPost]
         public IActionResult GiveBookChangePageBooks(GiveBookViewModel model, int id)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             string selectedBookId = this.HttpContext.Session.GetString("SelectedBookId");
             string selecteduserId = this.HttpContext.Session.GetString("SelecteduserId");
             var returnModel = this.giveBookService.GiveBookChangeBookPage(
@@ -98,12 +78,7 @@
         [HttpPost]
         public IActionResult GiveBookChangePageUsers(GiveBookViewModel model, int id)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             string selectedBookId = this.HttpContext.Session.GetString("SelectedBookId");
             string selecteduserId = this.HttpContext.Session.GetString("SelecteduserId");
             var returnModel = this.giveBookService.GiveBookChangeUserPage(
@@ -116,12 +91,7 @@
         [HttpPost]
         public IActionResult SelectBookGiveBookPage(GiveBookViewModel model, string id)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             string selecteduserId = this.HttpContext.Session.GetString("SelecteduserId");
             var returnModel = this.giveBookService.GiveBookSelectedBook(
                 model, this.userId, id, selecteduserId);
@@ -134,12 +104,7 @@
         [HttpPost]
         public IActionResult SelectUserGiveBookPage(GiveBookViewModel model, string id)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             string selectedBookId = this.HttpContext.Session.GetString("SelectedBookId");
 
             var returnModel = this.giveBookService.GiveBookSelectedUser(
@@ -153,12 +118,7 @@
         [HttpPost]
         public IActionResult GiveBookGivingBook(GiveBookViewModel model)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             string selectedBookId = this.HttpContext.Session.GetString("SelectedBookId");
             string selecteduserId = this.HttpContext.Session.GetString("SelecteduserId");
 

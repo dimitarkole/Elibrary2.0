@@ -26,12 +26,7 @@
         [AllowAnonymous]
         public IActionResult TakenBooks()
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             var returnModel = this.takenBooksService.PreparedPage(this.userId);
             return this.View(returnModel);
         }
@@ -40,12 +35,7 @@
         [AllowAnonymous]
         public IActionResult TakenBooksSearch(TakenBooksViewModel model)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             var returnModel = this.takenBooksService.TakenBooks(model, this.userId);
             return this.View("TakenBooks", returnModel);
         }
@@ -54,12 +44,7 @@
         [AllowAnonymous]
         public IActionResult ChangePageTakenBooks(TakenBooksViewModel model, int id)
         {
-            var startUp = this.StartUp();
-            if (startUp != null)
-            {
-                return startUp;
-            }
-
+            this.StartUp();
             var returnModel = this.takenBooksService.ChangeActivePage(model, this.userId, id);
             return this.View("TakenBooks", returnModel);
         }

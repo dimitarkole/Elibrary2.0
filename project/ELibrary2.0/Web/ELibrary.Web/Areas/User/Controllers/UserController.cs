@@ -68,14 +68,13 @@
             this.hostingEnvironment = hostingEnvironment;
         }
 
-        protected IActionResult StartUp()
+        protected void StartUp()
         {
             this.userId = this.userManager.GetUserId(this.User);
             this.ViewData["UserType"] = "library";
 
             var messages = this.notificationService.GetNotificationsNavBar(this.userId);
             this.ViewData["MessageNavBar"] = messages;
-            return null;
         }
     }
 }
