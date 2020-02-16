@@ -15,7 +15,7 @@
     {
         private ApplicationDbContext context;
 
-        private IAllAddedBooksServices allBooksServices;
+        private IAllAddedBooksService allBooksServices;
 
         private IUserService userService;
 
@@ -24,7 +24,7 @@
         public GiveBookService(ApplicationDbContext context,
             IUserService userService,
             INotificationService notificationService,
-            IAllAddedBooksServices allBooksServices)
+            IAllAddedBooksService allBooksServices)
         {
             this.context = context;
             this.userService = userService;

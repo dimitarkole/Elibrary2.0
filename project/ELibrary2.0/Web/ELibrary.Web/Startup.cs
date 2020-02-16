@@ -99,7 +99,7 @@
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IGivenBooksService, GivenBooksService>();
             services.AddTransient<ITakenBooksService, TakenBooksService>();
-
+            services.AddTransient<IAllAddedBooksService, AllAddedBooksService>();
 
         }
 

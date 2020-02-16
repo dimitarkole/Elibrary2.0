@@ -6,7 +6,7 @@
 
     using ELibrary.Web.ViewModels.User;
 
-    public interface IAllAddedBooksServices
+    public interface IAllAddedBooksService
     {
         AllAddedBooksViewModel PreparedPage(string userId);
 

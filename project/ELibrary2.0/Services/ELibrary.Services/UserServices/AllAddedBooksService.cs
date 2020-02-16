@@ -10,7 +10,7 @@
     using ELibrary.Web.ViewModels.CommonResurces;
     using ELibrary.Web.ViewModels.User;
 
-    public class AllAddedBooksServices : IAllAddedBooksServices
+    public class AllAddedBooksService : IAllAddedBooksService
     {
         private ApplicationDbContext context;
 
@@ -18,7 +18,7 @@
 
         private INotificationService messageService;
 
-        public AllAddedBooksServices(
+        public AllAddedBooksService(
             ApplicationDbContext context,
             IGenreService genreService,
             INotificationService messageService)

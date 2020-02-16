@@ -22,7 +22,7 @@
     public class UserController : BaseController
     {
         protected readonly IAddBookService addBookService;
-        protected readonly IAllAddedBooksServices allAddedBooksServices;
+        protected readonly IAllAddedBooksService allAddedBooksServices;
         protected readonly IGiveBookService giveBookService;
         protected readonly IGivenBooksService givenBooksService;
 
@@ -42,7 +42,7 @@
         public UserController(
             IAddBookService addBookService,
             INotificationService notificationService,
-            IAllAddedBooksServices allAddedBooksServices,
+            IAllAddedBooksService allAddedBooksServices,
             IGiveBookService giveBookService,
             IGivenBooksService givenBooksService,
             IUserService userService,
