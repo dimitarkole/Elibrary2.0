@@ -1,20 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ELibrary.Data.Models;
-using ELibrary.Services.Contracts.CommonResurcesServices;
-using ELibrary.Web.Areas.Identity.Pages.Account;
-using ELibrary.Web.ViewModels.CommonResurces;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-
-namespace ELibrary.Web.Controllers
+﻿namespace ELibrary.Web.Areas.CommonResources.Controllers
 {
-    public class NotificationController : BaseController
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using ELibrary.Data.Models;
+    using ELibrary.Services.Contracts.CommonResurcesServices;
+    using ELibrary.Web.Areas.Identity.Pages.Account;
+    using ELibrary.Web.Controllers;
+    using ELibrary.Web.ViewModels.CommonResurces;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+
+    public class NotificationController : CommonResourcesController
     {
         public NotificationController(INotificationService notificationService, IGenreService genreService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(notificationService, genreService, userManager, signInManager, logger, hostingEnvironment)
         {

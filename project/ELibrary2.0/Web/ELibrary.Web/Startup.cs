@@ -87,11 +87,11 @@
             // common services
             services.AddTransient<IGenreService, GenreService>();
             services.AddTransient<INotificationService, NotificationService>();
+            services.AddTransient<IProfileService, ProfileService>();
 
             // bases services
             services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IViewBookService, ViewBookService>();
-
 
             // User services
             services.AddTransient<IAddBookService, AddBookService>();

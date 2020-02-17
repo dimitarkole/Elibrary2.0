@@ -2,10 +2,6 @@
     this.ViewData["Title"] = "Преглед на книга";
 }
 @model ELibrary.Web.ViewModels.Home.ViewBookViewModel
-  
-
-
-
     <form action="Index" method="post">
 
         <!-- ***** Contact Area Start ***** -->
@@ -38,7 +34,9 @@
                             <p>@Model.GenreName</p>
 
                             <h5>Качена от</h5>
-                            <p class="mb-0">???</p>
+                            <p class="mb-0">
+                                @Model.UserFirstName+" "+ @Model.UserLastName+"-"+@Model.UserEmailName
+                            </p>
                         </div>
                     </div>
 

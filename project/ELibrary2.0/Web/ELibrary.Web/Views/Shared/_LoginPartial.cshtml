@@ -13,7 +13,7 @@
     
 
     <li>
-        <a asp-area="" asp-controller="Notification" asp-action="Index">
+        <a asp-area="CommonResources" asp-controller="Notification" asp-action="Index">
             <div class="row align-items-center">
                 <div class="col-4">
                     <input type="image" src="~/img/bg-img/Notification.png" name="name" style="width:35px; height:35px;" value="" />
@@ -71,6 +71,9 @@
                     <a class="nav-link text-dark" asp-area="User" asp-controller="TakenBooks" asp-action="TakenBooks" title="TakenBooks">Взети книги</a>
                 </li>
             }
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="CommonResources" asp-controller="Profile" asp-action="Index">Профил</a>
+            </li>
         </ul>
 
     </li>

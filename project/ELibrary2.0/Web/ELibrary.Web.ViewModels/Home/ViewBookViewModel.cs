@@ -37,6 +37,10 @@
 
         public string UserEmailName { get; set; }
 
+        public string UploadUserNames { get; set; }
+
+        public string UploadUserId { get; set; }
+
 
     }
 }

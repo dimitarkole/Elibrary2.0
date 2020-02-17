@@ -77,9 +77,55 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer-area bg-img bg-gradient-overlay" style="background-image: url(img/bg-img/3.jpg);">
         <div class="container">
-            &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <!-- Single Footer Widget -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-footer-widget">
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="d-block mb-4">
+                            <img src="~/img/core-img/logo.png" alt="" width="180" height="180">
+                        </a>
+
+                    </div>
+                </div>
+
+                <!-- Single Footer Widget -->
+                <div class="col-12 col-sm-6 col-lg-8">
+                    <div class="single-footer-widget">
+                        <!-- Widget Title -->
+
+                        <p>
+                            Elibrary e сайт за сърхраняване на информация на дадена библиотека,
+                            която е: Какви книги има в библиотеката; Кой читател коя книга чете или е прочел.
+                            Тук може да намериш интересни книги и лесно да се свържеш с билиотеката в която се намират.<br>
+
+                            Ако искаш да запазиш информацията от библиотеката си, може да го направиш безплатно тук.<br>
+                            Ако искаш да прочетеш някоя вълнуваща или интересна книга - може да намериш атрактивни предложения тук,
+                            където може да потърсиш информация за най-близката библиотека, в която има търсената книга.<br>
+                            Чети книги чрез Elibrary2.somee.com!
+
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copywrite Area -->
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="copywrite-content">
+                        <p>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>2019 - document.write(new Date().getFullYear());</script> Всички права запазени | Сайтът е разработен от Димитър - Смолян <i class="fa fa-heart-o" aria-hidden="true"></i>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
 
