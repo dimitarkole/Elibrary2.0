@@ -40,19 +40,21 @@
         public IActionResult MakeUserAdmin(AllUsersViewModel model, string id)
         {
             this.StartUp();
-            var returnModel = this.allUsersService.MakeUserAdmin(model, id);
-            this.ViewData["message"] = returnModel[1].ToString();
-            return this.View("Index", returnModel[0]);
+            var returnModel = this.allUsersService.MakeUserAdmin(id);
+            this.ViewData["message"] = returnModel["message"].ToString();
+            var modelView = this.allUsersService.PreparedPage();
+            return this.View("Index", modelView);
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult MakeAdminUser(AllUsersViewModel model, string id)
+        public IActionResult MakeAdminUser(string id)
         {
             this.StartUp();
-            var returnModel = this.allUsersService.MakeAdminUser(model, id);
-            this.ViewData["message"] = returnModel[1].ToString();
-            return this.View("Index", returnModel[0]);
+            var returnModel = this.allUsersService.MakeAdminUser(id);
+            this.ViewData["message"] = returnModel["message"].ToString();
+            var modelView = this.allUsersService.PreparedPage();
+            return this.View("Index", modelView);
         }
 
         [HttpPost]
@@ -62,8 +64,9 @@
             this.StartUp();
 
             var returnModel = this.allUsersService.DeleteUser(model, id, this.userId);
-            this.ViewData["message"] = returnModel[1].ToString();
-            return this.View("Index", returnModel[0]);
+            this.ViewData["message"] = returnModel["message"].ToString();
+            var modelView = this.allUsersService.PreparedPage();
+            return this.View("Index", modelView);
         }
 
         [HttpPost]

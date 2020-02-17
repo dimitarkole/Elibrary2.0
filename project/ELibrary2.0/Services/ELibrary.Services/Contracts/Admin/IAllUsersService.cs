@@ -10,12 +10,12 @@
     {
         AllUsersViewModel PreparedPage();
 
-        List<object> MakeUserAdmin(AllUsersViewModel model, string userId);
+        Dictionary<string, object> MakeUserAdmin(string userId);
 
-        List<object> MakeAdminUser(AllUsersViewModel model, string userId);
+        Dictionary<string, object> MakeAdminUser(string userId);
 
 
-        List<object> DeleteUser(AllUsersViewModel model, string userId, string adminId);
+        Dictionary<string, object> DeleteUser(AllUsersViewModel model, string userId, string adminId);
 
         AllUsersViewModel ChangeActivePage(
          AllUsersViewModel model,

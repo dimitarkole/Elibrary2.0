@@ -2,12 +2,8 @@
 @{
     ViewData["Title"] = "AllUsers";
 }
-    <form asp-action="ChangeActivePage" asp-route-returnUrl="@ViewData["URL"]">
-        <div class="row">
-            <div class="col-md-12">
-                <h3>@ViewData["message"]</h3>
-            </div>
-        </div>
+    <form asp-action="Index" asp-route-returnUrl="@ViewData["URL"]">
+  
 
         <div class="container" style="background:#f7f7f7">
             <div class="row">
@@ -153,26 +149,15 @@
 
                 <div class="control-label  col-md-3">
                     <div class="row">
-                        @if (user.Type == "admin")
+                        @if (user.Type == "Administrator")
                         {
-                            <input type="submit" value="Библиотека" asp-action="MakeUserLibrary" asp-route-id="@user.UserId" class="btn btn-primary col-md-5" />
-                            <div class="col-md-2"></div>
-                            <input type="submit" value="Читател" asp-action="MakeLibraryUser" asp-route-id="@user.UserId" class="btn btn-primary col-md-5" />
-
-                        }
+                            <input type="submit" value="Потребител" asp-action="MakeAdminUser" asp-route-id="@user.UserId" class="btn btn-primary col-md-5" />
+                         }
                         else
                         {
-                            @if (user.Type == "user")
-                            {
-                                <input type="submit" value="Библиотека" asp-action="MakeUserLibrary" asp-route-id="@user.UserId" class="btn btn-primary col-md-5" />
-                            }
-                            @if (user.Type == "library")
-                            {
-                                <input type="submit" value="Читател" asp-action="MakeLibraryUser" asp-route-id="@user.UserId" class="btn btn-primary col-md-5" />
-                            }
-                            <div class="col-md-2"></div>
 
                             <input type="submit" value="Админ" asp-action="MakeUserAdmin" asp-route-id="@user.UserId" class="btn btn-primary col-md-5" />
+
                         }
                     </div>
 

@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Text;
 
+    using Microsoft.AspNetCore.Identity;
     using ELibrary.Data;
     using ELibrary.Services.Contracts.Admin;
     using ELibrary.Services.Contracts.CommonResurcesServices;
@@ -30,9 +31,9 @@
             return this.GetUsers(model);
         }
 
-        public List<object> DeleteUser(AllUsersViewModel model, string userId, string adminId)
+        public Dictionary<string, object> DeleteUser(AllUsersViewModel model, string userId, string adminId)
         {
-            List<object> result = new List<object>();
+            Dictionary<string, object> result = new Dictionary<string, object>();
             var flag = false;
             if (userId != adminId)
             {
@@ -44,32 +45,53 @@
             }
 
             var returnMoodel = this.GetUsers(model);
-            result.Add(result);
+            result.Add("model", returnMoodel);
             if (flag == true)
             {
-                result.Add("Успешно изтрит потребител!");
+                result.Add("message", "Успешно изтрит потребител!");
                 var message = $"Вашият профил беше изтрит успешно";
                 this.notificationService.AddNotificationAtDB(userId, message);
             }
             else
             {
-                result.Add("Не може да си изтриите собствения профил!");
+                result.Add("message", "Не може да си изтриите собствения профил!");
             }
+
             return result;
         }
 
-    
-
-        public List<object> MakeUserAdmin(AllUsersViewModel model, string userId)
+        public Dictionary<string, object> MakeUserAdmin(string userId)
         {
             var adminRoleId = this.context.Roles.FirstOrDefault(r => r.Name == "Administrator").Id;
             var userRole = this.context.UserRoles.FirstOrDefault(ur => ur.UserId == userId);
-            userRole.RoleId = adminRoleId;
-            this.context.SaveChanges();
+
+            if (userRole == null)
+            {
+                userRole = new IdentityUserRole<string>();
+                userRole.UserId = userId;
+                userRole.RoleId = adminRoleId;
+
+                this.context.UserRoles.Add(userRole);
+                this.context.SaveChanges();
+            }
+            else
+            {
+                this.context.UserRoles.Remove(userRole);
+                var newUserRole = new IdentityUserRole<string>();
+                newUserRole.UserId = userId;
+                newUserRole.RoleId = adminRoleId;
+
+                this.context.UserRoles.Add(newUserRole);
+                this.context.SaveChanges();
+            }
+
+
+            AllUsersViewModel model = new AllUsersViewModel();
+
             var returnMoodel = this.GetUsers(model);
-            List<object> result = new List<object>();
-            result.Add(result);
-            result.Add("Успешно променени права на потребител!");
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            result.Add("model", returnMoodel);
+            result.Add("message", "Успешно променени права на потребител!");
             var message = $"Вашите права бяха променени на администратор";
             this.notificationService.AddNotificationAtDB(userId, message);
             return result;
@@ -83,16 +105,35 @@
             return returnModel;
         }
 
-        public List<object> MakeAdminUser(AllUsersViewModel model, string userId)
+        public Dictionary<string, object> MakeAdminUser(string userId)
         {
-            var adminRoleId = this.context.Roles.FirstOrDefault(r => r.Name == "User").Id;
+            var userRoleId = this.context.Roles.FirstOrDefault(r => r.Name == "User").Id;
             var userRole = this.context.UserRoles.FirstOrDefault(ur => ur.UserId == userId);
-            userRole.RoleId = adminRoleId;
-            this.context.SaveChanges();
+            if (userRole == null)
+            {
+                userRole = new IdentityUserRole<string>();
+                userRole.UserId = userId;
+                userRole.RoleId = userRoleId;
+
+                this.context.UserRoles.Add(userRole);
+                this.context.SaveChanges();
+            }
+            else
+            {
+                this.context.UserRoles.Remove(userRole);
+                var newUserRole = new IdentityUserRole<string>();
+                newUserRole.UserId = userId;
+                newUserRole.RoleId = userRoleId;
+
+                this.context.UserRoles.Add(newUserRole);
+                this.context.SaveChanges();
+            }
+            AllUsersViewModel model = new AllUsersViewModel();
+
             var returnMoodel = this.GetUsers(model);
-            List<object> result = new List<object>();
-            result.Add(result);
-            result.Add("Успешно променени права на потребител!");
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            result.Add("model", result);
+            result.Add("message", "Успешно променени права на потребител!");
             var message = $"Вашите права бяха променени на потребителски!";
             this.notificationService.AddNotificationAtDB(userId, message);
             return result;
@@ -116,7 +157,6 @@
                     FirstName = u.FirstName,
                     LastName = u.LastName,
                     UserId = u.Id,
-                    //Type = u.Type,
                 });
 
             users = this.SelectUsers(
@@ -132,8 +172,26 @@
                 maxCountPage++;
             }
 
-            var viewUsers = users.Skip((currentPage - 1) * countUsersOfPage)
-                                .Take(countUsersOfPage);
+            List<UserViewModel> viewUsers = users.Skip((currentPage - 1) * countUsersOfPage)
+                                .Take(countUsersOfPage)
+                                .ToList();
+
+            for (int i = 0; i < viewUsers.Count; i++)
+            {
+                try
+                {
+                    var roleId = this.context.UserRoles.FirstOrDefault(ur => ur.UserId == viewUsers[i].UserId).RoleId;
+                    var role = this.context.Roles.FirstOrDefault(r => r.Id == roleId);
+                    viewUsers[i].Type = role.Name;
+                }
+                catch (Exception)
+                {
+
+                    viewUsers[i].Type = "без роля";
+
+                }
+
+            }
 
             var searchUser = new UserViewModel()
             {
