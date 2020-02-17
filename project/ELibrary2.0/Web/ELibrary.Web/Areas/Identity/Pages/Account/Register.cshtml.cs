@@ -65,7 +65,7 @@
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
                 {
-                    this.logger.LogInformation("User created a new account with password.");
+                    this.logger.LogInformation("Потребителят е успешно регистриран!");
 
                     var roleId = this.context.Roles.FirstOrDefault(r =>
                        r.Name == GlobalConstants.UserRoleName
