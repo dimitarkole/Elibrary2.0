@@ -84,8 +84,8 @@
             services.AddTransient<IAddGenreService, AddGenreService>();
             services.AddTransient<IAllAddedGenresService, AllAddedGenresService>();
             services.AddTransient<IAllUsersService, AllUsersService>();
+            services.AddTransient<IStatsAdminService, StatsAdminService>();
 
-            
             // common services
             services.AddTransient<IGenreService, GenreService>();
             services.AddTransient<INotificationService, NotificationService>();
