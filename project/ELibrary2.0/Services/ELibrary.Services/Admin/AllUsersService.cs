@@ -103,7 +103,6 @@
             var email = model.SearchUser.Email;
             var firstName = model.SearchUser.FirstName;
             var lastName = model.SearchUser.LastName;
-            var libraryName = model.SearchUser.LibraryName;
 
             var sortMethodId = model.SortMethodId;
             var countUsersOfPage = model.CountUsersOfPage;
@@ -124,8 +123,7 @@
                 users,
                 email,
                 firstName,
-                lastName,
-                libraryName);
+                lastName);
 
             users = this.SortBooks(sortMethodId, users);
             int maxCountPage = users.Count() / countUsersOfPage;
@@ -142,7 +140,6 @@
                 Email = email,
                 FirstName = firstName,
                 LastName = lastName,
-                LibraryName = libraryName,
             };
 
             var returnModel = new AllUsersViewModel()
@@ -175,8 +172,7 @@
             IQueryable<UserViewModel> users,
             string email,
             string firstName,
-            string lastName,
-            string libraryName)
+            string lastName)
         {
             if (email != null)
             {
@@ -193,10 +189,6 @@
                 users = users.Where(b => b.LastName.Contains(lastName));
             }
 
-            if (libraryName != null)
-            {
-                users = users.Where(b => b.LibraryName.Contains(libraryName));
-            }
 
             return users;
         }

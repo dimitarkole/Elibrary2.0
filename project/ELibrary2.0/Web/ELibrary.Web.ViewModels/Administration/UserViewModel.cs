@@ -12,7 +12,6 @@
             this.FirstName = null;
             this.LastName = null;
             this.Email = null;
-            this.LibraryName = null;
             this.Type = null;
         }
 
@@ -24,7 +23,6 @@
 
         public string Email { get; set; }
 
-        public string LibraryName { get; set; }
 
         public string Type { get; set; }
     }
