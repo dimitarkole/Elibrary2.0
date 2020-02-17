@@ -46,7 +46,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Notification\" />
     <Folder Include="wwwroot\img\BooksLogo\" />
     <Folder Include="wwwroot\img\BooksOnlineVersion\" />
   </ItemGroup>
