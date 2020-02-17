@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -59,6 +60,29 @@
             this.ViewData["message"] = "Успешно сменена на парола!";
 
             return this.View("Index", returnModel);
+        }
+
+        public IActionResult ChangeAvatar(ProfilViewModel model)
+        {
+            this.StartUp();
+            var pic = model.Photo;
+            var folder = "Avatars";
+            if (pic != null)
+            {
+                var fileName = Path.Combine(
+                    this.hostingEnvironment.WebRootPath + "/img/" + folder,
+                    Path.GetFileName(this.userId + "_" + pic.FileName));
+                pic.CopyTo(new FileStream(fileName, FileMode.Create));
+                model.AvatarLocation = "/img/" + folder + "/" + Path.GetFileName(fileName);
+            }
+            else
+            {
+                model.AvatarLocation = "Greshka";
+            }
+
+            var returnModel = this.profileService.SaveChanges(model, this.userId);
+            return this.View("Index", returnModel);
+
         }
     }
 }

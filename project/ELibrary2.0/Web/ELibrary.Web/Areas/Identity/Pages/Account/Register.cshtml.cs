@@ -60,6 +60,7 @@
                     Email = this.Input.Email,
                     LastName = this.Input.LastName,
                     FirstName = this.Input.FirstName,
+                    LockoutEnabled = false,
                 };
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)

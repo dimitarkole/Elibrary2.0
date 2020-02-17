@@ -74,8 +74,6 @@
                   && g.DeletedOn == null);
                 var book = this.context.Books.FirstOrDefault(b => b.Id == bookId);
                 model.Genres = this.genreService.GetAllGenres();
-                model.BookId = bookId;
-
                 if (book != null)
                 {
                         book.Author = author;
@@ -176,7 +174,7 @@
                        b.Id != bookId
                        && b.CatalogNumber == catalogNumber
                        && b.DeletedOn == null);
-                if (bookCheker2 == null)
+                if (bookCheker2 != null)
                 {
                     return "Каталожният номер доблира каталожния номер на друга книга!";
                 }

@@ -3,11 +3,11 @@
 @{
     ViewData["Title"] = "Редактиране на книга";
 }
-<form asp-action="EditBook" asp-area="User" asp-controller="AllAddedBooks">
+<form asp-action="EditBook" asp-area="User" asp-controller="AllAddedBooks" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-12">
             <p>@ViewData["message"]</p>
-
+            <h1>@Model.BookId</h1>
         </div>
     </div>
     <div class="row">
@@ -17,10 +17,6 @@
                 <label asp-for="Logo" class="control-label">Лого</label>
                 <input asp-for="Logo" class="form-control" accept="image/*" />
             </div>
-            <!--<div class="form-group row">
-                <label asp-for="PDF" class="control-label"></label>
-                <input asp-for="PDF" class="form-control" />
-            </div>-->
 
         </div>
     </div>
@@ -129,9 +125,9 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-5">
         </div>
-        <input type="submit" value="Редактирай" class="btn btn-primary col-md-1" />
+        <input type="submit" value="Редактирай" class="btn btn-primary col-md-2" />
 
     </div>
 

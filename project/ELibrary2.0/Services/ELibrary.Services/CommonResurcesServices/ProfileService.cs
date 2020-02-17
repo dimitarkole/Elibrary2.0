@@ -52,8 +52,9 @@
         {
             var user = this.context.Users
                  .FirstOrDefault(u => u.Id == userId);
-            user.Avatar = model.AvatarLocation;
             user.FirstName = model.FirstName;
+
+            user.Avatar = model.AvatarLocation;
             user.LastName = model.LastName;
             this.context.SaveChanges();
 

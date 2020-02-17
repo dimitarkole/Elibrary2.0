@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    @if (Model.Photo != null)
+                    @if (Model.AvatarLocation != null)
                     {
                         <img src="@Model.AvatarLocation" alt="Alternate Text" class="google-maps mb-100" />
                     }
@@ -32,6 +32,27 @@
 
                         <h5>Email</h5>
                         <p>@Model.Email</p>
+                        <h5>Смени аватара</h5>
+                        <p>
+                            <form asp-action="Profile" asp-route-returnUrl="@ViewData["URL"]" enctype="multipart/form-data">
+                         
+                                <div class="col-md-12">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-group row">
+                                        <input asp-for="Photo" class="form-control" accept="image/*" />
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <span class="col-md-5"></span>
+
+                                    <input type="submit" value="Смени паролата" asp-action="ChangeAvatar" class="btn btn-primary col-md-7" style="background:white;color:blue" />
+
+                                </div>
+                            </form>
+                        </p>
+                      
 
                         <h5>Смяна на парола от</h5>
                         <p class="mb-0">

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -57,7 +58,7 @@
         }
 
         [Authorize]
-        public IActionResult ChangePageAllBook(AllAddedBooksViewModel model, int id)
+        public IActionResult ChangePageAddedBook(AllAddedBooksViewModel model, int id)
         {
             this.StartUp();
 
@@ -67,13 +68,13 @@
 
         // AddedBooks Page - Edit book
         [Authorize]
-        [HttpPost]
+        [HttpGet]
         public IActionResult EditBookAddedBook(string id)
         {
-             this.StartUp();
-
+            this.StartUp();
             var model = this.addBookService.GetBookDataById(id);
             this.HttpContext.Session.SetString("editBookId", id);
+            model.BookId = id;
             return this.View("EditBook", model);
         }
 
@@ -83,13 +84,25 @@
         public IActionResult EditBook(AddBookViewModel model)
         {
             this.StartUp();
-
             var bookId = this.HttpContext.Session.GetString("editBookId");
             model.BookId = bookId;
+            var pic = model.Logo;
+            var folder = "BooksLogo";
+            if (pic != null)
+            {
+                var fileName = Path.Combine(
+                    this.hostingEnvironment.WebRootPath + "/img/" + folder,
+                    Path.GetFileName(this.userId + "_" + pic.FileName));
+                pic.CopyTo(new FileStream(fileName, FileMode.Create));
+                model.LogoLocation = "/img/" + folder + "/" + Path.GetFileName(fileName);
+            }
+
+           
+
             var result = this.addBookService.EditBook(model, this.userId);
-            var returnModel = result[0];
-            this.ViewData["message"] = result[1];
-            return this.View(model);
+            this.ViewData["message"] = result[1] + " bookId= " + bookId;
+            var returnModel = this.allAddedBooksServices.PreparedPage(this.userId);
+            return this.View("AddedBooks", returnModel);
         }
     }
 }
