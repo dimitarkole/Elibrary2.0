@@ -72,7 +72,7 @@
                     templateResult = this.ForgotenPasswordSendCode(info["code"]);
                     break;
                 case "NewRegesterUser":
-                    templateResult = this.NewRegesterUser(toMail, info["password"], info["code"]);
+                    templateResult = this.NewRegesterUser(toMail, info["password"]);
                     break;
                 case "NewMessage":
                     templateResult = this.NewMessage(toMail, info["message"]);
@@ -107,14 +107,14 @@
             return result;
         }
 
-        public Dictionary<string, string> NewRegesterUser(string email, string password, string code)
+        public Dictionary<string, string> NewRegesterUser(string email, string password)
         {
             var result = new Dictionary<string, string>();
             result.Add("Subject", "Успешна регистрация");
             StringBuilder ms = new StringBuilder();
             ms.AppendLine($"Вие сте регистриран успешно с email: {email}<br/>");
             ms.AppendLine($"Паролата ви: {password}<br/>");
-            ms.AppendLine($"Моля използвайте този код: {code}<br/>");
+           // ms.AppendLine($"Моля използвайте този код: {code}<br/>");
             result.Add("Message", ms.ToString().Trim());
             return result;
         }

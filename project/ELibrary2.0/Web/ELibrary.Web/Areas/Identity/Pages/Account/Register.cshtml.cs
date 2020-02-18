@@ -1,5 +1,7 @@
 ﻿namespace ELibrary.Web.Areas.Identity.Pages.Account
 {
+    using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Text.Encodings.Web;
@@ -7,8 +9,12 @@
     using ELibrary.Common;
     using ELibrary.Data;
     using ELibrary.Data.Models;
-
+    using ELibrary.Services.Contracts.BaseServices;
+    using ELibrary.Services.Contracts.CommonResurcesServices;
+    using ELibrary.Web.Controllers;
+    using ELibrary.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
@@ -25,19 +31,27 @@
         private readonly ILogger<RegisterModel> logger;
         private readonly IEmailSender emailSender;
         private readonly ApplicationDbContext context;
+        private readonly ISendMail sendMail;
+        private readonly IHomeService homeService;
+
+
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            ApplicationDbContext context)
+            ISendMail sendMail,
+            ApplicationDbContext context,
+            IHomeService homeService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.logger = logger;
+            this.sendMail = sendMail;
             this.emailSender = emailSender;
             this.context = context;
+            this.homeService = homeService;
         }
 
         [BindProperty]
@@ -91,6 +105,56 @@
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await this.signInManager.SignInAsync(user, isPersistent: false);
+                    var userId = user.Id;
+
+                    Notification message = new Notification()
+                    {
+                        UserId = userId,
+                        User = user,
+                        TextOfNotification = "Успешно регистриран потребител!",
+                    };
+
+                    this.context.Notifications.Add(message);
+                    this.context.SaveChanges();
+
+                    var email = this.Input.Email;
+                    var info = new Dictionary<string, string>();
+                    info.Add("password", this.Input.Password);
+
+                   /* var checkVerificatedCode = this.context.VerificatedCodes
+                     .FirstOrDefault(vc => vc.UserId == userId);
+                    var verificatedCode = new VerificatedCode();
+                    if (checkVerificatedCode != null)
+                    {
+                        verificatedCode = checkVerificatedCode;
+                    }
+
+                    verificatedCode.UserId = userId;
+                    Random random = new Random();
+                    const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                    string varifyCode = userId.Substring(0, Math.Min(3, userId.Length));
+                    var length = 8 - varifyCode.Length;
+
+                    varifyCode += new string(Enumerable.Repeat(chars, length)
+                        .Select(s => s[random.Next(s.Length)]).ToArray());
+
+                    verificatedCode.Code = varifyCode;
+                    if (checkVerificatedCode == null)
+                    {
+                        this.context.VerificatedCodes.Add(verificatedCode);
+                    }
+
+                    this.context.SaveChanges();
+
+                    info.Add("code", varifyCode);*/
+
+                    this.sendMail.SendMailByTemplate(email, "NewRegesterUser", info);
+
+                    var roleName = this.context.Roles.FirstOrDefault(r =>
+                       r.Name == GlobalConstants.UserRoleName
+                       && r.DeletedOn == null).Name;
+
+                    await this.signInManager.SignInAsync(user, isPersistent: false);
                     return this.LocalRedirect(returnUrl);
                 }
 
@@ -103,6 +167,32 @@
             // If we got this far, something failed, redisplay form
             return this.Page();
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult VerifyEmail()
+        {
+            VerifyEmailViewModel model = new VerifyEmailViewModel();
+            return this.Page();
+        }
+
+        private IActionResult RedirectToLocal(string userId, string roleName)
+        {
+            this.HttpContext.Session.SetString("userId", userId);
+
+            var email = this.context.Users.FirstOrDefault(u => u.Id == userId).Email;
+
+            if (this.homeService.CheckVerifedEmail(userId) == false)
+            {
+                this.HttpContext.Session.SetString("userId", userId);
+                this.homeService.SendVerifyCodeToEmail(userId);
+                return this.VerifyEmail();
+            }
+
+            return this.RedirectToAction(nameof(HomeController.Index), "AdminAccount");
+        }
+
+       
 
         public class InputModel
         {

@@ -91,6 +91,8 @@
             services.AddTransient<IGenreService, GenreService>();
             services.AddTransient<INotificationService, NotificationService>();
             services.AddTransient<IProfileService, ProfileService>();
+            services.AddTransient<ISendMail, SendMail>();
+
 
             // bases services
             services.AddTransient<IHomeService, HomeService>();

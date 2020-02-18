@@ -5,10 +5,13 @@
     using System.Linq;
     using System.Text;
     using ELibrary.Data;
+    using ELibrary.Data.Models;
     using ELibrary.Services.Contracts.BaseServices;
     using ELibrary.Services.Contracts.CommonResurcesServices;
     using ELibrary.Web.ViewModels.CommonResurces;
+    using ELibrary.Web.ViewModels.Home;
     using ELibrary.Web.ViewModels.User;
+    using Microsoft.AspNetCore.Identity;
 
     public class HomeService : IHomeService
     {
@@ -18,14 +21,19 @@
 
         private INotificationService messageService;
 
+        private ISendMail sendMail;
+
+
         public HomeService(
             ApplicationDbContext context,
             IGenreService genreService,
-            INotificationService messageService)
+            INotificationService messageService,
+            ISendMail sendMail)
         {
             this.context = context;
             this.genreService = genreService;
             this.messageService = messageService;
+            this.sendMail = sendMail;
         }
 
         public AllAddedBooksViewModel PreparedPage()
@@ -170,6 +178,116 @@
             return books;
         }
 
-       
+        public bool CheckVerifedEmail(string userId)
+        {
+            var check = this.context.Users
+                .FirstOrDefault(u =>
+                    u.Id == userId).VerifiedOn;
+            if (check == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public string ForgotenPasswordSendCode(ForgotenPasswordViewModel model)
+        {
+            var checkEmailAtDB = this.context.Users.FirstOrDefault(u => u.Email == model.Email);
+            if (checkEmailAtDB == null)
+            {
+                return "Няма регистриран потребител с такъв email";
+            }
+
+            var userId = checkEmailAtDB.Email;
+            var claimType = "ForgotenPasswordSendCode";
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            string code = userId.Substring(0, Math.Min(3, userId.Length));
+            var length = 8 - code.Length;
+            Random random = new Random();
+            code += new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+            var claim = new IdentityUserClaim<string>();
+            var checkClaimCode = this.context.UserClaims
+             .FirstOrDefault(c => c.UserId == userId
+              && c.ClaimType == claimType);
+            if (checkClaimCode != null)
+            {
+                claim = checkClaimCode;
+            }
+
+            claim.ClaimType = claimType;
+            claim.ClaimValue = code;
+            claim.UserId = userId;
+            this.context.SaveChanges();
+
+            var info = new Dictionary<string, string>();
+            info.Add("code", code);
+            var userEmail = model.Email;
+
+            this.sendMail.SendMailByTemplate(userEmail, claimType, info);
+            return " ";
+        }
+
+     
+
+        public void SendVerifyCodeToEmail(string userId)
+        {
+            var checkVerificatedCode = this.context.VerificatedCodes
+                .FirstOrDefault(vc => vc.UserId == userId);
+            var verificatedCode = new VerificatedCode();
+            if (checkVerificatedCode != null)
+            {
+                verificatedCode = checkVerificatedCode;
+            }
+
+            verificatedCode.UserId = userId;
+
+            Random random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            string code = userId.Substring(0, Math.Min(3, userId.Length));
+            var length = 8 - code.Length;
+
+            code += new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+
+            verificatedCode.Code = code;
+            if (checkVerificatedCode == null)
+            {
+                this.context.VerificatedCodes.Add(verificatedCode);
+            }
+
+            this.context.SaveChanges();
+
+            Dictionary<string, string> info = new Dictionary<string, string>();
+            info.Add("code", code);
+            var userEmail = this.context.Users.FirstOrDefault(u => u.Id == userId).Email;
+            this.sendMail.SendMailByTemplate(userEmail, "VerifyMailTemplate", info);
+        }
+
+        public Dictionary<string, string> VerifyEmail(VerifyEmailViewModel model)
+        {
+            var code = model.Code;
+            var check = this.context.VerificatedCodes
+                .FirstOrDefault(vf => vf.Code == code);
+            var result = new Dictionary<string, string>();
+            result.Add("verificating", "No");
+            if (check != null)
+            {
+                var userId = check.UserId;
+                var user = this.context.Users.FirstOrDefault(u => u.Id == userId);
+                user.VerifiedOn = DateTime.UtcNow;
+                this.context.SaveChanges();
+                result["verificating"] = "Yes";
+                result.Add("userId", user.Id);
+                var typeId = this.context.UserRoles.FirstOrDefault(ur => ur.UserId == userId).RoleId;
+                var typeName = this.context.Roles.FirstOrDefault(r => r.Id == typeId).Name;
+
+                result.Add("type", typeName);
+
+            }
+
+            return result;
+        }
     }
 }

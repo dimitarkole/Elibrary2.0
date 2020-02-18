@@ -14,9 +14,12 @@
     {
         private ApplicationDbContext context;
 
-        public NotificationService(ApplicationDbContext context)
+        private ISendMail sendMail;
+
+        public NotificationService(ApplicationDbContext context, ISendMail sendMail)
         {
             this.context = context;
+            this.sendMail = sendMail;
         }
 
         public string AddNotificationAtDB(string userId, string textOfNotification)
@@ -33,6 +36,9 @@
 
             this.context.Notifications.Add(notification);
             this.context.SaveChanges();
+
+            this.sendMail.SendingMail(user.Email, "Ново известие в профила ви", textOfNotification);
+
             return notification.Id;
         }
 
