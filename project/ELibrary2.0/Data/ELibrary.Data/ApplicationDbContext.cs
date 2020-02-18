@@ -36,6 +36,12 @@
 
         public DbSet<VerificatedCode> VerificatedCodes { get; set; }
 
+        public DbSet<BookReview> BookReviews { get; set; }
+
+        public DbSet<StarsOfBook> StarsOfBooks { get; set; }
+
+
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
