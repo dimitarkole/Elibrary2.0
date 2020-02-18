@@ -1,7 +1,9 @@
 ﻿namespace ELibrary.Web.ViewModels.Home
 {
+    using ELibrary.Web.ViewModels.User;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Text;
 
     public class ViewBookViewModel
@@ -41,6 +43,10 @@
 
         public string UploadUserId { get; set; }
 
+      /*  [Display(Name = "Review Text")]
+        [StringLength(5000, MinimumLength = 5)]
+        public string NewReveiew { get; set; }
 
-    }
+        public List<BookReviewsViewModel> Reveiews { get; set; }
+    */}
 }

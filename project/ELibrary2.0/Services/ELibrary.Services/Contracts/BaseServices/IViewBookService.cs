@@ -9,5 +9,7 @@
     {
         ViewBookViewModel PreparedPage(string bookId);
 
+        //ViewBookViewModel AddReview(string bookId);
+
     }
 }

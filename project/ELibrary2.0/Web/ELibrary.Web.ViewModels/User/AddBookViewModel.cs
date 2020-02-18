@@ -45,7 +45,7 @@
         public string Author { get; set; }
 
         [Display(Name = "Catalog number")]
-        [StringLength(50, MinimumLength = 5)]
+        //[StringLength(50, MinimumLength = 5)]
         [Required(ErrorMessage = "Моля каталожен номер!")]
         public string CatalogNumber { get; set; }
 
@@ -68,11 +68,11 @@
         public string EFormatString { get; set; }
 
         [Display(Name = "Review Text")]
-        [StringLength(5000, MinimumLength = 10)]
+        [StringLength(5000, MinimumLength = 5)]
         public string Review { get; set; }
 
         [Display(Name = "Локация на книгата в библиотеката")]
-        [StringLength(100)]
+        [StringLength(500)]
         public string WhereIsBook { get; set; }
 
         [Display(Name = "Virtual or Rela")]

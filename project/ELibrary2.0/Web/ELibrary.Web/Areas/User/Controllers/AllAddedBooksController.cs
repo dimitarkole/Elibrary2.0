@@ -35,7 +35,7 @@
 
         // AddedBooks Page - search book
         [Authorize]
-        [HttpPost]
+        [HttpGet]
         public IActionResult AddedBooksSearch(AllAddedBooksViewModel model)
         {
             this.StartUp();
@@ -46,7 +46,7 @@
 
         // AddedBooks Page - Delete book
         [Authorize]
-        [HttpPost]
+        [HttpGet]
         public IActionResult DeleteBook(AllAddedBooksViewModel model, string id)
         {
             this.StartUp();
@@ -58,6 +58,8 @@
         }
 
         [Authorize]
+        [HttpGet]
+
         public IActionResult ChangePageAddedBook(AllAddedBooksViewModel model, int id)
         {
             this.StartUp();
@@ -97,10 +99,8 @@
                 model.LogoLocation = "/img/" + folder + "/" + Path.GetFileName(fileName);
             }
 
-           
-
             var result = this.addBookService.EditBook(model, this.userId);
-            this.ViewData["message"] = result[1] + " bookId= " + bookId;
+            this.ViewData["message"] = result[1];
             var returnModel = this.allAddedBooksServices.PreparedPage(this.userId);
             return this.View("AddedBooks", returnModel);
         }
