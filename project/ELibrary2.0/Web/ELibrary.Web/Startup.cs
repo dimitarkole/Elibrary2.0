@@ -85,6 +85,7 @@
             services.AddTransient<IAllAddedGenresService, AllAddedGenresService>();
             services.AddTransient<IAllUsersService, AllUsersService>();
             services.AddTransient<IStatsAdminService, StatsAdminService>();
+            services.AddTransient<IRoleService, RoleService>();
 
             // common services
             services.AddTransient<IGenreService, GenreService>();
@@ -102,6 +103,7 @@
             services.AddTransient<IGivenBooksService, GivenBooksService>();
             services.AddTransient<ITakenBooksService, TakenBooksService>();
             services.AddTransient<IAllAddedBooksService, AllAddedBooksService>();
+            services.AddTransient<IStatsUserService, StatsUserService>();
 
         }
 

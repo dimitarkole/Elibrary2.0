@@ -55,8 +55,11 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="Administration" asp-controller="UserRoles" asp-action="Index">Всички потребители</a>
                 </li>
-                
-           }
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="AdminStatist" asp-action="Index">Статистики</a>
+                </li>
+
+            }
             @if (this.User.IsInRole(GlobalConstants.UserRoleName))
             {
                 <li>
@@ -73,6 +76,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="User" asp-controller="TakenBooks" asp-action="TakenBooks" title="TakenBooks">Взети книги</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="User" asp-controller="StatsUser" asp-action="Index" title="StatsUser">Статистики</a>
                 </li>
             }
             <li class="nav-item">

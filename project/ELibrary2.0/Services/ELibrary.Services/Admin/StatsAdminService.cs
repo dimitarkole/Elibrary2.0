@@ -15,14 +15,15 @@
     {
         private ApplicationDbContext context;
 
-        private INotificationService notificationService;
+
+        private IRoleService roleService;
 
         public StatsAdminService(
             ApplicationDbContext context,
-            INotificationService notificationService)
+            IRoleService roleService)
         {
             this.context = context;
-            this.notificationService = notificationService;
+            this.roleService = roleService;
         }
 
         public StatsAdminViewModel PreparedPage(string userId)
@@ -47,14 +48,16 @@
         private ChartAddedUsers GetDataChartAddedUsers(ApplicationUser searchUser)
         {
             var chartData = new List<ChartAddedUserData>();
+
             var groups = this.context.Users
               .Where(u =>
                     u.DeletedOn == null)
               .Select(u => new UserData()
               {
-                  //Type = u.Roles,
+                  Type = this.roleService.GetUserRole(u),
                   CreatedOn = u.CreatedOn,
               })
+              .ToList()
               .GroupBy(u => u.CreatedOn.Year + " " + u.CreatedOn.Month)
               .Take(6)
               .ToList();
@@ -67,15 +70,13 @@
                     var gb = addedUsersOfMonth[0];
                     string createdOnMonth = this.MonthToSring(gb.CreatedOn.Month);
                     int countAllUsers = addedUsersOfMonth.Count;
-                    int countAdmins = addedUsersOfMonth.Where(u => u.Type == "admin").Count();
-                    int countLibrarys = addedUsersOfMonth.Where(u => u.Type == "library").Count();
-                    int countReaders = addedUsersOfMonth.Where(u => u.Type == "user").Count();
+                    int countAdmins = addedUsersOfMonth.Where(u => u.Type == "Administrator").Count();
+                    int countLibrarys = addedUsersOfMonth.Where(u => u.Type == "User").Count();
                     chartData.Add(new ChartAddedUserData(
                        createdOnMonth,
                        countAllUsers,
                        countAdmins,
-                       countLibrarys,
-                       countReaders));
+                       countLibrarys));
                 }
             }
 
@@ -86,10 +87,10 @@
         private ChartViewModel ChartAddedBookSinceSixМonth()
         {
             var chartData = new List<ChartDataViewModel>();
-
             var groups = this.context.Books
-                .Where(gb =>
+               .Where(gb =>
                    gb.DeletedOn == null)
+               .ToList()
                .GroupBy(b => b.CreatedOn.Year + " " + b.CreatedOn.Month)
                .Take(6)
                .ToList();

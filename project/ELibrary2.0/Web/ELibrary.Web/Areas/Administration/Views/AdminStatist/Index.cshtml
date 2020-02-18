@@ -1,0 +1,196 @@
+﻿
+@{
+    ViewData["Title"] = "Статистика";
+}
+
+
+<form asp-action="Stats" asp-route-returnUrl="@ViewData["URL"]">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="chart-container">
+                <canvas id="chartGettenBookSinceSixМonth" style="width:100%; height:250px"></canvas>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="chart-container">
+                <canvas id="chartAddedBookSinceSixМonth" style="width:100%; height:250px"></canvas>
+            </div>
+        </div>
+    </div>
+
+</form>
+@model ELibrary.Web.ViewModels.Administration.StatsAdminViewModel
+@{
+
+    var labelGettenBookSinceSixМonth = Newtonsoft.Json.JsonConvert
+        .SerializeObject(Model.ChartAddedUsers
+            .Titlle);
+
+    var XLabelsGettenBookSinceSixМonth = Newtonsoft.Json.JsonConvert
+        .SerializeObject(Model.ChartAddedUsers
+            .ChartData
+                .Select(x => x.Mounth)
+                .ToList());
+
+    var YValuesCountAllUsers = Newtonsoft.Json.JsonConvert
+        .SerializeObject(Model.ChartAddedUsers
+            .ChartData.Select(x => x.CountAllUsers)
+            .ToList());
+
+    var YValuesCountAdmins = Newtonsoft.Json.JsonConvert
+    .SerializeObject(Model.ChartAddedUsers
+        .ChartData.Select(x => x.CountAdmins)
+        .ToList());
+
+    var YValuesCountLibrarys = Newtonsoft.Json.JsonConvert
+    .SerializeObject(Model.ChartAddedUsers
+        .ChartData.Select(x => x.CountLibrarys)
+        .ToList());
+
+
+
+    var labelAddedBookSinceSixМonth = Newtonsoft.Json.JsonConvert
+           .SerializeObject(Model.ChartAddedBookSinceSixМonth
+               .Titlle);
+
+    var XLabelsAddedBookSinceSixМonth = Newtonsoft.Json.JsonConvert
+        .SerializeObject(Model.ChartAddedBookSinceSixМonth
+            .ChartData
+                .Select(x => x.DimensionOne)
+                .ToList());
+    var YValuesAddedBookSinceSixМonth = Newtonsoft.Json.JsonConvert
+        .SerializeObject(Model.ChartAddedBookSinceSixМonth
+            .ChartData
+                .Select(x => x.Quantity)
+                .ToList());
+}
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+        var chartName = "chartGettenBookSinceSixМonth";
+        var ctx = document.getElementById(chartName).getContext('2d');
+        var data = {
+                labels: @Html.Raw(XLabelsGettenBookSinceSixМonth),
+                datasets: [{
+                    label: "Всчики потребители",
+
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                    ],
+                    borderWidth: 1,
+                    data: @Html.Raw(YValuesCountAllUsers)
+                },
+                {
+                    label: "Админи",
+
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                    ],
+                    borderWidth: 1,
+                    data: @Html.Raw(YValuesCountAdmins)
+                },
+                {
+                    label: "Библиотеки",
+
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                    ],
+                    borderWidth: 1,
+                    data: @Html.Raw(YValuesCountLibrarys)
+                }]
+            };
+
+        var options = {
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "rgba(255,99,164,0.2)"
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            };
+
+        var myChart = new  Chart(ctx, {
+                options: options,
+                data: data,
+                type:'line'
+        });
+
+
+
+        var chartName = "chartAddedBookSinceSixМonth";
+        var ctx = document.getElementById(chartName).getContext('2d');
+        var data = {
+                labels: @Html.Raw(XLabelsAddedBookSinceSixМonth),
+                datasets: [{
+                    label: @Html.Raw(labelAddedBookSinceSixМonth),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                    ],
+                    borderWidth: 1,
+                    data: @Html.Raw(YValuesAddedBookSinceSixМonth)
+                }]
+            };
+
+        var options = {
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "rgba(255,99,164,0.2)"
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            };
+
+        var myChart = new  Chart(ctx, {
+                options: options,
+                data: data,
+                type:'line'
+        });
+
+
+     });
+</script>
