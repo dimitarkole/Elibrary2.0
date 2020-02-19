@@ -8,5 +8,6 @@
 
         public const string UserRoleName = "User";
 
+        public const string LibraryRoleName = "Library";
     }
 }

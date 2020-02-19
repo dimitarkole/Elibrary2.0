@@ -19,8 +19,8 @@
     public class StatsUserController : UserController
     {
         private readonly IStatsUserService statsUserService;
-        
-        public StatsUserController(IStatsUserService statsUserService, IAddBookService addBookService, INotificationService notificationService, IAllAddedBooksService allAddedBooksServices, IGiveBookService giveBookService, IGivenBooksService givenBooksService, IUserService userService, ITakenBooksService takenBooksService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(addBookService, notificationService, allAddedBooksServices, giveBookService, givenBooksService, userService, takenBooksService, userManager, signInManager, logger, hostingEnvironment)
+
+        public StatsUserController(INotificationService notificationService, IUserService userService, IGenreService genreService, ITakenBooksService takenBooksService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(notificationService, userService, genreService, takenBooksService, userManager, signInManager, logger, hostingEnvironment)
         {
             this.statsUserService = statsUserService;
         }

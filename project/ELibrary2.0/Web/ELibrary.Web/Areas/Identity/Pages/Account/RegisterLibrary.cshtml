@@ -1,5 +1,5 @@
 ﻿@page
-@model ELibrary.Web.Areas.Identity.Pages.Account.RegisterModel
+@model ELibrary.Web.Areas.Identity.Pages.Account.RegisterLibraryModel
 @{
     ViewData["Title"] = "Регистрация";
 }
@@ -8,11 +8,8 @@
 
 <div class="row">
     <div class="col-md-4">
-
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Нов потребител</h4>
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/RegisterLibrary">Регистрирай библиотека</a>
-
+            <h4>Новa билиотека</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">

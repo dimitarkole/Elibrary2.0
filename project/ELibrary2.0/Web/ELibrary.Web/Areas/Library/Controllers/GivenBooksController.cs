@@ -1,4 +1,4 @@
-﻿namespace ELibrary.Web.Areas.User.Controllers
+﻿namespace ELibrary.Web.Areas.Library.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -16,11 +16,12 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
 
-    public class GivenBooksController : UserController
+    public class GivenBooksController : LibraryController
     {
-        public GivenBooksController(IAddBookService addBookService, INotificationService notificationService, IAllAddedBooksService allAddedBooksServices, IGiveBookService giveBookService, IGivenBooksService givenBooksService, IUserService userService, ITakenBooksService takenBooksService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(addBookService, notificationService, allAddedBooksServices, giveBookService, givenBooksService, userService, takenBooksService, userManager, signInManager, logger, hostingEnvironment)
+        public GivenBooksController(IAddBookService addBookService, INotificationService notificationService, IAllAddedBooksService allAddedBooksServices, IGiveBookService giveBookService, IGivenBooksService givenBooksService, IUserService userService, IGenreService genreService, ITakenBooksService takenBooksService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(addBookService, notificationService, allAddedBooksServices, giveBookService, givenBooksService, userService, genreService, takenBooksService, userManager, signInManager, logger, hostingEnvironment)
         {
         }
+
 
         // GivenBooks Page - GivenBooks
         [Authorize]
