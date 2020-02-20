@@ -73,16 +73,18 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="Library" asp-controller="GivenBooks" asp-action="GivenBooks" title="GivenBooks">Дадени книги</a>
-                </li>              
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="Library" asp-controller="StatsLibrary" asp-action="Index" title="StatsUser">Статистики</a>
+                </li>
             }
             else if (this.User.IsInRole(GlobalConstants.UserRoleName))
             {
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="User" asp-controller="TakenBooks" asp-action="TakenBooks" title="TakenBooks">Взети книги</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="User" asp-controller="StatsUser" asp-action="Index" title="StatsUser">Статистики</a>
-                </li>
+
             }
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="CommonResources" asp-controller="Profile" asp-action="Index">Профил</a>
@@ -91,10 +93,10 @@
 
     </li>
 
-    if (this.User.IsInRole(GlobalConstants.UserRoleName))
+    if (this.User.IsInRole(GlobalConstants.LibraryRoleName))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="User" asp-controller="AddBook" asp-action="AddBook" title="AddBook">+Добавяни нова книга</a>
+            <a class="nav-link text-dark" asp-area="User" asp-controller="Library" asp-action="AddBook" title="AddBook">+Добавяни нова книга</a>
         </li>
     }
 
