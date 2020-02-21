@@ -99,8 +99,8 @@
 
             services.AddTransient<IViewBooksService, ViewBooksService>();
             services.AddTransient<IViewBookService, ViewBookService>();
-            services.AddTransient<IAllLibraryService, AllLibraryService>();
-
+            services.AddTransient<IAllLibrariesService, AllLibrariesService>();
+            services.AddTransient<IViewLibraryService, ViewLibraryService>();
 
             // Library services
             services.AddTransient<IAddBookService, AddBookService>();

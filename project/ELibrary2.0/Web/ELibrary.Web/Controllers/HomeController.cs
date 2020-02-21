@@ -18,17 +18,8 @@
 
     public class HomeController : BaseController
     {
-        private readonly IViewBooksService homeService;
-        private readonly IViewBookService viewBookService;
-        private readonly IAllLibraryService allLibraryService;
-        private readonly IRoleService roleService;
-
-        public HomeController(IRoleService roleService, IAllLibraryService allLibraryService, IViewBooksService homeService, IViewBookService viewBookService, INotificationService notificationService, IGenreService genreService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(notificationService, genreService, userManager, signInManager, logger, hostingEnvironment)
+        public HomeController(IViewBooksService homeService, IViewBookService viewBookService, IAllLibrariesService allLibraryService, IRoleService roleService, INotificationService notificationService, IGenreService genreService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(homeService, viewBookService, allLibraryService, roleService, notificationService, genreService, userManager, signInManager, logger, hostingEnvironment)
         {
-            this.homeService = homeService;
-            this.viewBookService = viewBookService;
-            this.allLibraryService = allLibraryService;
-            this.roleService = roleService;
         }
 
         public IActionResult Index()
@@ -38,15 +29,21 @@
             return this.View(model);
         }
 
-        
         [HttpPost]
         public IActionResult SearchLibraries(AllLibrariesViewModel model)
         {
             this.StartUp();
-            var returnModel = this.homeService.GetBooks(model);
+            var returnModel = this.allLibraryService.GetLibrarys(model);
             return this.View("Index", returnModel);
         }
 
+        [HttpPost]
+        public IActionResult AllLibrariesChangePage(AllLibrariesViewModel model, int id)
+        {
+            this.StartUp();
+            var returnModel = this.allLibraryService.ChangeActivePage(model, id);
+            return this.View("Index", returnModel);
+        }
 
         public IActionResult Index2()
         {

@@ -6,7 +6,7 @@
     using System.Text;
 
 
-    public interface IAllLibraryService
+    public interface IAllLibrariesService
     {
         AllLibrariesViewModel PreparedPage();
 

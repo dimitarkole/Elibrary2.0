@@ -84,7 +84,7 @@
 
         @foreach (var library in Model.Libraries)
         {
-            <a class="col-md-6" asp-controller="Home" asp-action="ViewBook" asp-route-id="@library.UserId">
+            <a class="col-md-6" asp-controller="ViewLibrary" asp-action="Index" asp-route-id="@library.UserId">
                 <div class="row">
                     @if (library.Avatar != null)
                     {
@@ -132,26 +132,26 @@
                     {
                         @if (Model.CurrentPage > 2)
                         {
-                            <input type="submit" value="|<" asp-route-id="1" class="btn btn-primary" asp-action="ChangePageHome" /> <span>&nbsp;</span>
+                            <input type="submit" value="|<" asp-route-id="1" class="btn btn-primary" asp-action="AllLibrariesChangePage" /> <span>&nbsp;</span>
                         }
-                        <input type="submit" value="<" class="col-md-5 btn btn-primary" asp-route-id="@(Model.CurrentPage-1)" asp-action="ChangePageHome" /> <span>&nbsp;</span>
+                        <input type="submit" value="<" class="col-md-5 btn btn-primary" asp-route-id="@(Model.CurrentPage-1)" asp-action="AllLibrariesChangePage" /> <span>&nbsp;</span>
                     }
                 </div>
                 <div class="btn-group" role="group" aria-label="Before Page group">
                     @for (int i = Math.Max(Model.CurrentPage - 5, 1); i < Model.CurrentPage; i++)
                     {
-                        <input type="submit" value="@i" asp-route-id="@i" asp-action="ChangePageHome" class="btn btn-primary" /> <span>&nbsp;</span>
+                        <input type="submit" value="@i" asp-route-id="@i" asp-action="AllLibrariesChangePage" class="btn btn-primary" /> <span>&nbsp;</span>
 
                     }
                 </div>
                 <div class="btn-group" role="group" aria-label="Active Page group">
-                    <input type="submit" value="@Model.CurrentPage" asp-route-id="@Model.CurrentPage" asp-action="ChangePageHome" class="btn btn-primary" />	<span>&nbsp;</span>
+                    <input type="submit" value="@Model.CurrentPage" asp-route-id="@Model.CurrentPage" asp-action="AllLibrariesChangePage" class="btn btn-primary" />	<span>&nbsp;</span>
                 </div>
 
                 <div class="btn-group" role="group" aria-label="After Page group">
                     @for (int i = Model.CurrentPage + 1; i <= Math.Min(Model.CurrentPage + 5, Model.MaxCountPage); i++)
                     {
-                        <input type="submit" value="@i" asp-route-id="@i" asp-action="ChangePageHome" class="btn btn-primary" /> <span>&nbsp;</span>
+                        <input type="submit" value="@i" asp-route-id="@i" asp-action="AllLibrariesChangePage" class="btn btn-primary" /> <span>&nbsp;</span>
 
                     }
                 </div>
@@ -160,10 +160,10 @@
 
                     @if (Model.CurrentPage < Model.MaxCountPage)
                     {
-                        <input type="submit" value=">" asp-route-id="@(Model.CurrentPage+1)" asp-action="ChangePageHome" class="btn btn-primary" /><span>&nbsp;</span>
+                        <input type="submit" value=">" asp-route-id="@(Model.CurrentPage+1)" asp-action="AllLibrariesChangePage" class="btn btn-primary" /><span>&nbsp;</span>
                         @if (Model.CurrentPage < Model.MaxCountPage - 1)
                         {
-                            <input type="submit" value=">|" asp-route-id="@Model.MaxCountPage" asp-action="ChangePageHome" class="btn btn-primary" /><span>&nbsp;</span>
+                            <input type="submit" value=">|" asp-route-id="@Model.MaxCountPage" asp-action="AllLibrariesChangePage" class="btn btn-primary" /><span>&nbsp;</span>
                         }
 
                     }

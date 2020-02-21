@@ -5,6 +5,8 @@
 
     using ELibrary.Data.Common.Repositories;
     using ELibrary.Data.Models;
+    using ELibrary.Services.Contracts.Admin;
+    using ELibrary.Services.Contracts.BaseServices;
     using ELibrary.Services.Contracts.CommonResurcesServices;
     using ELibrary.Services.Data;
     using ELibrary.Web.Areas.Identity.Pages.Account;
@@ -20,8 +22,8 @@
 
         private readonly IDeletableEntityRepository<Setting> repository;
 
-        public SettingsController(ISettingsService settingsService, IDeletableEntityRepository<Setting> repository, INotificationService notificationService, IGenreService genreService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment)
-            : base(notificationService, genreService, userManager, signInManager, logger, hostingEnvironment)
+
+        public SettingsController(ISettingsService settingsService, IDeletableEntityRepository<Setting> repository, IViewBooksService homeService, IViewBookService viewBookService, IAllLibrariesService allLibraryService, IRoleService roleService, INotificationService notificationService, IGenreService genreService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(homeService, viewBookService, allLibraryService, roleService, notificationService, genreService, userManager, signInManager, logger, hostingEnvironment)
         {
             this.settingsService = settingsService;
             this.repository = repository;

@@ -13,7 +13,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
-    public class AllLibraryService : IAllLibraryService
+    public class AllLibrariesService : IAllLibrariesService
     {
         private ApplicationDbContext context;
 
@@ -24,7 +24,7 @@
         private IRoleService roleService;
 
 
-        public AllLibraryService(
+        public AllLibrariesService(
             ApplicationDbContext context,
             IGenreService genreService,
             INotificationService messageService,
