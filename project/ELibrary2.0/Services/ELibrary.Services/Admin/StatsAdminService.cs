@@ -71,12 +71,15 @@
                     string createdOnMonth = this.MonthToSring(gb.CreatedOn.Month);
                     int countAllUsers = addedUsersOfMonth.Count;
                     int countAdmins = addedUsersOfMonth.Where(u => u.Type == "Administrator").Count();
-                    int countLibrarys = addedUsersOfMonth.Where(u => u.Type == "User").Count();
+                    int countUsers = addedUsersOfMonth.Where(u => u.Type == "User").Count();
+
+                    int countLibraries = addedUsersOfMonth.Where(u => u.Type == "Libary").Count();
                     chartData.Add(new ChartAddedUserData(
                        createdOnMonth,
                        countAllUsers,
                        countAdmins,
-                       countLibrarys));
+                       countUsers,
+                       countLibraries));
                 }
             }
 

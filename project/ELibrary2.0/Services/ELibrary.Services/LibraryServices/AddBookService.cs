@@ -1,16 +1,15 @@
-﻿namespace ELibrary.Services.UserServices
+﻿using ELibrary.Data;
+using ELibrary.Data.Models;
+using ELibrary.Services.Contracts.CommonResurcesServices;
+using ELibrary.Services.Contracts.LibraryServices;
+using ELibrary.Web.ViewModels.Library;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ELibrary.Services.LibraryServices
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
-    using ELibrary.Data;
-    using ELibrary.Data.Models;
-    using ELibrary.Services.Contracts.CommonResurcesServices;
-    using ELibrary.Services.Contracts.UserServices;
-    using ELibrary.Web.ViewModels.User;
-
     public class AddBookService : IAddBookService
     {
         private ApplicationDbContext context;
@@ -76,22 +75,22 @@
                 model.Genres = this.genreService.GetAllGenres();
                 if (book != null)
                 {
-                        book.Author = author;
-                        book.CatalogNumber = catalogNumber;
-                        book.Currency = model.Currency;
-                        book.Logo = model.LogoLocation;
-                        book.Price = model.Price;
-                        book.Review = model.Review;
-                        book.WhereIsBook = model.WhereIsBook;
-                        book.GenreId = genreId;
-                        book.Title = title;
-                        book.Genre = genreObj;
-                        book.EBookFile = model.EFormatString;
-                        book.VirtualOrReal = model.VirtualOrReal;
-                        genreObj.Books.Add(book);
-                        this.context.SaveChanges();
-                        checkResult = "Успешно редактирана книга!";
-                        this.messageService.AddNotificationAtDB(userId, checkResult);
+                    book.Author = author;
+                    book.CatalogNumber = catalogNumber;
+                    book.Currency = model.Currency;
+                    book.Logo = model.LogoLocation;
+                    book.Price = model.Price;
+                    book.Review = model.Review;
+                    book.WhereIsBook = model.WhereIsBook;
+                    book.GenreId = genreId;
+                    book.Title = title;
+                    book.Genre = genreObj;
+                    book.EBookFile = model.EFormatString;
+                    book.VirtualOrReal = model.VirtualOrReal;
+                    genreObj.Books.Add(book);
+                    this.context.SaveChanges();
+                    checkResult = "Успешно редактирана книга!";
+                    this.messageService.AddNotificationAtDB(userId, checkResult);
 
                 }
             }
@@ -185,7 +184,7 @@
             return "Вече има такава книга в библиотеката Ви!";
         }
 
-      
+
 
         private Book CreateNewBook(AddBookViewModel model, ApplicationUser user, string userId, Genre genreObj)
         {

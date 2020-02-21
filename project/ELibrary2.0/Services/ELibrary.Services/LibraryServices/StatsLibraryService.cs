@@ -1,24 +1,23 @@
-﻿namespace ELibrary.Services.UserServices
+﻿using ELibrary.Data;
+using ELibrary.Data.Models;
+using ELibrary.Services.Contracts.CommonResurcesServices;
+using ELibrary.Services.Contracts.LibraryServices;
+using ELibrary.Web.ViewModels.CommonResurces;
+using ELibrary.Web.ViewModels.Library;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ELibrary.Services.LibraryServices
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
-    using ELibrary.Data;
-    using ELibrary.Data.Models;
-    using ELibrary.Services.Contracts.CommonResurcesServices;
-    using ELibrary.Services.Contracts.UserServices;
-    using ELibrary.Web.ViewModels.CommonResurces;
-    using ELibrary.Web.ViewModels.User;
-
-    public class StatsUserService : IStatsUserService
+    public class StatsLibraryService : IStatsLibraryService
     {
         private ApplicationDbContext context;
 
         private IGenreService genreService;
 
-        public StatsUserService(
+        public StatsLibraryService(
             ApplicationDbContext context,
             IGenreService genreService)
         {
@@ -26,18 +25,18 @@
             this.genreService = genreService;
         }
 
-        public StatsUserViewModel PreparedPage(string userId)
+        public StatsLibraryViewModel PreparedPage(string userId)
         {
-            var model = new StatsUserViewModel();
+            var model = new StatsLibraryViewModel();
             var returnModel = this.SearchStats(model, userId);
             return returnModel;
         }
 
-        public StatsUserViewModel SearchStats(StatsUserViewModel model, string userId)
+        public StatsLibraryViewModel SearchStats(StatsLibraryViewModel model, string userId)
         {
             model.Genres = this.GetGenre();
             var searchBook = model.SearchBook;
-            var returnModel = new StatsUserViewModel()
+            var returnModel = new StatsLibraryViewModel()
             {
                 SearchBook = searchBook,
                 Genres = model.Genres,

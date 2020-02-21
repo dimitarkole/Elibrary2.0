@@ -20,8 +20,8 @@
 
         private readonly IDeletableEntityRepository<Setting> repository;
 
-
-        public SettingsController(ISettingsService settingsService, IDeletableEntityRepository<Setting> repository, INotificationService notificationService, IGenreService genreService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(notificationService, genreService, userManager, signInManager, logger, hostingEnvironment)
+        public SettingsController(ISettingsService settingsService, IDeletableEntityRepository<Setting> repository, INotificationService notificationService, IGenreService genreService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment)
+            : base(notificationService, genreService, userManager, signInManager, logger, hostingEnvironment)
         {
             this.settingsService = settingsService;
             this.repository = repository;

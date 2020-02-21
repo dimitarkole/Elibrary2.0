@@ -1,11 +1,12 @@
-﻿namespace ELibrary.Web.ViewModels.User
-{
-    using ELibrary.Web.ViewModels.CommonResurces;
-    using Microsoft.AspNetCore.Http;
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+﻿using ELibrary.Web.ViewModels.CommonResurces;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 
+namespace ELibrary.Web.ViewModels.Library
+{
     public class AddBookViewModel
     {
         public AddBookViewModel()
@@ -35,7 +36,7 @@
 
         [Display(Name = "Title")]
         [Required(ErrorMessage = "Моля въведете заглавие!")]
-        [StringLength(50, MinimumLength =5)]
+        [StringLength(50, MinimumLength = 5)]
         public string Title { get; set; }
 
         [Display(Name = "Author")]

@@ -8,6 +8,7 @@
     using ELibrary.Common;
     using ELibrary.Data.Models;
     using ELibrary.Services.Contracts.CommonResurcesServices;
+    using ELibrary.Services.Contracts.LibraryServices;
     using ELibrary.Services.Contracts.UserServices;
     using ELibrary.Web.Areas.Identity.Pages.Account;
     using Microsoft.AspNetCore.Authorization;

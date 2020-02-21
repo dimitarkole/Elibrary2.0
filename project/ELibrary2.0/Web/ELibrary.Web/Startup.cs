@@ -15,8 +15,10 @@
     using ELibrary.Services.Contracts.Admin;
     using ELibrary.Services.Contracts.BaseServices;
     using ELibrary.Services.Contracts.CommonResurcesServices;
+    using ELibrary.Services.Contracts.LibraryServices;
     using ELibrary.Services.Contracts.UserServices;
     using ELibrary.Services.Data;
+    using ELibrary.Services.LibraryServices;
     using ELibrary.Services.Mapping;
     using ELibrary.Services.Messaging;
     using ELibrary.Services.UserServices;
@@ -93,19 +95,23 @@
             services.AddTransient<IProfileService, ProfileService>();
             services.AddTransient<ISendMail, SendMail>();
 
-
             // bases services
-            services.AddTransient<IHomeService, HomeService>();
-            services.AddTransient<IViewBookService, ViewBookService>();
 
-            // User services
+            services.AddTransient<IViewBooksService, ViewBooksService>();
+            services.AddTransient<IViewBookService, ViewBookService>();
+            services.AddTransient<IAllLibraryService, AllLibraryService>();
+
+
+            // Library services
             services.AddTransient<IAddBookService, AddBookService>();
             services.AddTransient<IGiveBookService, GiveBookService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IGivenBooksService, GivenBooksService>();
-            services.AddTransient<ITakenBooksService, TakenBooksService>();
             services.AddTransient<IAllAddedBooksService, AllAddedBooksService>();
-            services.AddTransient<IStatsUserService, StatsUserService>();
+            services.AddTransient<IStatsLibraryService, StatsLibraryService>();
+
+            // Library services
+            services.AddTransient<ITakenBooksService, TakenBooksService>();
 
         }
 

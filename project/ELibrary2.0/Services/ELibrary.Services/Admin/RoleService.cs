@@ -15,16 +15,26 @@
         public RoleService(
             ApplicationDbContext context)
         {
-            this.context = context;;
+            this.context = context;
         }
 
         public string GetUserRole(ApplicationUser user)
         {
-            var roleId = this.context.UserRoles
-                .FirstOrDefault(ur => ur.UserId == user.Id).RoleId;
-            var roleName = this.context.Roles
-                .FirstOrDefault(r => r.Id == roleId).Name;
-            return roleName;
+            try
+            {
+                var roleId = this.context.UserRoles
+               .FirstOrDefault(ur => ur.UserId == user.Id).RoleId;
+                var roleName = this.context.Roles
+                    .FirstOrDefault(r => r.Id == roleId).Name;
+                return roleName;
+            }
+            catch (Exception)
+            {
+
+                return "User";
+
+            }
+
         }
     }
 }

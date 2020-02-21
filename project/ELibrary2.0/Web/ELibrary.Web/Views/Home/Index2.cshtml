@@ -2,14 +2,14 @@
 @{
     this.ViewData["Title"] = "Home Page";
 }
-@model ELibrary.Web.ViewModels.Home.AllLibrariesViewModel
+@model ELibrary.Web.ViewModels.Library.AllAddedBooksViewModel
 
 <form action="Index" method="post">
     <br />
     <div class="container" style="background:#f7f7f7">
         <div class="row">
             <h4 class="col-md-12">
-                Търсене на библиотека:
+                Търсене:
             </h4>
         </div>
         <div class="row">
@@ -19,27 +19,50 @@
 
             <div class="col-md-6">
                 <div class="form-group row">
-                    <label asp-for="SearchLibrary.Email" class="control-label col-md-3">Email</label>
-                    <input asp-for="SearchLibrary.Email" class="form-control col-md-9" />
+                    <label asp-for="SearchBook.CatalogNumber" class="control-label col-md-3">Кат. номер</label>
+                    <input asp-for="SearchBook.CatalogNumber" class="form-control col-md-9" />
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group row">
-                    <label asp-for="SearchLibrary.Name" class="control-label col-md-3">Име</label>
-                    <input asp-for="SearchLibrary.Name" class="form-control col-md-9" />
+                    <label asp-for="SearchBook.Title" class="control-label col-md-3">Заглавие</label>
+                    <input asp-for="SearchBook.Title" class="form-control col-md-9" />
                 </div>
             </div>
         </div>
 
-     
+        <div class="row" style="background:#f7f7f7">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label asp-for="SearchBook.Author" class="control-label col-md-3">Автор</label>
+                    <input asp-for="SearchBook.Author" class="form-control col-md-9" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label asp-for="SearchBook.GenreId" class="control-label  col-md-3">Жанр</label>
+
+                    <select asp-for="SearchBook.GenreId" class="col-md-9">
+                        @if (Model.Genres != null)
+                        {
+                            @foreach (var genre in Model.Genres)
+                            {
+                                <option value="@genre.Id">@genre.Name</option>
+                            }
+                        }
+
+                    </select>
+                </div>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group row">
-                    <label asp-for="CountLibraiesOfPage" class="control-label  col-md-3">Покажи</label>
+                    <label asp-for="CountBooksOfPage" class="control-label  col-md-3">Покажи</label>
 
-                    <select asp-for="CountLibraiesOfPage" class="col-md-9">
-                        @foreach (var count in Model.CountLibraiesOfPageList)
+                    <select asp-for="CountBooksOfPage" class="col-md-9">
+                        @foreach (var count in Model.CountBooksOfPageList)
                         {
                             <option value="@count">@count</option>
 
@@ -70,7 +93,7 @@
                 <div class="form-group row">
                     <span class="text-danger col-md-10"></span>
 
-                    <input type="submit" value="Търси" asp-action="SearchLibraries" class="btn btn-primary col-md-2" />
+                    <input type="submit" value="Търси" asp-action="HomeBooksSearch" class="btn btn-primary col-md-2" />
 
 
                 </div>
@@ -82,35 +105,33 @@
 
     <div class="row">
 
-        @foreach (var library in Model.Libraries)
+        @foreach (var book in Model.Books)
         {
-            <a class="col-md-6" asp-controller="Home" asp-action="ViewBook" asp-route-id="@library.UserId">
+            <a class="col-md-6" asp-controller="Home" asp-action="ViewBook" asp-route-id="@book.BookId">
                 <div class="row">
-                    @if (library.Avatar != null)
+                    @if (book.Logo != null)
                     {
-                        <img src="@library.Avatar" alt="Alternate Text" class="col-md-4" />
+                        <img src="@book.Logo" alt="Alternate Text" class="col-md-4" />
                     }
                     else
                     {
-                        <img src="~/img/Avatars/defaultAvatar.png" alt="Alternate Text" class="col-md-4" />
+                        <img src="~/img/BooksLogo/defaultLogo.jpg" alt="Alternate Text" class="col-md-4" />
                     }
                     <div class="col-md-8">
                         <div class="row">
                             <h5 class="col-md-12">
-                                @library.Name
+                                @book.Title
                             </h5>
                             <small class="col-md-12">
-                                @library.Email
+                                Автор: @book.Author
                             </small>
                             <small class="col-md-12">
-                                @library.Location
-                                Role= @library.Role
-
+                                Жанр: @book.GenreName
                             </small>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                               
+                                @book.Review.Substring(0, Math.Min(book.Review.Length, 140))
                             </div>
                         </div>
                     </div>

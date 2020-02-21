@@ -30,7 +30,6 @@
             this.hostingEnvironment = hostingEnvironment;
         }
 
-
         public BaseController(
             INotificationService notificationService)
         {
@@ -52,7 +51,6 @@
                 NotificationsNavBarViewModel messages = new NotificationsNavBarViewModel();
                 this.ViewData["MessageNavBar"] = messages;
             }
-
         }
     }
 }

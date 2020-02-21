@@ -1,10 +1,9 @@
-﻿namespace ELibrary.Web.ViewModels.User
+﻿namespace ELibrary.Web.ViewModels.Library
 {
+    using ELibrary.Web.ViewModels.CommonResurces;
     using System;
     using System.Collections.Generic;
     using System.Text;
-
-    using ELibrary.Web.ViewModels.CommonResurces;
 
     public class AllAddedBooksViewModel
     {

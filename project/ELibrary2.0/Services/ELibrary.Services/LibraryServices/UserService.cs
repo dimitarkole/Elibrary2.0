@@ -1,4 +1,4 @@
-﻿namespace ELibrary.Services.UserServices
+﻿namespace ELibrary.Services.LibraryServices
 {
     using System;
     using System.Collections.Generic;
@@ -6,8 +6,8 @@
     using System.Text;
 
     using ELibrary.Data;
-    using ELibrary.Services.Contracts.UserServices;
-    using ELibrary.Web.ViewModels.User;
+    using ELibrary.Services.Contracts.LibraryServices;
+    using ELibrary.Web.ViewModels.Library;
 
     public class UserService : IUserService
     {

@@ -1,10 +1,11 @@
-﻿using ELibrary.Web.ViewModels.User;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ELibrary.Web.ViewModels.Administration
+﻿namespace ELibrary.Web.ViewModels.Administration
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    using ELibrary.Web.ViewModels.User;
+
     public class AllUsersViewModel
     {
         public AllUsersViewModel()

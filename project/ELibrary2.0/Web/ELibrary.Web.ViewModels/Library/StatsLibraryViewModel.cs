@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ELibrary.Web.ViewModels.User
+namespace ELibrary.Web.ViewModels.Library
 {
-    public class StatsUserViewModel
+    public class StatsLibraryViewModel
     {
-        public StatsUserViewModel()
+        public StatsLibraryViewModel()
         {
             this.SearchBook = new Book();
         }

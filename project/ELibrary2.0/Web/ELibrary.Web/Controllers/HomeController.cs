@@ -1,11 +1,15 @@
 ﻿namespace ELibrary.Web.Controllers
 {
     using System.Diagnostics;
+
     using ELibrary.Data.Models;
+    using ELibrary.Services.Contracts.Admin;
     using ELibrary.Services.Contracts.BaseServices;
     using ELibrary.Services.Contracts.CommonResurcesServices;
     using ELibrary.Web.Areas.Identity.Pages.Account;
     using ELibrary.Web.ViewModels;
+    using ELibrary.Web.ViewModels.Home;
+    using ELibrary.Web.ViewModels.Library;
     using ELibrary.Web.ViewModels.User;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -14,16 +18,37 @@
 
     public class HomeController : BaseController
     {
-        private readonly IHomeService homeService;
+        private readonly IViewBooksService homeService;
         private readonly IViewBookService viewBookService;
+        private readonly IAllLibraryService allLibraryService;
+        private readonly IRoleService roleService;
 
-        public HomeController(IHomeService homeService, IViewBookService viewBookService, INotificationService notificationService, IGenreService genreService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(notificationService, genreService, userManager, signInManager, logger, hostingEnvironment)
+        public HomeController(IRoleService roleService, IAllLibraryService allLibraryService, IViewBooksService homeService, IViewBookService viewBookService, INotificationService notificationService, IGenreService genreService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(notificationService, genreService, userManager, signInManager, logger, hostingEnvironment)
         {
             this.homeService = homeService;
             this.viewBookService = viewBookService;
+            this.allLibraryService = allLibraryService;
+            this.roleService = roleService;
         }
 
         public IActionResult Index()
+        {
+            this.StartUp();
+            var model = this.allLibraryService.PreparedPage();
+            return this.View(model);
+        }
+
+        
+        [HttpPost]
+        public IActionResult SearchLibraries(AllLibrariesViewModel model)
+        {
+            this.StartUp();
+            var returnModel = this.homeService.GetBooks(model);
+            return this.View("Index", returnModel);
+        }
+
+
+        public IActionResult Index2()
         {
             this.StartUp();
             var model = this.homeService.PreparedPage();

@@ -1,9 +1,10 @@
-﻿namespace ELibrary.Services.Contracts.UserServices
+﻿namespace ELibrary.Services.Contracts.LibraryServices
 {
-    using ELibrary.Web.ViewModels.User;
+    using ELibrary.Web.ViewModels.Library;
     using System;
     using System.Collections.Generic;
     using System.Text;
+
 
     public interface IUserService
     {

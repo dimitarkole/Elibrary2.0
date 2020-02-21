@@ -3,10 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
+
     using ELibrary.Web.ViewModels.Home;
+    using ELibrary.Web.ViewModels.Library;
     using ELibrary.Web.ViewModels.User;
 
-    public interface IHomeService
+    public interface IViewBooksService
     {
         AllAddedBooksViewModel PreparedPage();
 

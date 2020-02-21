@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ELibrary.Web.ViewModels.User
+namespace ELibrary.Web.ViewModels.Library
 {
     public class ChartGettenBookSinceSixМonthData
     {

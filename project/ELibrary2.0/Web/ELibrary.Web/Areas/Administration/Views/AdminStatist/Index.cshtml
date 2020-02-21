@@ -48,6 +48,10 @@
         .ChartData.Select(x => x.CountLibrarys)
         .ToList());
 
+    var YValuesCountUsers = Newtonsoft.Json.JsonConvert
+    .SerializeObject(Model.ChartAddedUsers
+        .ChartData.Select(x => x.CountUsers)
+        .ToList());
 
 
     var labelAddedBookSinceSixМonth = Newtonsoft.Json.JsonConvert
@@ -98,6 +102,16 @@
                     ],
                     borderWidth: 1,
                     data: @Html.Raw(YValuesCountAdmins)
+                },
+                
+                {
+                    label: "Потребители",
+
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                    ],
+                    borderWidth: 1,
+                    data: @Html.Raw(YValuesCountUsers)
                 },
                 {
                     label: "Библиотеки",

@@ -1,10 +1,10 @@
-﻿namespace ELibrary.Services.Contracts.UserServices
+﻿namespace ELibrary.Services.Contracts.LibraryServices
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
 
-    using ELibrary.Web.ViewModels.User;
+    using ELibrary.Web.ViewModels.Library;
 
     public interface IAddBookService
     {

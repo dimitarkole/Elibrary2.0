@@ -10,10 +10,11 @@
     using ELibrary.Services.Contracts.CommonResurcesServices;
     using ELibrary.Web.ViewModels.CommonResurces;
     using ELibrary.Web.ViewModels.Home;
+    using ELibrary.Web.ViewModels.Library;
     using ELibrary.Web.ViewModels.User;
     using Microsoft.AspNetCore.Identity;
 
-    public class HomeService : IHomeService
+    public class ViewBooksService : IViewBooksService
     {
         private ApplicationDbContext context;
 
@@ -24,7 +25,7 @@
         private ISendMail sendMail;
 
 
-        public HomeService(
+        public ViewBooksService(
             ApplicationDbContext context,
             IGenreService genreService,
             INotificationService messageService,

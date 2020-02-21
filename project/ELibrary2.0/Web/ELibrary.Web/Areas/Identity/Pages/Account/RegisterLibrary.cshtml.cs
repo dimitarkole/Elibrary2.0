@@ -32,7 +32,7 @@
         private readonly IEmailSender emailSender;
         private readonly ApplicationDbContext context;
         private readonly ISendMail sendMail;
-        private readonly IHomeService homeService;
+        private readonly IViewBooksService homeService;
 
 
         public RegisterLibraryModel(
@@ -42,7 +42,7 @@
             IEmailSender emailSender,
             ISendMail sendMail,
             ApplicationDbContext context,
-            IHomeService homeService)
+            IViewBooksService homeService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;

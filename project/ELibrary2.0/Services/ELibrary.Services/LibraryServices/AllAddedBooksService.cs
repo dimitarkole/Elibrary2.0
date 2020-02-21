@@ -1,15 +1,15 @@
-﻿namespace ELibrary.Services.UserServices
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using ELibrary.Data;
-    using ELibrary.Services.Contracts.CommonResurcesServices;
-    using ELibrary.Services.Contracts.UserServices;
-    using ELibrary.Web.ViewModels.CommonResurces;
-    using ELibrary.Web.ViewModels.User;
+﻿using ELibrary.Data;
+using ELibrary.Services.Contracts.CommonResurcesServices;
+using ELibrary.Services.Contracts.LibraryServices;
+using ELibrary.Web.ViewModels.CommonResurces;
+using ELibrary.Web.ViewModels.Library;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
+namespace ELibrary.Services.LibraryServices
+{
     public class AllAddedBooksService : IAllAddedBooksService
     {
         private ApplicationDbContext context;

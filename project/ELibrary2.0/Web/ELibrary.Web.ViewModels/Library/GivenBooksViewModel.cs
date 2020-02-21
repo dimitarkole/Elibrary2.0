@@ -1,10 +1,10 @@
-﻿namespace ELibrary.Web.ViewModels.User
-{
-    using ELibrary.Web.ViewModels.CommonResurces;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+﻿using ELibrary.Web.ViewModels.CommonResurces;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
+namespace ELibrary.Web.ViewModels.Library
+{
     public class GivenBooksViewModel
     {
         public GivenBooksViewModel()

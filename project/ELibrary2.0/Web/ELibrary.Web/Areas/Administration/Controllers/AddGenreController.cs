@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using ELibrary.Data.Models;
     using ELibrary.Services.Contracts.Admin;
     using ELibrary.Services.Contracts.CommonResurcesServices;
@@ -18,7 +19,6 @@
     public class AddGenreController : AdministrationController
     {
         private readonly IAddGenreService addGenreService;
-
 
         public AddGenreController(IAddGenreService addGenreService, INotificationService notificationService, IGenreService genreService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(notificationService, genreService, userManager, signInManager, logger, hostingEnvironment)
         {
@@ -44,6 +44,5 @@
             this.ViewData["message"] = this.addGenreService.AddBook(model, this.userId);
             return this.View("Index", model);
         }
-        
     }
 }

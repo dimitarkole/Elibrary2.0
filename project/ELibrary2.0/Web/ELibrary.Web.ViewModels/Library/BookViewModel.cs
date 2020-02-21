@@ -1,10 +1,10 @@
-﻿namespace ELibrary.Web.ViewModels.User
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-    public class BookViewModel
+namespace ELibrary.Web.ViewModels.Library
+{
+   public class BookViewModel
     {
         public BookViewModel()
         {
@@ -30,6 +30,5 @@
         public string BookId { get; set; }
 
         public string Review { get; set; }
-
     }
 }
