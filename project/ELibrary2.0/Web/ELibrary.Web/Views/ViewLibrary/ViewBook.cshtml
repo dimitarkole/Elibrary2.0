@@ -46,8 +46,14 @@
                         </p>
                         @if (this.SignInManager.IsSignedIn(this.User))
                         {
-                        <p> @ViewData["message"]</p>
-                        <input type="submit" value="Запази книгата" asp-action="ReserveBook" class="btn btn-primary col-md-7" style="background:white;color:blue" />
+                            @if (ViewData["message"] != null)
+                            {
+                                <div class="alert alert-info" role="alert">
+
+                                    @ViewData["message"]
+                                </div>
+                            }
+                            <input type="submit" value="Запази книгата" asp-action="ReserveBook" class="btn btn-primary col-md-7" style="background:white;color:blue" />
 
                         }
                     </div>
@@ -105,9 +111,13 @@
         <div class="row">
 
             <div class="col-md-12">
-                <div class="alert alert-info" role="alert">
-                    @ViewData["messageAddReview"]
-                </div>
+                @if (ViewData["messageAddReview"] != null)
+                {
+                    <div class="alert alert-info" role="alert">
+
+                        @ViewData["messageAddReview"]
+                    </div>
+                }
             </div>
             <div class="col-md-12">
                 <label asp-for="NewReveiew" class="control-label">Дай ново мнение</label>

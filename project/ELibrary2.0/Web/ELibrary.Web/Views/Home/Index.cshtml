@@ -14,9 +14,13 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="alert alert-info" role="alert">
-                    @ViewData["message"]
-                </div>
+                @if (ViewData["message"] != null)
+                {
+                    <div class="alert alert-info" role="alert">
+
+                        @ViewData["message"]
+                    </div>
+                }
             </div>
 
             <div class="col-md-6">
@@ -98,16 +102,16 @@
                     }
                     <div class="col-md-8">
                         <div class="row">
-                            <p class="col-md-12">
+                            <h6 class="col-md-12">
                                 @library.Name
-                            </p>
-                            <p class="col-md-12">
+                            </h6>
+                            <h6 class="col-md-12">
                                 @library.Email
-                            </p>
-                            <p class="col-md-12">
+                            </h6>
+                            <h6 class="col-md-12">
                                 @library.Location
 
-                            </p>
+                            </h6>
                         </div>
                         <div class="row">
                             <div class="col-md-12">

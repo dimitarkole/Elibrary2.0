@@ -6,9 +6,13 @@
 <form asp-action="EditBook" asp-area="User" asp-controller="AllAddedBooks" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-12">
-            <div class="alert alert-info" role="alert">
-                @ViewData["message"]
-            </div>
+            @if (ViewData["message"] != null)
+            {
+                <div class="alert alert-info" role="alert">
+
+                    @ViewData["message"]
+                </div>
+            }
         </div>
     </div>
     <div class="row">
