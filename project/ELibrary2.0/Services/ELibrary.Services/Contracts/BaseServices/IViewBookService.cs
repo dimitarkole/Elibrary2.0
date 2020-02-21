@@ -10,7 +10,9 @@
     {
         ViewBookViewModel PreparedPage(string bookId);
 
-        //ViewBookViewModel AddReview(string bookId);
+        Dictionary<string, object> ReserveTheBook(string bookId, string userId);
+
+        Dictionary<string, object> AddReview(ViewBookViewModel model, string bookId, string userId);
 
     }
 }

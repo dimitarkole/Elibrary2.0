@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewData["Title"] = "Статистика";
+}
+
+
+<form asp-action="Stats" asp-route-returnUrl="@ViewData["URL"]">
+    <div class="row">
+        <div class="col-md-12" style="background:#f7f7f7">
+            <h2>Статистика</h2>
+
+            <hr />
+        </div>
+    </div>
+    <div class="row" style="background:#f7f7f7">
+        <h4 class="col-md-12">
+            Търсене на книга:
+        </h4>
+    </div>
+
+    <div class="row" style="background:#f7f7f7">
+
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label asp-for="SearchBook.CatalogNumber" class="control-label col-md-3">Кат. номер</label>
+                <input asp-for="SearchBook.CatalogNumber" class="form-control col-md-9" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label asp-for="SearchBook.Title" class="control-label col-md-3">Заглавие</label>
+                <input asp-for="SearchBook.Title" class="form-control col-md-9" />
+            </div>
+        </div>
+    </div>
+    <div class="row" style="background:#f7f7f7">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label asp-for="SearchBook.Author" class="control-label col-md-3">Автор</label>
+                <input asp-for="SearchBook.Author" class="form-control col-md-9" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label asp-for="SearchBook.GenreId" class="control-label  col-md-3">Жанр</label>
+
+                <select asp-for="SearchBook.GenreId" class="col-md-9">
+                    @if (Model.Genres != null)
+                    {
+                        @foreach (var genre in Model.Genres)
+                        {
+                            <option value="@genre.Id">@genre.Name</option>
+                        }
+                    }
+
+                </select>
+            </div>
+        </div>
+
+    </div>
+    <div class="row" style="background:#f7f7f7">
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <span class="text-danger col-md-10"></span>
+                <input type="submit" value="Търси" asp-action="StatsSearch" class="btn btn-primary col-md-2" />
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="chart-container">
+                <canvas id="chartGettenBookSinceSixМonth" style="width:100%; height:250px"></canvas>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="chart-container">
+                <canvas id="chartGenres" style="width:100%; height:250px"></canvas>
+            </div>
+        </div>
+    </div>
+
+</form>
+@model ELibrary.Web.ViewModels.User.StatsUserViewModel
+@{
+
+    var labelGettenBookSinceSixМonth = Newtonsoft.Json.JsonConvert
+        .SerializeObject(Model.ChartGettenBookSinceSixМonth
+            .Titlle);
+
+    var XLabelsGettenBookSinceSixМonth = Newtonsoft.Json.JsonConvert
+        .SerializeObject(Model.ChartGettenBookSinceSixМonth
+            .ChartData
+                .Select(x => x.Mounth)
+                .ToList());
+    var YValuesGettenBookSinceSixМonth = Newtonsoft.Json.JsonConvert
+        .SerializeObject(Model.ChartGettenBookSinceSixМonth
+            .ChartData.Select(x => x.GettenBookCount)
+            .ToList());
+    var YValuesReturnedBookSinceSixМonth = Newtonsoft.Json.JsonConvert
+    .SerializeObject(Model.ChartGettenBookSinceSixМonth
+        .ChartData.Select(x => x.ReturnedBookCount)
+        .ToList());
+
+    var pieChartLabels = Newtonsoft.Json.JsonConvert
+       .SerializeObject(Model.ChartGenres.ChartData.Select(x => x.Quantity).ToList());
+
+    var pieChartValues = Newtonsoft.Json.JsonConvert
+      .SerializeObject(Model.ChartGenres.ChartData.Select(x => x.DimensionOne).ToList());
+}
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+        var chartName = "chartGettenBookSinceSixМonth";
+        var ctx = document.getElementById(chartName).getContext('2d');
+        var data = {
+                labels: @Html.Raw(XLabelsGettenBookSinceSixМonth),
+                datasets: [{
+                    label: "Прочетени книги",
+
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                    ],
+                    borderWidth: 1,
+                    data: @Html.Raw(YValuesGettenBookSinceSixМonth)
+                },
+                {
+                    label: "Четящи се книги",
+                    borderColor: [
+                        'rgba(100,99,132,1)',
+                    ],
+                    borderWidth: 1,
+                    data: @Html.Raw(YValuesReturnedBookSinceSixМonth)
+                }]
+            };
+
+        var options = {
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "rgba(255,99,164,0.2)"
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            };
+
+        var myChart = new  Chart(ctx, {
+                options: options,
+                data: data,
+                type:'line'
+        });
+
+
+     });
+</script>

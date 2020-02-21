@@ -6,8 +6,9 @@
 <form asp-action="AddedBooks" asp-route-returnUrl="@ViewData["URL"]">
     <div class="row">
         <div class="col-md-12">
-            <p>@ViewData["message"]</p>
-
+            <div class="alert alert-info" role="alert">
+                @ViewData["message"]
+            </div>
         </div>
     </div>
     <div class="container" style="background:#f7f7f7">

@@ -7,10 +7,10 @@
 
 @if (this.SignInManager.IsSignedIn(this.User))
 {
-    
-        var messages = ViewData["MessageNavBar"] as ELibrary.Web.ViewModels.CommonResurces.NotificationsNavBarViewModel;
 
-    
+    var messages = ViewData["MessageNavBar"] as ELibrary.Web.ViewModels.CommonResurces.NotificationsNavBarViewModel;
+
+
 
     <li>
         <a asp-area="CommonResources" asp-controller="Notification" asp-action="Index">
@@ -39,7 +39,7 @@
     </li>
     <li class="nav-item">
 
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравей, @(this.User.Identity.Name)!</a>
+        <a class="nav-link text-dark">@(this.User.Identity.Name)!</a>
         <ul class="dropdown">
             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
@@ -81,6 +81,9 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="User" asp-controller="TakenBooks" asp-action="TakenBooks" title="TakenBooks">Взети книги</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="User" asp-controller="StatsUser" asp-action="Index" title="StatsUser">Статистики</a>
+                </li>
 
             }
             <li class="nav-item">
@@ -101,7 +104,7 @@
 
 
     <li class="nav-item">
-        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
+        <form class="form-inline nav-link text-dark" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
             <button type="submit" class="nav-link btn btn-link text-dark">Изход</button>
         </form>
 
@@ -112,10 +115,11 @@
 else //if ((this.User.IsInRole(GlobalConstants.UserRoleName) == false)||(this.User.IsInRole(GlobalConstants.UserRoleName)==false))
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Регистрирай се</a>
-    </li>
-    <li class="nav-item">
         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Вход</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Регистрирай се</a>
+    </li>
+
 }
 

@@ -12,5 +12,7 @@
 
         ViewLibraryViewModel GetLibraryData(ViewLibraryViewModel model, string libraryId);
 
+        ViewLibraryViewModel ChangeActiveBookPage(ViewLibraryViewModel model, int newPage,string libraryId);
+
     }
 }

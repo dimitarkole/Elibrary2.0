@@ -14,7 +14,9 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <p>@ViewData["message"]</p>
+                <div class="alert alert-info" role="alert">
+                    @ViewData["message"]
+                </div>
             </div>
 
             <div class="col-md-6">
@@ -96,17 +98,16 @@
                     }
                     <div class="col-md-8">
                         <div class="row">
-                            <h5 class="col-md-12">
+                            <p class="col-md-12">
                                 @library.Name
-                            </h5>
-                            <small class="col-md-12">
+                            </p>
+                            <p class="col-md-12">
                                 @library.Email
-                            </small>
-                            <small class="col-md-12">
+                            </p>
+                            <p class="col-md-12">
                                 @library.Location
-                                Role= @library.Role
 
-                            </small>
+                            </p>
                         </div>
                         <div class="row">
                             <div class="col-md-12">

@@ -105,6 +105,7 @@
 
     <div class="row">
 
+
         @foreach (var book in Model.Books)
         {
             <a class="col-md-6" asp-controller="Home" asp-action="ViewBook" asp-route-id="@book.BookId">

@@ -68,12 +68,7 @@
             return this.View("Index", returnModel);
         }
 
-        public IActionResult ViewBook(AllAddedBooksViewModel model, string id)
-        {
-            this.StartUp();
-            var returnModel = this.viewBookService.PreparedPage(id);
-            return this.View(returnModel);
-        }
+      
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

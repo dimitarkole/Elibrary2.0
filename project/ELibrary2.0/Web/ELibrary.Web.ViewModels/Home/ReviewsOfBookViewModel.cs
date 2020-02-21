@@ -4,10 +4,8 @@
     using System.Collections.Generic;
     using System.Text;
 
-    public class BookReviewsViewModel
+    public class ReviewsOfBookViewModel
     {
-        public string Review { get; set; }
-
-        public string UserName { get; set; }
+        public string Text { get; set; }
     }
 }

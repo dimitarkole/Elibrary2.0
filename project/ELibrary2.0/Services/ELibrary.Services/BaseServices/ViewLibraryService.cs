@@ -8,6 +8,7 @@
     using ELibrary.Services.Contracts.Admin;
     using ELibrary.Services.Contracts.BaseServices;
     using ELibrary.Services.Contracts.CommonResurcesServices;
+    using ELibrary.Services.Contracts.LibraryServices;
     using ELibrary.Web.ViewModels.Home;
 
     public class ViewLibraryService : IViewLibraryService
@@ -20,8 +21,7 @@
 
         private IRoleService roleService;
 
-        private IViewBooksService booksService;
-
+        private IAllAddedBooksService allAddedBooksService;
 
 
         public ViewLibraryService(
@@ -29,13 +29,13 @@
             IGenreService genreService,
             INotificationService messageService,
             IRoleService roleService,
-            IViewBooksService booksService)
+            IAllAddedBooksService allAddedBooksService)
         {
             this.context = context;
             this.genreService = genreService;
             this.messageService = messageService;
             this.roleService = roleService;
-            this.booksService = booksService;
+            this.allAddedBooksService = allAddedBooksService;
         }
 
         public ViewLibraryViewModel PreparedPage(string libraryId)
@@ -47,7 +47,8 @@
         public ViewLibraryViewModel GetLibraryData(ViewLibraryViewModel model, string libraryId)
         {
             var library = this.context.Users.FirstOrDefault(u => u.Id == libraryId);
-            var allAddedBooks = this.booksService.PreparedPage();
+            var allAddedBooksModel = model.AllAddedBooks;
+            var allAddedBooks = this.allAddedBooksService.GetBooks(allAddedBooksModel, libraryId);
             var returnModel = new ViewLibraryViewModel()
             {
                 Avatar = library.Avatar,
@@ -58,6 +59,14 @@
             };
             return returnModel;
 
+        }
+
+        public ViewLibraryViewModel ChangeActiveBookPage(ViewLibraryViewModel model, int newPage, string libraryId)
+        {
+            var allAddedBooksModel = model.AllAddedBooks;
+            allAddedBooksModel.CurrentPage = newPage;
+            model.AllAddedBooks = allAddedBooksModel;
+            return this.GetLibraryData(model, libraryId);
         }
     }
 }

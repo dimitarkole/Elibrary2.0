@@ -2,296 +2,301 @@
 @{
     ViewData["Title"] = "Index";
 }
+
 @model ELibrary.Web.ViewModels.Home.ViewLibraryViewModel
-<!-- ***** Contact Area Start ***** -->
-<section class="dento-contact-area mt-50 mb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                @if (Model.Avatar != null)
-                {
-                    <img src="@Model.Avatar" alt="Alternate Text" class="google-maps mb-100" />
-                }
-                else
-                {
-                    <img src="~/img/Avatars/defaultAvatar.png" alt="Avatar" class="google-maps mb-100" />
-                }
-            </div>
-        </div>
+<form action="Index" method="post">
 
-        <div class="row">
-            <!-- Contact Information -->
-            <div class="col-12 col-md-4">
-                <div class="contact-information">
-                    <h5>Име</h5>
-                    <p> @Model.Name</p>
-
-                    <h5>Фамилия</h5>
-                    <p>@Model.Location</p>
-
-                    <h5>Email</h5>
-                    <p>@Model.Email</p>
-                    <h5>Смени аватара</h5>
-
+    <!-- ***** Contact Area Start ***** -->
+    <section class="dento-contact-area mt-50 mb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    @if (Model.Avatar != null)
+                    {
+                        <img src="@Model.Avatar" alt="Alternate Text" class="google-maps mb-100" />
+                    }
+                    else
+                    {
+                        <img src="~/img/Avatars/defaultAvatar.png" alt="Avatar" class="google-maps mb-100" />
+                    }
                 </div>
             </div>
 
-            <!-- Contact Form -->
-            <div class="col-12 col-md-8">
-                <div class="section-heading">
-                    <h2>Информация за активноста ви</h2>
-                    <div class="line"></div>
+            <div class="row">
+                <!-- Contact Information -->
+                <div class="col-12 col-md-4">
+                    <div class="contact-information">
+                        <h5>Име</h5>
+                        <p> @Model.Name</p>
+
+                        <h5>Фамилия</h5>
+                        <p>@Model.Location</p>
+
+                        <h5>Email</h5>
+                        <p>@Model.Email</p>
+
+                    </div>
                 </div>
-                <!-- Form -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <p>
-                            <div class="col-12 col-md-12">
-                                <div class="row">
-                                    @{
-                                        var index = 1;
-                                    }
-                                    @foreach (var data in Model.ActivityData)
-                                    {
-                                        <div class="col-5 bg-gradient-overlay">
-                                            <div class="container">
-                                                <div class="row align-items-center">
-                                                    <div class="col-12">
-                                                        <div class="row">
-                                                            <div class="col-md-9">
 
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <h5 style="color:white">@data.Value</h5>
-                                                            </div>
-                                                        </div>
+                <!-- Contact Form -->
+                <div class="col-12 col-md-8">
+                    <div class="section-heading">
+                        <h2>Информация за активноста ви</h2>
+                        <div class="line"></div>
+                    </div>
+                    <!-- Form -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p>
+                                <div class="col-12 col-md-12">
+                                    <div class="row">
+                                        @{
+                                            var index = 1;
+                                        }
+                                        @foreach (var data in Model.ActivityData)
+                                        {
+                                            <div class="col-5 bg-gradient-overlay">
+                                                <div class="container">
+                                                    <div class="row align-items-center">
+                                                        <div class="col-12">
+                                                            <div class="row">
+                                                                <div class="col-md-9">
 
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <h5 style="color:white">@data.Key</h5>
-                                                                <br />
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <h5 style="color:white">@data.Value</h5>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <h5 style="color:white">@data.Key</h5>
+                                                                    <br />
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
 
-                                        if (index % 2 == 0)
-                                        {
-                                            <div class="col-12">
-                                                <br />
+                                            if (index % 2 == 0)
+                                            {
+                                                <div class="col-12">
+                                                    <br />
 
-                                            </div>
+                                                </div>
+
+                                            }
+                                            else
+                                            {
+                                                <div class="col-2">
+
+                                                </div>
+                                            }
+                                            index++;
 
                                         }
-                                        else
-                                        {
-                                            <div class="col-2">
+                                    </div>
 
-                                            </div>
-                                        }
-                                        index++;
-
-                                    }
                                 </div>
-
-                            </div>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- ***** Contact Area End ***** -->
-
-
-<br />
-<div class="container" style="background:#f7f7f7">
-    <div class="row">
-        <h4 class="col-md-12">
-            Търсене:
-        </h4>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <p>@ViewData["message"]</p>
-        </div>
-
-        <div class="col-md-6">
-            <div class="form-group row">
-                <label asp-for="AllAddedBooks.SearchBook.CatalogNumber" class="control-label col-md-3">Кат. номер</label>
-                <input asp-for="AllAddedBooks.SearchBook.CatalogNumber" class="form-control col-md-9" />
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group row">
-                <label asp-for="AllAddedBooks.SearchBook.Title" class="control-label col-md-3">Заглавие</label>
-                <input asp-for="AllAddedBooks.SearchBook.Title" class="form-control col-md-9" />
-            </div>
-        </div>
-    </div>
-
-    <div class="row" style="background:#f7f7f7">
-        <div class="col-md-6">
-            <div class="form-group row">
-                <label asp-for="AllAddedBooks.SearchBook.Author" class="control-label col-md-3">Автор</label>
-                <input asp-for="AllAddedBooks.SearchBook.Author" class="form-control col-md-9" />
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group row">
-                <label asp-for="AllAddedBooks.SearchBook.GenreId" class="control-label  col-md-3">Жанр</label>
-
-                <select asp-for="AllAddedBooks.SearchBook.GenreId" class="col-md-9">
-                    @if (Model.AllAddedBooks.Genres != null)
-                    {
-                        @foreach (var genre in Model.AllAddedBooks.Genres)
-                        {
-                            <option value="@genre.Id">@genre.Name</option>
-                        }
-                    }
-
-                </select>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group row">
-                <label asp-for="AllAddedBooks.CountBooksOfPage" class="control-label  col-md-3">Покажи</label>
-
-                <select asp-for="AllAddedBooks.CountBooksOfPage" class="col-md-9">
-                    @foreach (var count in Model.AllAddedBooks.CountBooksOfPageList)
-                    {
-                        <option value="@count">@count</option>
-
-                    }
-                </select>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group row">
-                <label asp-for="AllAddedBooks.SortMethodId" class="control-label  col-md-3">Сортирай по</label>
-
-                <select asp-for="AllAddedBooks.SortMethodId" class="col-md-9">
-                    @foreach (var SortMethod in Model.AllAddedBooks.SortMethods)
-                    {
-                        <option value="@SortMethod">@SortMethod</option>
-                    }
-                </select>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="row" style="background:#f7f7f7">
-        <div class="col-md-6">
-
-        </div>
-        <div class="col-md-6">
-            <div class="form-group row">
-                <span class="text-danger col-md-10"></span>
-
-                <input type="submit" value="Търси" asp-action="HomeBooksSearch" class="btn btn-primary col-md-2" />
-
-
-            </div>
-        </div>
-    </div>
-
-</div>
-<br />
-
-<div class="row">
-
-    @foreach (var book in Model.AllAddedBooks.Books)
-    {
-        <a class="col-md-6" asp-controller="Home" asp-action="ViewBook" asp-route-id="@book.BookId">
-            <div class="row">
-                @if (book.Logo != null)
-                {
-                    <img src="@book.Logo" alt="Alternate Text" class="col-md-4" />
-                }
-                else
-                {
-                    <img src="~/img/BooksLogo/defaultLogo.jpg" alt="Alternate Text" class="col-md-4" />
-                }
-                <div class="col-md-8">
-                    <div class="row">
-                        <h5 class="col-md-12">
-                            @book.Title
-                        </h5>
-                        <small class="col-md-12">
-                            Автор: @book.Author
-                        </small>
-                        <small class="col-md-12">
-                            Жанр: @book.GenreName
-                        </small>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            @book.Review.Substring(0, Math.Min(book.Review.Length, 140))
+                            </p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Contact Area End ***** -->
 
+
+    <br />
+    <div class="container" style="background:#f7f7f7">
+        <div class="row">
+            <h4 class="col-md-12">
+                Търсене:
+            </h4>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-info" role="alert">
+                    @ViewData["message"]
+                </div>
             </div>
 
-        </a>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label asp-for="AllAddedBooks.SearchBook.CatalogNumber" class="control-label col-md-3">Кат. номер</label>
+                    <input asp-for="AllAddedBooks.SearchBook.CatalogNumber" class="form-control col-md-9" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label asp-for="AllAddedBooks.SearchBook.Title" class="control-label col-md-3">Заглавие</label>
+                    <input asp-for="AllAddedBooks.SearchBook.Title" class="form-control col-md-9" />
+                </div>
+            </div>
+        </div>
 
-    }
-</div>
-<div class="container">
+        <div class="row" style="background:#f7f7f7">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label asp-for="AllAddedBooks.SearchBook.Author" class="control-label col-md-3">Автор</label>
+                    <input asp-for="AllAddedBooks.SearchBook.Author" class="form-control col-md-9" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label asp-for="AllAddedBooks.SearchBook.GenreId" class="control-label  col-md-3">Жанр</label>
+
+                    <select asp-for="AllAddedBooks.SearchBook.GenreId" class="col-md-9">
+                        @if (Model.AllAddedBooks.Genres != null)
+                        {
+                            @foreach (var genre in Model.AllAddedBooks.Genres)
+                            {
+                                <option value="@genre.Id">@genre.Name</option>
+                            }
+                        }
+
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label asp-for="AllAddedBooks.CountBooksOfPage" class="control-label  col-md-3">Покажи</label>
+
+                    <select asp-for="AllAddedBooks.CountBooksOfPage" class="col-md-9">
+                        @foreach (var count in Model.AllAddedBooks.CountBooksOfPageList)
+                        {
+                            <option value="@count">@count</option>
+
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label asp-for="AllAddedBooks.SortMethodId" class="control-label  col-md-3">Сортирай по</label>
+
+                    <select asp-for="AllAddedBooks.SortMethodId" class="col-md-9">
+                        @foreach (var SortMethod in Model.AllAddedBooks.SortMethods)
+                        {
+                            <option value="@SortMethod">@SortMethod</option>
+                        }
+                    </select>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="background:#f7f7f7">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <span class="text-danger col-md-10"></span>
+
+                    <input type="submit" value="Търси" asp-action="SearchBookAtLibrary" class="btn btn-primary col-md-2" />
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <br />
+
     <div class="row">
-        <span class="col-md-2"></span>
-        <span class="col-md-1">Страници: </span>
 
-        <div class="btn-toolbar col-md-6" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group" role="group" aria-label="First group">
-                @if (Model.AllAddedBooks.CurrentPage > 1)
-                {
-                    @if (Model.AllAddedBooks.CurrentPage > 2)
+        @foreach (var book in Model.AllAddedBooks.Books)
+        {
+            <a class="col-md-6" asp-controller="ViewLibrary" asp-action="ViewBook" asp-route-id="@book.BookId">
+                <div class="row">
+                    @if (book.Logo != null)
                     {
-                        <input type="submit" value="|<" asp-route-id="1" class="btn btn-primary" asp-action="ChangePageHome" /> <span>&nbsp;</span>
+                        <img src="@book.Logo" alt="Alternate Text" class="col-md-4" />
                     }
-                    <input type="submit" value="<" class="col-md-5 btn btn-primary" asp-route-id="@(Model.AllAddedBooks.CurrentPage-1)" asp-action="ChangePageHome" /> <span>&nbsp;</span>
-                }
-            </div>
-            <div class="btn-group" role="group" aria-label="Before Page group">
-                @for (int i = Math.Max(Model.AllAddedBooks.CurrentPage - 5, 1); i < Model.AllAddedBooks.CurrentPage; i++)
-                {
-                    <input type="submit" value="@i" asp-route-id="@i" asp-action="ChangePageHome" class="btn btn-primary" /> <span>&nbsp;</span>
-
-                }
-            </div>
-            <div class="btn-group" role="group" aria-label="Active Page group">
-                <input type="submit" value="@Model.AllAddedBooks.CurrentPage" asp-route-id="@Model.AllAddedBooks.CurrentPage" asp-action="ChangePageHome" class="btn btn-primary" />	<span>&nbsp;</span>
-            </div>
-
-            <div class="btn-group" role="group" aria-label="After Page group">
-                @for (int i = Model.AllAddedBooks.CurrentPage + 1; i <= Math.Min(Model.AllAddedBooks.CurrentPage + 5, Model.AllAddedBooks.MaxCountPage); i++)
-                {
-                    <input type="submit" value="@i" asp-route-id="@i" asp-action="ChangePageHome" class="btn btn-primary" /> <span>&nbsp;</span>
-
-                }
-            </div>
-
-            <div class="btn-group" role="group" aria-label="Last group">
-
-                @if (Model.AllAddedBooks.CurrentPage < Model.AllAddedBooks.MaxCountPage)
-                {
-                    <input type="submit" value=">" asp-route-id="@(Model.AllAddedBooks.CurrentPage+1)" asp-action="ChangePageHome" class="btn btn-primary" /><span>&nbsp;</span>
-                    @if (Model.AllAddedBooks.CurrentPage < Model.AllAddedBooks.MaxCountPage - 1)
+                    else
                     {
-                        <input type="submit" value=">|" asp-route-id="@Model.AllAddedBooks.MaxCountPage" asp-action="ChangePageHome" class="btn btn-primary" /><span>&nbsp;</span>
+                        <img src="~/img/BooksLogo/defaultLogo.jpg" alt="Alternate Text" class="col-md-4" />
                     }
+                    <div class="col-md-8">
+                        <div class="row">
+                            <h5 class="col-md-12">
+                                @book.Title
+                            </h5>
+                            <small class="col-md-12">
+                                Автор: @book.Author
+                            </small>
+                            <small class="col-md-12">
+                                Жанр: @book.GenreName
+                            </small>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                @book.Review.Substring(0, Math.Min(book.Review.Length, 140))
+                            </div>
+                        </div>
+                    </div>
 
-                }
+                </div>
+
+            </a>
+
+        }
+    </div>
+    <div class="container">
+        <div class="row">
+            <span class="col-md-2"></span>
+            <span class="col-md-1">Страници: </span>
+
+            <div class="btn-toolbar col-md-6" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group" role="group" aria-label="First group">
+                    @if (Model.AllAddedBooks.CurrentPage > 1)
+                    {
+                        @if (Model.AllAddedBooks.CurrentPage > 2)
+                        {
+                            <input type="submit" value="|<" asp-route-id="1" class="btn btn-primary" asp-action="ChangeActiveBookPage" /> <span>&nbsp;</span>
+                        }
+                        <input type="submit" value="<" class="col-md-5 btn btn-primary" asp-route-id="@(Model.AllAddedBooks.CurrentPage-1)" asp-action="ChangeActiveBookPage" /> <span>&nbsp;</span>
+                    }
+                </div>
+                <div class="btn-group" role="group" aria-label="Before Page group">
+                    @for (int i = Math.Max(Model.AllAddedBooks.CurrentPage - 5, 1); i < Model.AllAddedBooks.CurrentPage; i++)
+                    {
+                        <input type="submit" value="@i" asp-route-id="@i" asp-action="ChangeActiveBookPage" class="btn btn-primary" /> <span>&nbsp;</span>
+
+                    }
+                </div>
+                <div class="btn-group" role="group" aria-label="Active Page group">
+                    <input type="submit" value="@Model.AllAddedBooks.CurrentPage" asp-route-id="@Model.AllAddedBooks.CurrentPage" asp-action="ChangeActiveBookPage" class="btn btn-primary" />	<span>&nbsp;</span>
+                </div>
+
+                <div class="btn-group" role="group" aria-label="After Page group">
+                    @for (int i = Model.AllAddedBooks.CurrentPage + 1; i <= Math.Min(Model.AllAddedBooks.CurrentPage + 5, Model.AllAddedBooks.MaxCountPage); i++)
+                    {
+                        <input type="submit" value="@i" asp-route-id="@i" asp-action="ChangeActiveBookPage" class="btn btn-primary" /> <span>&nbsp;</span>
+
+                    }
+                </div>
+
+                <div class="btn-group" role="group" aria-label="Last group">
+
+                    @if (Model.AllAddedBooks.CurrentPage < Model.AllAddedBooks.MaxCountPage)
+                    {
+                        <input type="submit" value=">" asp-route-id="@(Model.AllAddedBooks.CurrentPage+1)" asp-action="ChangeActiveBookPage" class="btn btn-primary" /><span>&nbsp;</span>
+                        @if (Model.AllAddedBooks.CurrentPage < Model.AllAddedBooks.MaxCountPage - 1)
+                        {
+                            <input type="submit" value=">|" asp-route-id="@Model.AllAddedBooks.MaxCountPage" asp-action="ChangeActiveBookPage" class="btn btn-primary" /><span>&nbsp;</span>
+                        }
+
+                    }
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>

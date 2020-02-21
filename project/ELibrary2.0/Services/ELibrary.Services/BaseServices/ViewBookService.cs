@@ -16,37 +16,57 @@
 
         private IGenreService genreService;
 
-        private INotificationService messageService;
+        private INotificationService notificationService;
 
         public ViewBookService(
             ApplicationDbContext context,
             IGenreService genreService,
-            INotificationService messageService)
+            INotificationService notificationService)
         {
             this.context = context;
             this.genreService = genreService;
-            this.messageService = messageService;
+            this.notificationService = notificationService;
         }
 
-    /*    public ViewBookViewModel AddReview(string bookId)
+        public Dictionary<string, object> AddReview(ViewBookViewModel model, string bookId, string userId)
         {
-            throw new NotImplementedException();
+            var book = this.context.Books.FirstOrDefault(b => b.Id == bookId);
+            var user = this.context.Users.FirstOrDefault(u => u.Id == userId);
+
+            BookReview newBookReview = new BookReview()
+            {
+                Review = model.NewReveiew,
+                BookId = bookId,
+                UserId = userId,
+            };
+
+            this.context.BookReviews.Add(newBookReview);
+            this.context.SaveChanges();
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            var message = $"Успешно дадено мнение за книгата {book.Title}, написана от {book.Author}";
+            ///this.notificationService.AddNotificationAtDB(message, userId);
+            result.Add("message", message);
+            result.Add("model", this.PreparedPage(bookId));
+            return result;
         }
-        */
+
+        /*    public ViewBookViewModel AddReview(string bookId)
+            {
+                throw new NotImplementedException();
+            }
+            */
         public ViewBookViewModel PreparedPage(string bookId)
         {
             var book = this.context.Books.FirstOrDefault(b => b.Id == bookId);
             var genre = this.context.Genres.FirstOrDefault(g => g.Id == book.GenreId);
             var user = this.context.Users.FirstOrDefault(u => u.Id == book.UserId);
-            /*var reviews = this.context.BookReviews
-                .Where(r => r.BookId == bookId)
+            var reviewsOfBookViewModel = this.context.BookReviews
+                .Where(r => r.BookId == book.Id)
                 .OrderBy(r => r.CreatedOn)
-                .Select(r => new BookReviewsViewModel()
-                    {
-                        Review = r.Review,
-                        UserName = r.User.FirstName + " " + r.User.LastName + " " + r.User.UserName,
-                    })
-                .ToList();*/
+                .Select(r => new ReviewsOfBookViewModel()
+                {
+                    Text = r.Review,
+                }).ToList();
             ViewBookViewModel model = new ViewBookViewModel()
             {
                 Author = book.Author,
@@ -60,9 +80,46 @@
                 UserEmailName = user.Email,
                 UserFirstName = user.FirstName,
                 UserLastName = user.LastName,
+                ReviewsOfBookViewModels = reviewsOfBookViewModel,
                 //Reveiews = reviews,
             };
             return model;
+        }
+
+        public Dictionary<string, object> ReserveTheBook(string bookId, string userId)
+        {
+            var message = this.ReserveTheBookAtDB(bookId, userId);
+            var model = this.PreparedPage(bookId);
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            result.Add("model", model);
+            result.Add("message", message);
+            return result;
+        }
+
+        private string ReserveTheBookAtDB(string bookId, string userId)
+        {
+            var checkGetBook = this.context.GetBooks
+                .FirstOrDefault(gb => gb.DeletedOn == null &&
+                    gb.BookId == bookId && gb.ReturnedOn == null);
+            var result = "Книгата е взета за четене от друг читател!";
+
+            if (checkGetBook == null)
+            {
+                var book = this.context.Books.FirstOrDefault(b => b.Id == bookId);
+                var libraryId = book.UserId;
+                var library = this.context.Users.FirstOrDefault(u => u.Id == libraryId);
+                var reader = this.context.Users.FirstOrDefault(u => u.Id == userId);
+                result = $"Читател {reader.FirstName} {reader.LastName} {reader.Email}"
+                    + $" иска да запази книгата {book.Title} от {book.Author} с каталожен номер {book.CatalogNumber}"
+                    + " за четене";
+                this.notificationService.AddNotificationAtDB(libraryId, result);
+                result = $"Успешно изпратена заявка за запазване на книгата " +
+                    $"{book.Title} от {book.Author} с каталожен номер {book.CatalogNumber}" +
+                    $" намираща в {library.FirstName} {library.LastName}";
+                this.notificationService.AddNotificationAtDB(userId, result);
+            }
+
+            return result;
         }
     }
 }
