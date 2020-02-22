@@ -80,6 +80,19 @@
                 {
                     this.logger.LogInformation("Потребителят е успешно регистриран!");
                     var role = GlobalConstants.LibraryRoleName;
+                    if( this.context.Roles.FirstOrDefault(r =>r.Name == GlobalConstants.LibraryRoleName)==null)
+                    {
+                        ApplicationRole newRole = new ApplicationRole()
+                        {
+                            Name = GlobalConstants.LibraryRoleName,
+                        };
+                        this.context.Roles.Add(newRole);
+                    };
+
+
+
+                        this.context.Add()
+                    }
                     var roleId = this.context.Roles.FirstOrDefault(r =>
                         r.Name == GlobalConstants.LibraryRoleName).Id;
                     IdentityUserRole<string> userRole = new IdentityUserRole<string>()

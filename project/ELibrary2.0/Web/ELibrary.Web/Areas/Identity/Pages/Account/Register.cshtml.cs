@@ -80,6 +80,14 @@
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("Потребителят е успешно регистриран!");
+                    if (this.context.Roles.FirstOrDefault(r => r.Name == GlobalConstants.UserRoleName) == null)
+                    {
+                        ApplicationRole newRole = new ApplicationRole()
+                        {
+                            Name = GlobalConstants.UserRoleName,
+                        };
+                        this.context.Roles.Add(newRole);
+                    };
 
                     var roleId = this.context.Roles.FirstOrDefault(r =>
                        r.Name == GlobalConstants.UserRoleName
