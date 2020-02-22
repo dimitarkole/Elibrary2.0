@@ -87,12 +87,13 @@
                             Name = GlobalConstants.LibraryRoleName,
                         };
                         this.context.Roles.Add(newRole);
+                        this.context.SaveChanges();
+
                     };
 
 
 
-                        this.context.Add()
-                    }
+                     
                     var roleId = this.context.Roles.FirstOrDefault(r =>
                         r.Name == GlobalConstants.LibraryRoleName).Id;
                     IdentityUserRole<string> userRole = new IdentityUserRole<string>()
