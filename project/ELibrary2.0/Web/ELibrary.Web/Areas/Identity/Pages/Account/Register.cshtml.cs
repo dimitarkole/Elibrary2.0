@@ -103,12 +103,12 @@
                        r.Name == GlobalConstants.UserRoleName
                        && r.DeletedOn == null).Id;
 
-                    if (this.context.Users.Count()==0)
+                    if (this.context.Users.Count() == 0)
                     {
                        roleId = this.context.Roles.FirstOrDefault(r =>
                           r.Name == GlobalConstants.AdministratorRoleName
                           && r.DeletedOn == null).Id;
-                    }
+                    }   
 
                     IdentityUserRole<string> userRole = new IdentityUserRole<string>()
                     {
