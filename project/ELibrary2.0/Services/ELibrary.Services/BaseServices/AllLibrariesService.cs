@@ -51,7 +51,9 @@
             var countLibraryOfPage = model.CountLibraiesOfPage;
             var currentPage = model.CurrentPage;
 
-            var libraries = this.context.Users.Where(u =>
+            var libraries = this.context.Users
+                .Include(u => u.Roles)
+                .Where(u =>
                 u.DeletedOn == null)
                 .Select(u => new LibraryViewModel()
                 {

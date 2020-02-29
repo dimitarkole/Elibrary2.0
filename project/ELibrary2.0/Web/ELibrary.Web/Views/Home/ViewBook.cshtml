@@ -87,10 +87,10 @@
             <div class="row">
                 <h4>Мнения</h4>
             </div>
-            @if (Model.ReviewsOfBookViewModels.Count > 0)
+            @if(Model.ReviewsOfBookViewModels.Count>0)
             {
             <div class="row">
-                @foreach (var review in Model.ReviewsOfBookViewModels)
+                @foreach(var review in Model.ReviewsOfBookViewModels)
                 {
                 <div class="col-md-12">
                     <p>@review.Text</p>
@@ -99,19 +99,13 @@
 
             </div>
             }
-            else
-            {
-
-
             <div class="row">
-
 
                 <div class="col-md-12">
                     <p>Все още няма добавени мнения за книгата</p>
                 </div>
 
             </div>
-            }
             @if (this.SignInManager.IsSignedIn(this.User))
             {
         <div class="row">
