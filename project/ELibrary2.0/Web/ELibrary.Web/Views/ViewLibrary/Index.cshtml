@@ -215,43 +215,54 @@
     <br />
 
     <div class="row">
-
-        @foreach (var book in Model.AllAddedBooks.Books)
+        @if (Model.AllAddedBooks.Books.Count() > 0)
         {
-            <a class="col-md-6" asp-controller="ViewLibrary" asp-action="ViewBook" asp-route-id="@book.BookId">
-                <div class="row">
-                    @if (book.Logo != null)
-                    {
-                        <img src="@book.Logo" alt="Alternate Text" class="col-md-4" />
-                    }
-                    else
-                    {
-                        <img src="~/img/BooksLogo/defaultLogo.jpg" alt="Alternate Text" class="col-md-4" />
-                    }
-                    <div class="col-md-8">
-                        <div class="row">
-                            <h5 class="col-md-12">
-                                @book.Title
-                            </h5>
-                            <small class="col-md-12">
-                                Автор: @book.Author
-                            </small>
-                            <small class="col-md-12">
-                                Жанр: @book.GenreName
-                            </small>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                @book.Review.Substring(0, Math.Min(book.Review.Length, 140))
+            foreach (var book in Model.AllAddedBooks.Books)
+            {
+                <a class="col-md-6" asp-controller="ViewLibrary" asp-action="ViewBook" asp-route-id="@book.BookId">
+                    <div class="row">
+                        @if (book.Logo != null)
+                        {
+                            <img src="@book.Logo" alt="Alternate Text" class="col-md-4" />
+                        }
+                        else
+                        {
+                            <img src="~/img/BooksLogo/defaultLogo.jpg" alt="Alternate Text" class="col-md-4" />
+                        }
+                        <div class="col-md-8">
+                            <div class="row">
+                                <h5 class="col-md-12">
+                                    @book.Title
+                                </h5>
+                                <small class="col-md-12">
+                                    Автор: @book.Author
+                                </small>
+                                <small class="col-md-12">
+                                    Жанр: @book.GenreName
+                                </small>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @book.Review.Substring(0, Math.Min(book.Review.Length, 140))
+                                </div>
                             </div>
                         </div>
+
                     </div>
 
-                </div>
+                </a>
 
-            </a>
+            }
 
         }
+        else
+        {
+            <div class="col-md-6">
+               Все още няма добавени книги в тази библиотека!
+
+            </div>
+        }
+
     </div>
     <div class="container">
         <div class="row">

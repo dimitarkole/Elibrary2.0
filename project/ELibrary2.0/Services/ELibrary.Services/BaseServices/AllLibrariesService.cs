@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Text;
 
+    using ELibrary.Common;
     using ELibrary.Data;
     using ELibrary.Services.Contracts.Admin;
     using ELibrary.Services.Contracts.BaseServices;
@@ -22,7 +23,6 @@
         private INotificationService messageService;
 
         private IRoleService roleService;
-
 
         public AllLibrariesService(
             ApplicationDbContext context,
@@ -50,11 +50,13 @@
             var sortMethodId = model.SortMethodId;
             var countLibraryOfPage = model.CountLibraiesOfPage;
             var currentPage = model.CurrentPage;
+            var libraryRoleId = this.context.Roles.FirstOrDefault(r => r.Name == GlobalConstants.LibraryRoleName).Id;
 
             var libraries = this.context.Users
                 .Include(u => u.Roles)
                 .Where(u =>
-                u.DeletedOn == null)
+                    u.DeletedOn == null
+                    && u.Roles.FirstOrDefault().RoleId == libraryRoleId)
                 .Select(u => new LibraryViewModel()
                 {
                     Email = u.Email,
@@ -63,8 +65,7 @@
                     Role = this.roleService.GetUserRole(u),
                     Avatar = u.Avatar,
                     UserId = u.Id,
-                }).ToList()
-                .Where(l => l.Role == "Library").ToList();
+                });
 
             libraries = this.SelectLibraries(libraryEmail, libraryName, libraries);
             libraries = this.SortLibraries(sortMethodId, libraries);
@@ -101,36 +102,35 @@
             return returnModel;
         }
 
-        private List<LibraryViewModel> SortLibraries(
+        private IQueryable<LibraryViewModel> SortLibraries(
         string sortMethodId,
-        List<LibraryViewModel> libraries)
+        IQueryable<LibraryViewModel> libraries)
         {
             if (sortMethodId == "Email на билиотеката я-а")
             {
-                libraries = libraries.OrderByDescending(b => b.Email).ToList();
+                libraries = libraries.OrderByDescending(b => b.Email);
             }
             else
             {
-                libraries = libraries.OrderBy(b => b.Email).ToList();
+                libraries = libraries.OrderBy(b => b.Email);
             }
 
             return libraries;
         }
 
-        private List<LibraryViewModel> SelectLibraries(
+        private IQueryable<LibraryViewModel> SelectLibraries(
           string libraryEmail,
           string libraryName,
-          List<LibraryViewModel> libraries)
+          IQueryable<LibraryViewModel> libraries)
         {
-
             if (libraryEmail != null)
             {
-                libraries = libraries.Where(l => l.Email.Contains(libraryEmail)).ToList();
+                libraries = libraries.Where(l => l.Email.Contains(libraryEmail));
             }
 
             if (libraryName != null)
             {
-                libraries = libraries.Where(l => l.Name.Contains(libraryName)).ToList();
+                libraries = libraries.Where(l => l.Name.Contains(libraryName));
             }
 
             return libraries;

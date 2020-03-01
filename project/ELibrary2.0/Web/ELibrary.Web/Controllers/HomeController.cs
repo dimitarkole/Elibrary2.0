@@ -24,7 +24,7 @@
             this.viewLibraryService = viewLibraryService;
         }
 
-        public IActionResult Index()
+      /*  public IActionResult Index()
         {
             this.StartUp();
             var model = this.homeService.PreparedPage();
@@ -79,6 +79,7 @@
 
 
 
+        */
 
 
 
@@ -86,8 +87,7 @@
 
 
 
-
-        /*public IActionResult Index()
+        public IActionResult Index()
         {
             this.StartUp();
             var model = this.allLibraryService.PreparedPage();
@@ -133,14 +133,12 @@
             return this.View("Index", returnModel);
         }
 
-      
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             this.StartUp();
             return this.View(
                 new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
-        }*/
+        }
     }
 }
