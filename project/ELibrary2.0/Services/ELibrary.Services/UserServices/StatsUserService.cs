@@ -50,25 +50,23 @@
         private ChartGettenBookSinceSixМonth ChartGettenBookSinceSixМonth(Book searchBook, string userId)
         {
             var chartData = new List<ChartGettenBookSinceSixМonthData>();
-            var groups = this.context.GetBooks
-              .Where(gb =>
-                  gb.DeletedOn == null
-                  && gb.UserId == userId)
-              .Select(gb => new GivenBookViewModel()
+            var groups = this.context.GetBooks.Where(b =>
+              b.DeletedOn == null
+              && b.UserId == userId)
+              .Select(b => new TakenBookViewModel()
               {
-                  Author = gb.Book.Author,
-                  Id = gb.Id,
-                  Title = gb.Book.Title,
-                  GenreName = gb.Book.Genre.Name,
-                  GenreId = gb.Book.GenreId,
-                  CatalogNumber = gb.Book.CatalogNumber,
-                  FirstName = gb.User.FirstName,
-                  LastName = gb.User.LastName,
-                  UserName = gb.User.UserName,
-
-                  ReturnedOn = gb.ReturnedOn,
-                  CreatedOn = gb.CreatedOn,
+                  Author = b.Book.Author,
+                  Id = b.Id,
+                  Title = b.Book.Title,
+                  Genre = b.Book.Genre.Name,
+                  GenreId = b.Book.GenreId,
+                  CreatedOn = b.CreatedOn,
+                  ReturnedOn = b.ReturnedOn,
+                  LibraryId = b.Book.UserId,
+                  LibraryEmail = b.Book.User.Email,
+                  CatalogNumber = b.Book.CatalogNumber,
               })
+              .ToList()
               .GroupBy(gb => gb.CreatedOn.Year + " " + gb.CreatedOn.Month)
               .Take(6)
               .ToList();
@@ -79,7 +77,7 @@
 
             foreach (var group in groups)
             {
-                List<GivenBookViewModel> getBookOfMonth = group.Select(group => group).ToList();
+                List<TakenBookViewModel> getBookOfMonth = group.Select(group => group).ToList();
                 getBookOfMonth = this.SelectGettenBookOfMonthViewModel(title, author, genreId, getBookOfMonth);
                 if (getBookOfMonth.Count > 0)
                 {
@@ -136,11 +134,11 @@
             return genres;
         }
 
-        private List<GivenBookViewModel> SelectGettenBookOfMonthViewModel(
+        private List<TakenBookViewModel> SelectGettenBookOfMonthViewModel(
           string title,
           string author,
           string genreId,
-          List<GivenBookViewModel> books)
+          List<TakenBookViewModel> books)
         {
             if (title != null)
             {

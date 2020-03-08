@@ -30,6 +30,7 @@
 
         public string SortMethodId { get; set; }
 
+
         public List<string> SortMethods { get; set; }
 
         public IEnumerable<UserViewModel> Users { get; set; }

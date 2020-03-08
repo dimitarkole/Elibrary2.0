@@ -14,20 +14,20 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.CreatedOn = DateTime.UtcNow;
+            this.GetBooks = new HashSet<GetBook>();
         }
 
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
-        public virtual string CatalogNumber { get; set; }
+        public string CatalogNumber { get; set; }
 
-        public virtual string VirtualOrReal { get; set; }
+        public string VirtualOrReal { get; set; }
 
+        public string Title { get; set; }
 
-        public virtual string Title { get; set; }
+        public string Author { get; set; }
 
-        public virtual string Author { get; set; }
-
-        public virtual string GenreId { get; set; }
+        public string GenreId { get; set; }
 
         public virtual Genre Genre { get; set; }
 
@@ -35,23 +35,23 @@
 
         public virtual ApplicationUser User { get; set; }
 
-        public virtual string WhereIsBook { get; set; }
+        public string WhereIsBook { get; set; }
 
         [DataType(DataType.MultilineText)]
-        public virtual string Review { get; set; }
-        
-        public virtual string Logo { get; set; }
+        public string Review { get; set; }
 
-        public virtual string EBookFile { get; set; }
+        public string Logo { get; set; }
 
+        public string EBookFile { get; set; }
 
         [Range(1, 10000)]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18, 2)")]
-        public virtual double Price { get; set; }
+        public double Price { get; set; }
 
-        public virtual string Currency { get; set; }
+        public string Currency { get; set; }
 
+        public virtual ICollection<GetBook> GetBooks { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }

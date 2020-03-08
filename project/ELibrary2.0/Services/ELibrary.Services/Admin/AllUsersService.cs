@@ -49,7 +49,7 @@
             if (flag == true)
             {
                 result.Add("message", "Успешно изтрит потребител!");
-                var message = $"Вашият профил беше изтрит успешно";
+                var message = $"Вашият профил беше изтрит успешно!";
                 this.notificationService.AddNotificationAtDB(userId, message);
             }
             else
@@ -60,43 +60,55 @@
             return result;
         }
 
-        public Dictionary<string, object> MakeUserAdmin(string userId)
+        public Dictionary<string, object> MakeUserAdmin(string userId, string adminId)
         {
-            var adminRoleId = this.context.Roles.FirstOrDefault(r => r.Name == "Administrator").Id;
-            var userRole = this.context.UserRoles.FirstOrDefault(ur => ur.UserId == userId);
-
-            if (userRole == null)
+            var flag = false;
+            if (userId != adminId)
             {
-                userRole = new IdentityUserRole<string>();
-                userRole.UserId = userId;
-                userRole.RoleId = adminRoleId;
+                var adminRoleId = this.context.Roles.FirstOrDefault(r => r.Name == "Administrator").Id;
+                var userRole = this.context.UserRoles.FirstOrDefault(ur => ur.UserId == userId);
 
-                this.context.UserRoles.Add(userRole);
-                this.context.SaveChanges();
+                if (userRole == null)
+                {
+                    userRole = new IdentityUserRole<string>();
+                    userRole.UserId = userId;
+                    userRole.RoleId = adminRoleId;
+
+                    this.context.UserRoles.Add(userRole);
+                    this.context.SaveChanges();
+                }
+                else
+                {
+                    this.context.UserRoles.Remove(userRole);
+                    var newUserRole = new IdentityUserRole<string>();
+                    newUserRole.UserId = userId;
+                    newUserRole.RoleId = adminRoleId;
+
+                    this.context.UserRoles.Add(newUserRole);
+                    this.context.SaveChanges();
+                }
+
+                flag = true;
             }
-            else
-            {
-                this.context.UserRoles.Remove(userRole);
-                var newUserRole = new IdentityUserRole<string>();
-                newUserRole.UserId = userId;
-                newUserRole.RoleId = adminRoleId;
-
-                this.context.UserRoles.Add(newUserRole);
-                this.context.SaveChanges();
-            }
-
 
             AllUsersViewModel model = new AllUsersViewModel();
 
             var returnMoodel = this.GetUsers(model);
             Dictionary<string, object> result = new Dictionary<string, object>();
             result.Add("model", returnMoodel);
-            result.Add("message", "Успешно променени права на потребител!");
-            var message = $"Вашите права бяха променени на администратор";
-            this.notificationService.AddNotificationAtDB(userId, message);
+            if (flag == true)
+            {
+                result.Add("message", "Успешно променени права на потребител!");
+                var message = $"Вашите права бяха променени на администратор!";
+                this.notificationService.AddNotificationAtDB(userId, message);
+            }
+            else
+            {
+                result.Add("message", "Не може да променяте собствените си права!");
+            }
+
             return result;
         }
-
 
         public AllUsersViewModel PreparedPage()
         {
@@ -105,37 +117,100 @@
             return returnModel;
         }
 
-        public Dictionary<string, object> MakeAdminUser(string userId)
+        public Dictionary<string, object> MakeAdminUser(string userId, string adminId)
         {
-            var userRoleId = this.context.Roles.FirstOrDefault(r => r.Name == "User").Id;
-            var userRole = this.context.UserRoles.FirstOrDefault(ur => ur.UserId == userId);
-            if (userRole == null)
+            var flag = false;
+            if (userId != adminId)
             {
-                userRole = new IdentityUserRole<string>();
-                userRole.UserId = userId;
-                userRole.RoleId = userRoleId;
+                var userRoleId = this.context.Roles.FirstOrDefault(r => r.Name == "User").Id;
+                var userRole = this.context.UserRoles.FirstOrDefault(ur => ur.UserId == userId);
+                if (userRole == null)
+                {
+                    userRole = new IdentityUserRole<string>();
+                    userRole.UserId = userId;
+                    userRole.RoleId = userRoleId;
 
-                this.context.UserRoles.Add(userRole);
-                this.context.SaveChanges();
-            }
-            else
-            {
-                this.context.UserRoles.Remove(userRole);
-                var newUserRole = new IdentityUserRole<string>();
-                newUserRole.UserId = userId;
-                newUserRole.RoleId = userRoleId;
+                    this.context.UserRoles.Add(userRole);
+                    this.context.SaveChanges();
+                }
+                else
+                {
+                    this.context.UserRoles.Remove(userRole);
+                    var newUserRole = new IdentityUserRole<string>();
+                    newUserRole.UserId = userId;
+                    newUserRole.RoleId = userRoleId;
 
-                this.context.UserRoles.Add(newUserRole);
-                this.context.SaveChanges();
+                    this.context.UserRoles.Add(newUserRole);
+                    this.context.SaveChanges();
+                }
+
+                flag = true;
             }
             AllUsersViewModel model = new AllUsersViewModel();
 
             var returnMoodel = this.GetUsers(model);
             Dictionary<string, object> result = new Dictionary<string, object>();
             result.Add("model", result);
-            result.Add("message", "Успешно променени права на потребител!");
-            var message = $"Вашите права бяха променени на потребителски!";
-            this.notificationService.AddNotificationAtDB(userId, message);
+            if (flag == true)
+            {
+                result.Add("message", "Успешно променени права на потребител!");
+                var message = $"Вашите права бяха променени на потребителски!";
+                this.notificationService.AddNotificationAtDB(userId, message);
+            }
+            else
+            {
+                result.Add("message", "Не може да променяте собствените си права!");
+            }
+
+            return result;
+        }
+
+        public Dictionary<string, object> MakeUserLibrary(string userId, string adminId)
+        {
+            var adminRoleId = this.context.Roles.FirstOrDefault(r => r.Name == "Library").Id;
+            var userRole = this.context.UserRoles.FirstOrDefault(ur => ur.UserId == userId);
+            var flag = false;
+            if (userId != adminId)
+            {
+                if (userRole == null)
+                {
+                    userRole = new IdentityUserRole<string>();
+                    userRole.UserId = userId;
+                    userRole.RoleId = adminRoleId;
+
+                    this.context.UserRoles.Add(userRole);
+                    this.context.SaveChanges();
+                }
+                else
+                {
+                    this.context.UserRoles.Remove(userRole);
+                    var newUserRole = new IdentityUserRole<string>();
+                    newUserRole.UserId = userId;
+                    newUserRole.RoleId = adminRoleId;
+
+                    this.context.UserRoles.Add(newUserRole);
+                    this.context.SaveChanges();
+                }
+                flag = true;
+            }
+
+            AllUsersViewModel model = new AllUsersViewModel();
+
+            var returnMoodel = this.GetUsers(model);
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            result.Add("model", returnMoodel);
+
+            if (flag == true)
+            {
+                result.Add("message", "Успешно променени права на библиотека!");
+                var message = $"Вашите права бяха променени на библиотека!";
+                this.notificationService.AddNotificationAtDB(userId, message);
+            }
+            else
+            {
+                result.Add("message", "Не може да променяте собствените си права!");
+            }
+
             return result;
         }
 
@@ -157,6 +232,7 @@
                     FirstName = u.FirstName,
                     LastName = u.LastName,
                     UserId = u.Id,
+                    Avatar = u.Avatar,
                 });
 
             users = this.SelectUsers(
@@ -247,10 +323,7 @@
                 users = users.Where(b => b.LastName.Contains(lastName));
             }
 
-
             return users;
-        }
-
-      
+        } 
     }
 }

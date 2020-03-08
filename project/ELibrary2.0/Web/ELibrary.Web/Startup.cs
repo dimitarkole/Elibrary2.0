@@ -110,9 +110,9 @@
             services.AddTransient<IAllAddedBooksService, AllAddedBooksService>();
             services.AddTransient<IStatsLibraryService, StatsLibraryService>();
 
-            // Library services
+            // User services
             services.AddTransient<ITakenBooksService, TakenBooksService>();
-
+            services.AddTransient<IStatsUserService, StatsUserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
