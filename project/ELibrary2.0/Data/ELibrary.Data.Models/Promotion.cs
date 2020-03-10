@@ -6,26 +6,23 @@
 
     using ELibrary.Data.Common.Models;
 
-    public class Notification : IAuditInfo, IDeletableEntity
+    public class Promotion : IAuditInfo, IDeletableEntity
     {
-        public Notification()
+        public Promotion()
         {
             this.Id = Guid.NewGuid().ToString();
-
             this.CreatedOn = DateTime.UtcNow;
         }
 
         public string Id { get; set; }
 
-        public string UserId { get; set; }
+        public double Value { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
+        public string Currency { get; set; }
 
-        public string TextOfNotification { get; set; }
+        public DateTime? ЕxpiryDate { get; set; }
 
         public DateTime CreatedOn { get; set; }
-
-        public DateTime? SeenOn { get; set; }
 
         public DateTime? DeletedOn { get; set; }
 
@@ -33,5 +30,6 @@
 
         // Deletable entity
         public bool IsDeleted { get; set; }
+
     }
 }
