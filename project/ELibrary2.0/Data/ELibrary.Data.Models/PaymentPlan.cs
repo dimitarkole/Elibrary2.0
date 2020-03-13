@@ -20,9 +20,9 @@
 
         public double PriceOneYear { get; set; }
 
-        public double PriceThoYears { get; set; }
+        public double PriceTwoYears { get; set; }
 
-        public double Text { get; set; }
+        public string Text { get; set; }
 
         public int CountBook { get; set; }
 

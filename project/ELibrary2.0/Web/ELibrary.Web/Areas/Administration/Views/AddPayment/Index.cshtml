@@ -1,0 +1,77 @@
+﻿@model ELibrary.Web.ViewModels.Administration.AddPaymentPlantViewModel
+
+@{
+    ViewData["Title"] = "Добавяне на нова жанр";
+}
+
+<form asp-action="AddPaymentPlan" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-12">
+            @if (ViewData["message"] != null)
+            {
+                <div class="alert alert-info" role="alert">
+
+                    @ViewData["message"]
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Име на плана</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="form-group">
+                <label asp-for="PriceOneYear" class="control-label">Годишна цена</label>
+                <input asp-for="PriceOneYear" class="form-control" />
+                <span asp-validation-for="PriceOneYear" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="form-group">
+                <label asp-for="PriceTwoYears" class="control-label">Двугодишна цена</label>
+                <input asp-for="PriceTwoYears" class="form-control" />
+                <span asp-validation-for="PriceTwoYears" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="form-group">
+                <label asp-for="Text" class="control-label">Текс към плана</label>
+                <input asp-for="Text" class="form-control" />
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="form-group">
+                <label asp-for="CountBook" class="control-label">брой книги за плана</label>
+                <input asp-for="CountBook" class="form-control" />
+                <span asp-validation-for="CountBook" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+        </div>
+        <input type="submit" value="Добави" class="col-md-1 btn btn-primary" />
+
+    </div>
+</form>
+
+<script>
+    function setTwoNumberDecimal(event) {
+        this.value = parseFloat(this.value).toFixed(2);
+    }
+</script>
+

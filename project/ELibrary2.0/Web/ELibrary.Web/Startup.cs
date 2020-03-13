@@ -88,6 +88,7 @@
             services.AddTransient<IAllUsersService, AllUsersService>();
             services.AddTransient<IStatsAdminService, StatsAdminService>();
             services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<IAddPaymentPlantService, AddPaymentPlantService>();
 
             // common services
             services.AddTransient<IGenreService, GenreService>();

@@ -44,9 +44,6 @@
             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="Administration" asp-controller="AddGenre" asp-action="Index" title="Admin">Добавяне на жанр</a>
                 </li>
                 <li class="nav-item">
@@ -56,9 +53,11 @@
                     <a class="nav-link text-dark" asp-area="Administration" asp-controller="UserRoles" asp-action="Index">Всички потребители</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="AddPayment" asp-action="Index">Добави план</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="Administration" asp-controller="AdminStatist" asp-action="Index">Статистики</a>
                 </li>
-
             }
             else if (this.User.IsInRole(GlobalConstants.LibraryRoleName))
             {
