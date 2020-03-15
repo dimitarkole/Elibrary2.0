@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Text;
 
-    public class AddPaymentPlantViewModel
+    public class AddPaymentPlanViewModel
     {
         public string Id { get; set; }
 

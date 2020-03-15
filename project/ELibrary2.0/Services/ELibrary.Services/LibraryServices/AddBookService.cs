@@ -91,9 +91,9 @@ namespace ELibrary.Services.LibraryServices
                     this.context.SaveChanges();
                     checkResult = "Успешно редактирана книга!";
                     this.messageService.AddNotificationAtDB(userId, checkResult);
-
                 }
             }
+
             result.Add(checkResult);
             return result;
         }

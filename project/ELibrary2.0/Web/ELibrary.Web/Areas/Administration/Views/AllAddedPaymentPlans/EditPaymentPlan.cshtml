@@ -1,10 +1,11 @@
-﻿@model ELibrary.Web.ViewModels.Administration.AddPaymentPlanViewModel
+﻿
+@model ELibrary.Web.ViewModels.Administration.AddPaymentPlanViewModel
 
 @{
-    ViewData["Title"] = "Добавяне на нов план";
+    ViewData["Title"] = "Редактиране на нов план";
 }
 
-<form asp-action="AddPaymentPlan" enctype="multipart/form-data">
+<form asp-action="PaymentPlanEditing" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-12">
             @if (ViewData["message"] != null)

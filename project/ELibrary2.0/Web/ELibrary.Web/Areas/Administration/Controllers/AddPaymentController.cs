@@ -10,6 +10,7 @@
     using ELibrary.Services.Contracts.CommonResurcesServices;
     using ELibrary.Web.Areas.Identity.Pages.Account;
     using ELibrary.Web.ViewModels.Administration;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -17,25 +18,29 @@
 
     public class AddPaymentController : AdministrationController
     {
-        private readonly IAddPaymentPlantService addPaymentPlantService;
+        private readonly IAddPaymentPlanService addPaymentPlantService;
 
-        public AddPaymentController(IAddPaymentPlantService addPaymentPlantService, INotificationService notificationService, IGenreService genreService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(notificationService, genreService, userManager, signInManager, logger, hostingEnvironment)
+        public AddPaymentController(IAddPaymentPlanService addPaymentPlantService, INotificationService notificationService, IGenreService genreService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment) : base(notificationService, genreService, userManager, signInManager, logger, hostingEnvironment)
         {
             this.addPaymentPlantService = addPaymentPlantService;
         }
 
+        [Authorize]
+        [HttpGet]
         public IActionResult Index()
         {
             this.StartUp();
-            var model = this.addPaymentPlantService.PreparedAddPaymentPlantPage();
+            var model = this.addPaymentPlantService.PreparedAddPaymentPlanPage();
 
             return this.View(model);
         }
 
-        public IActionResult AddPaymentPlan(AddPaymentPlantViewModel model)
+        [Authorize]
+        [HttpPost]
+        public IActionResult AddPaymentPlan(AddPaymentPlanViewModel model)
         {
             this.StartUp();
-            this.ViewData["message"] = this.addPaymentPlantService.AddPaymentPlant(model, this.userId);
+            this.ViewData["message"] = this.addPaymentPlantService.AddPaymentPlan(model, this.userId);
             return this.View("Index", model);
         }
     }

@@ -56,8 +56,12 @@
                     <a class="nav-link text-dark" asp-area="Administration" asp-controller="AddPayment" asp-action="Index">Добави план</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="AllAddedPaymentPlans" asp-action="Index">Всички планове</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="Administration" asp-controller="AdminStatist" asp-action="Index">Статистики</a>
                 </li>
+
             }
             else if (this.User.IsInRole(GlobalConstants.LibraryRoleName))
             {
