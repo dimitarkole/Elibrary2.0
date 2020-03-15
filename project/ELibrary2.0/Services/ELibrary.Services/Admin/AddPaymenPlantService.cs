@@ -78,22 +78,44 @@
 
         public string AddPaymentPlan(AddPaymentPlanViewModel model, string userId)
         {
-            PaymentPlan paymentPlan = new PaymentPlan()
+            var message = this.CheckDublicatePaymentAdd(model.Name, model.CountBook);
+            if (message == null)
             {
-                CountBook = model.CountBook,
-                Name = model.Name,
-                PriceOneYear = model.PriceOneYear,
-                PriceTwoYears = model.PriceTwoYears,
-                Text = model.Text,
-            };
-            this.context.PaymentPlans.Add(paymentPlan);
-            this.context.SaveChanges();
-            var message = "Успешно добавен абонаментен план!";
-            this.messageService.AddNotificationAtDB(userId, message);
+                PaymentPlan paymentPlan = new PaymentPlan()
+                {
+                    CountBook = model.CountBook,
+                    Name = model.Name,
+                    PriceOneYear = model.PriceOneYear,
+                    PriceTwoYears = model.PriceTwoYears,
+                    Text = model.Text,
+                };
+                this.context.PaymentPlans.Add(paymentPlan);
+                this.context.SaveChanges();
+                message = "Успешно добавен абонаментен план!";
+                this.messageService.AddNotificationAtDB(userId, message);
+            }
+
             return message;
         }
 
         private string CheckDublicatePaymentEdit(string name, int countBook, string paymentPlanId)
+        {
+            var checkPaymentPlanName = this.context.PaymentPlans.FirstOrDefault(p => p.Id != paymentPlanId && p.Name == name && p.DeletedOn == null);
+            var checkPaymentPlanCountBook = this.context.PaymentPlans.FirstOrDefault(p => p.Id != paymentPlanId && p.CountBook == countBook && p.DeletedOn == null);
+            if (checkPaymentPlanName == null)
+            {
+                if (checkPaymentPlanCountBook == null)
+                {
+                    return null;
+                }
+
+                return "Броя на книгите се доблира с друг план!";
+            }
+
+            return "Името на плана се повтаря!";
+        }
+
+        private string CheckDublicatePaymentAdd(string name, int countBook)
         {
             var checkPaymentPlanName = this.context.PaymentPlans.FirstOrDefault(p => p.Name == name && p.DeletedOn == null);
             var checkPaymentPlanCountBook = this.context.PaymentPlans.FirstOrDefault(p => p.CountBook == countBook && p.DeletedOn == null);
