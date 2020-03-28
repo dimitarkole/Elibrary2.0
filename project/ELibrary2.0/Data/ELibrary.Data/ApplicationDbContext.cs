@@ -40,13 +40,7 @@
 
         public DbSet<StarsOfBook> StarsOfBooks { get; set; }
 
-        public DbSet<PaymentPlan> PaymentPlans { get; set; }
 
-        public DbSet<Order> Orders{ get; set; }
-
-        public DbSet<Promotion> Promotions { get; set; }
-
-        public DbSet<Voucher> Vouchers { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

@@ -76,10 +76,6 @@
                 {
                     result = this.GetActivityAdmin(userId);
                 }
-                else if (role.Name == "Library")
-                {
-                    result = this.GetActivityLibrary(userId);
-                }
                 else
                 {
                     result = this.GetActivityUser(userId);
@@ -92,18 +88,13 @@
         private Dictionary<string, int> GetActivityUser(string userId)
         {
             Dictionary<string, int> result = new Dictionary<string, int>();
-            result.Add("Прочетени от Вас", this.CountReadedBooks(userId));
-            result.Add("Взето от Вас", this.CountGettenBooks(userId));
-
-            return result;
-        }
-
-        private Dictionary<string, int> GetActivityLibrary(string userId)
-        {
-            Dictionary<string, int> result = new Dictionary<string, int>();
             result.Add("Добавени книги", this.CountAddedBooks(userId));
             result.Add("Взети книги", this.CountGettedBooks(userId));
-            result.Add("Върнати книги", this.CountTakenBooks(userId));
+            result.Add("Въенати книги", this.CountTakenBooks(userId));
+           // result.Add("Четящи се книги", this.CountReaders(userId));
+
+            result.Add("Прочетени от Вас", this.CountReadedBooks(userId));
+            result.Add("Взето от Вас", this.CountGettenBooks(userId));
 
             return result;
         }

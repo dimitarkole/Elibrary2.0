@@ -6,13 +6,8 @@
 <form asp-action="AddedBooks" asp-route-returnUrl="@ViewData["URL"]">
     <div class="row">
         <div class="col-md-12">
-            @if (ViewData["message"] != null)
-            {
-                <div class="alert alert-info" role="alert">
+            <p>@ViewData["message"]</p>
 
-                    @ViewData["message"]
-                </div>
-            }
         </div>
     </div>
     <div class="container" style="background:#f7f7f7">

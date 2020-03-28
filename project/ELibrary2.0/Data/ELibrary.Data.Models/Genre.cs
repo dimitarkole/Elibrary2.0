@@ -15,9 +15,9 @@
             this.Books = new List<Book>();
         }
 
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }

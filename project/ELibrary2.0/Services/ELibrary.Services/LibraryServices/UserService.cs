@@ -37,7 +37,6 @@
             var users = this.context.Users
                 .Select(u => new UserViewModel()
                 {
-                    Avatar = u.Avatar,
                     FirstName = u.FirstName,
                     LastName = u.LastName,
                     UserId = u.Id,

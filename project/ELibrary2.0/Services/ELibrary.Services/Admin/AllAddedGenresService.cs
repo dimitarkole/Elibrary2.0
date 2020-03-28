@@ -47,7 +47,7 @@
 
         public AllAddedGenresViewModel GetGenres(AllAddedGenresViewModel model, string userId)
         {
-            var genreName = model.SearchGenre.Name;
+            var genreName = model.SearchBook.Name;
             var sortMethodId = model.SortMethodId;
             var countBooksOfPage = model.CountGenresOfPage;
             var currentPage = model.CurrentPage;
@@ -71,14 +71,14 @@
 
             var viewGenres = genres.Skip((currentPage - 1) * countBooksOfPage)
                                 .Take(countBooksOfPage);
-            var searchGenre = new AddedGenreViewModel()
+            var searchBook = new AddedGenreViewModel()
             {
                 Name = genreName,
             };
 
             var returnModel = new AllAddedGenresViewModel()
             {
-                SearchGenre = searchGenre,
+                SearchBook = searchBook,
                 SortMethodId = sortMethodId,
                 Genres = viewGenres,
                 MaxCountPage = maxCountPage,
@@ -119,6 +119,7 @@
             {
                 genres = genres.Where(g => g.Name.Contains(genreName));
             }
+
 
             return genres;
         }

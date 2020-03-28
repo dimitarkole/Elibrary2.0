@@ -12,24 +12,23 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.CreatedOn = DateTime.UtcNow;
-            this.User = new ApplicationUser();
         }
 
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
-        public string UserId { get; set; }
+        public virtual string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
 
-        public string BookId { get; set; }
+        public virtual string BookId { get; set; }
 
         public virtual Book Book { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public virtual DateTime CreatedOn { get; set; }
 
-        public DateTime? ReturnedOn { get; set; }
+        public virtual DateTime? ReturnedOn { get; set; }
 
-        public DateTime? DeletedOn { get; set; }
+        public virtual DateTime? DeletedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
 

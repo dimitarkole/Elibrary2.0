@@ -1,15 +1,14 @@
 ﻿namespace ELibrary.Services.Admin
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     using ELibrary.Data;
     using ELibrary.Data.Models;
     using ELibrary.Services.Contracts.Admin;
     using ELibrary.Services.Contracts.CommonResurcesServices;
     using ELibrary.Web.ViewModels.Administration;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
 
     public class AddGenreService : IAddGenreService
     {
@@ -29,7 +28,7 @@
             this.messageService = messageService;
         }
 
-        public string AddGenre(AddGenreViewModel model, string userId)
+        public string AddBook(AddGenreViewModel model, string userId)
         {
             var message = "Жанра се дублира с друг!";
             if (this.IsDublicated(model) == false)
@@ -49,7 +48,7 @@
             return message;
         }
 
-        public List<object> EditGenre(AddGenreViewModel model, string userId)
+        public List<object> EditBook(AddGenreViewModel model, string userId)
         {
             var result = new List<object>();
             var message = "Жанра се дублира с друг!";
@@ -68,7 +67,7 @@
             return result;
         }
 
-        public AddGenreViewModel GetGenreDataById(string genreId)
+        public AddGenreViewModel GetBookDataById(string genreId)
         {
             var genre = this.context.Genres.FirstOrDefault(g => g.Id == genreId);
             var model = new AddGenreViewModel()
@@ -79,7 +78,7 @@
             return model;
         }
 
-        public AddGenreViewModel PreparedAddGenrePage()
+        public AddGenreViewModel PreparedAddBookPage()
         {
             var model = new AddGenreViewModel();
             return model;

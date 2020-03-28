@@ -13,14 +13,14 @@ namespace ELibrary.Data.Models
             this.CreatedOn = DateTime.UtcNow;
         }
 
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
-        public string BookId { get; set; }
+        public virtual string BookId { get; set; }
 
         public virtual Book Book { get; set; }
 
         [DataType(DataType.MultilineText)]
-        public string CountStars { get; set; }
+        public virtual string CountStars { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }

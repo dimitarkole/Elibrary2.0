@@ -6,11 +6,11 @@
 
     public class VerificatedCode
     {
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
-        public string UserId { get; set; }
+        public virtual string UserId { get; set; }
 
-        public string Code { get; set; }
+        public virtual string Code { get; set; }
 
     }
 }

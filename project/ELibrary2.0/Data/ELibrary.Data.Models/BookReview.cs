@@ -15,18 +15,18 @@
             this.CreatedOn = DateTime.UtcNow;
         }
 
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
-        public string BookId { get; set; }
+        public virtual string BookId { get; set; }
 
         public virtual Book Book { get; set; }
 
-        public string UserId { get; set; }
+        public virtual string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
 
         [DataType(DataType.MultilineText)]
-        public string Review { get; set; }
+        public virtual string Review { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }

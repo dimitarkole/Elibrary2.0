@@ -14,9 +14,6 @@ namespace ELibrary.Web.ViewModels.Library
             this.UserId = null;
         }
 
-        public string Avatar { get; set; }
-
-
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

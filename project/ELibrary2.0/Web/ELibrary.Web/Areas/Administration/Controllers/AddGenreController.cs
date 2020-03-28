@@ -32,7 +32,7 @@
         {
             this.StartUp();
 
-            var model = this.addGenreService.PreparedAddGenrePage();
+            var model = this.addGenreService.PreparedAddBookPage();
             return this.View(model);
         }
 
@@ -41,7 +41,7 @@
         public IActionResult AddGenre(AddGenreViewModel model)
         {
             this.StartUp();
-            this.ViewData["message"] = this.addGenreService.AddGenre(model, this.userId);
+            this.ViewData["message"] = this.addGenreService.AddBook(model, this.userId);
             return this.View("Index", model);
         }
     }

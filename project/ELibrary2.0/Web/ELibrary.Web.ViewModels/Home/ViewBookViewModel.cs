@@ -15,7 +15,6 @@
             this.GenreName = null;
             this.GenreId = null;
             this.BookId = null;
-            this.ReviewsOfBookViewModels = new List<ReviewsOfBookViewModel>();
         }
 
         public string Title { get; set; }
@@ -44,11 +43,10 @@
 
         public string UploadUserId { get; set; }
 
-        public List<ReviewsOfBookViewModel> ReviewsOfBookViewModels { get; set; }
-
-        [Display(Name = "Review Text")]
+      /*  [Display(Name = "Review Text")]
         [StringLength(5000, MinimumLength = 5)]
         public string NewReveiew { get; set; }
 
-    }
+        public List<BookReviewsViewModel> Reveiews { get; set; }
+    */}
 }
