@@ -7,12 +7,12 @@
 
     public interface IAddGenreService
     {
-        AddGenreViewModel PreparedAddBookPage();
+        AddGenreViewModel PreparedAddGenrePage();
 
-        string AddBook(AddGenreViewModel model, string userId);
+        string AddGenre(AddGenreViewModel model, string userId);
 
-        AddGenreViewModel GetBookDataById(string bookId);
+        AddGenreViewModel GetGenreDataById(string bookId);
 
-        List<object> EditBook(AddGenreViewModel model, string userId);
+        List<object> EditGenre(AddGenreViewModel model, string userId);
     }
 }

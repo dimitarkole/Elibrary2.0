@@ -21,11 +21,11 @@
             this.CountGenresOfPage = this.CountGenresOfPageList[0];
             this.SortMethodId = this.SortMethods[0];
             this.CurrentPage = 1;
-            this.SearchBook = new AddedGenreViewModel();
+            this.SearchGenre = new AddedGenreViewModel();
             this.Genres = new List<AddedGenreViewModel>();
         }
 
-        public AddedGenreViewModel SearchBook { get; set; }
+        public AddedGenreViewModel SearchGenre { get; set; }
 
         public string SortMethodId { get; set; }
 

@@ -40,7 +40,7 @@
         public IActionResult MakeUserAdmin(AllUsersViewModel model, string id)
         {
             this.StartUp();
-            var returnModel = this.allUsersService.MakeUserAdmin(id);
+            var returnModel = this.allUsersService.MakeUserAdmin(id, this.userId);
             this.ViewData["message"] = returnModel["message"].ToString();
             var modelView = this.allUsersService.PreparedPage();
             return this.View("Index", modelView);
@@ -51,7 +51,18 @@
         public IActionResult MakeAdminUser(string id)
         {
             this.StartUp();
-            var returnModel = this.allUsersService.MakeAdminUser(id);
+            var returnModel = this.allUsersService.MakeAdminUser(id, this.userId);
+            this.ViewData["message"] = returnModel["message"].ToString();
+            var modelView = this.allUsersService.PreparedPage();
+            return this.View("Index", modelView);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult MakeUserLibrary(string id)
+        {
+            this.StartUp();
+            var returnModel = this.allUsersService.MakeUserLibrary(id, this.userId);
             this.ViewData["message"] = returnModel["message"].ToString();
             var modelView = this.allUsersService.PreparedPage();
             return this.View("Index", modelView);

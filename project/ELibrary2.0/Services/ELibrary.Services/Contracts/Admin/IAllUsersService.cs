@@ -10,10 +10,11 @@
     {
         AllUsersViewModel PreparedPage();
 
-        Dictionary<string, object> MakeUserAdmin(string userId);
+        Dictionary<string, object> MakeUserAdmin(string userId, string adminId);
 
-        Dictionary<string, object> MakeAdminUser(string userId);
+        Dictionary<string, object> MakeAdminUser(string userId, string adminId);
 
+        Dictionary<string, object> MakeUserLibrary(string userId, string adminId);
 
         Dictionary<string, object> DeleteUser(AllUsersViewModel model, string userId, string adminId);
 

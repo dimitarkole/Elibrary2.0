@@ -1,15 +1,16 @@
-﻿using ELibrary.Data;
-using ELibrary.Data.Models;
-using ELibrary.Services.Contracts.CommonResurcesServices;
-using ELibrary.Services.Contracts.LibraryServices;
-using ELibrary.Web.ViewModels.Library;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ELibrary.Services.LibraryServices
+﻿namespace ELibrary.Services.LibraryServices
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    using ELibrary.Data;
+    using ELibrary.Data.Models;
+    using ELibrary.Services.Contracts.CommonResurcesServices;
+    using ELibrary.Services.Contracts.LibraryServices;
+    using ELibrary.Web.ViewModels.Library;
+
     public class GiveBookService : IGiveBookService
     {
         private ApplicationDbContext context;

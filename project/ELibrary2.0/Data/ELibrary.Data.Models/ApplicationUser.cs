@@ -16,6 +16,7 @@ namespace ELibrary.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            this.GetBooks = new HashSet<GetBook>();
             this.CreatedOn = DateTime.UtcNow;
         }
 
@@ -37,6 +38,9 @@ namespace ELibrary.Data.Models
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+
+        public virtual ICollection<GetBook> GetBooks{ get; set; }
+
 
         public virtual string Avatar { get; set; }
 

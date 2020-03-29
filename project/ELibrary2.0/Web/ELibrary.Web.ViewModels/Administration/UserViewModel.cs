@@ -23,6 +23,7 @@
 
         public string Email { get; set; }
 
+        public string Avatar { get; set; }
 
         public string Type { get; set; }
     }

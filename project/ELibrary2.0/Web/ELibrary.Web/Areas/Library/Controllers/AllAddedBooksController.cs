@@ -77,7 +77,7 @@
         {
             this.StartUp();
             var model = this.addBookService.GetBookDataById(id);
-            this.HttpContext.Session.SetString("editBookId", id);
+            this.TempData["editBookId"] = id;
             model.BookId = id;
             return this.View("EditBook", model);
         }
@@ -88,7 +88,7 @@
         public IActionResult EditBook(AddBookViewModel model)
         {
             this.StartUp();
-            var bookId = this.HttpContext.Session.GetString("editBookId");
+            var bookId = this.TempData["editBookId"].ToString();
             model.BookId = bookId;
             var pic = model.Logo;
             var folder = "BooksLogo";

@@ -327,6 +327,12 @@ namespace ELibrary.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("SeenOn")
                         .HasColumnType("datetime2");
 
@@ -338,9 +344,120 @@ namespace ELibrary.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IsDeleted");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("ELibrary.Data.Models.Order", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentPlanId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ЕxpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("PaymentPlanId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("ELibrary.Data.Models.PaymentPlan", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CountBook")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("PriceOneYear")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PriceTwoYears")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("PaymentPlans");
+                });
+
+            modelBuilder.Entity("ELibrary.Data.Models.Promotion", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Currency")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Value")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("ЕxpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Promotions");
                 });
 
             modelBuilder.Entity("ELibrary.Data.Models.Setting", b =>
@@ -419,6 +536,42 @@ namespace ELibrary.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("VerificatedCodes");
+                });
+
+            modelBuilder.Entity("ELibrary.Data.Models.Voucher", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Currency")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Used")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Value")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Vouchers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -550,16 +703,27 @@ namespace ELibrary.Data.Migrations
             modelBuilder.Entity("ELibrary.Data.Models.GetBook", b =>
                 {
                     b.HasOne("ELibrary.Data.Models.Book", "Book")
-                        .WithMany()
+                        .WithMany("GetBooks")
                         .HasForeignKey("BookId");
 
                     b.HasOne("ELibrary.Data.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("GetBooks")
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ELibrary.Data.Models.Notification", b =>
                 {
+                    b.HasOne("ELibrary.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ELibrary.Data.Models.Order", b =>
+                {
+                    b.HasOne("ELibrary.Data.Models.PaymentPlan", "PaymentPlan")
+                        .WithMany()
+                        .HasForeignKey("PaymentPlanId");
+
                     b.HasOne("ELibrary.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");

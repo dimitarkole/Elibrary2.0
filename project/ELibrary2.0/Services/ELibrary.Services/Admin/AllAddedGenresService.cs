@@ -47,7 +47,7 @@
 
         public AllAddedGenresViewModel GetGenres(AllAddedGenresViewModel model, string userId)
         {
-            var genreName = model.SearchBook.Name;
+            var genreName = model.SearchGenre.Name;
             var sortMethodId = model.SortMethodId;
             var countBooksOfPage = model.CountGenresOfPage;
             var currentPage = model.CurrentPage;
@@ -71,14 +71,14 @@
 
             var viewGenres = genres.Skip((currentPage - 1) * countBooksOfPage)
                                 .Take(countBooksOfPage);
-            var searchBook = new AddedGenreViewModel()
+            var searchGenre = new AddedGenreViewModel()
             {
                 Name = genreName,
             };
 
             var returnModel = new AllAddedGenresViewModel()
             {
-                SearchBook = searchBook,
+                SearchGenre = searchGenre,
                 SortMethodId = sortMethodId,
                 Genres = viewGenres,
                 MaxCountPage = maxCountPage,
@@ -93,6 +93,19 @@
             var model = new AllAddedGenresViewModel();
             var returnModel = this.GetGenres(model, userId);
             return returnModel;
+        }
+
+        public AddGenreViewModel GetGenreData(string genreId)
+        {
+            var genre = this.context.Genres
+                .FirstOrDefault(g => g.Id == genreId);
+            AddGenreViewModel model = new AddGenreViewModel()
+            {
+                Id = genre.Id,
+                Name = genre.Name,
+            };
+
+            return model;
         }
 
         private IQueryable<AddedGenreViewModel> SortGenres(
@@ -119,7 +132,6 @@
             {
                 genres = genres.Where(g => g.Name.Contains(genreName));
             }
-
 
             return genres;
         }

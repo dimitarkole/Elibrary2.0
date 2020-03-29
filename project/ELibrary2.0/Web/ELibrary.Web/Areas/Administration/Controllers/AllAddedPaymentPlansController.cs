@@ -39,11 +39,20 @@
 
         [Authorize]
         [HttpGet]
+        public IActionResult AddedPaymentPlantSearch(AllPaymentPlansViewModel model)
+        {
+            this.StartUp();
+            var returnModel = this.allPaymentPlansService.GetPaymentPlans(model, this.userId);
+            return this.View("Index", returnModel);
+        }
+
+        [Authorize]
+        [HttpGet]
         public IActionResult DeletePaymentPlan(AllPaymentPlansViewModel model, string id)
         {
             this.StartUp();
             var returnModel = this.allPaymentPlansService.DeletePaymentPlan(this.userId, model, id);
-            this.ViewData["message"] = "Успешно премахнат план за плащане";
+            this.ViewData["message"] = "Успешно премахнат план за плащане!";
             return this.View("Index", returnModel);
         }
 

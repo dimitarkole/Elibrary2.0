@@ -1,14 +1,15 @@
 ﻿namespace ELibrary.Services.Admin
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
     using ELibrary.Data;
     using ELibrary.Data.Models;
     using ELibrary.Services.Contracts.Admin;
     using ELibrary.Services.Contracts.CommonResurcesServices;
     using ELibrary.Web.ViewModels.Administration;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     public class AddGenreService : IAddGenreService
     {
@@ -28,7 +29,7 @@
             this.messageService = messageService;
         }
 
-        public string AddBook(AddGenreViewModel model, string userId)
+        public string AddGenre(AddGenreViewModel model, string userId)
         {
             var message = "Жанра се дублира с друг!";
             if (this.IsDublicated(model) == false)
@@ -41,14 +42,14 @@
                 this.context.Genres.Add(genre);
                 this.context.SaveChanges();
 
-                message = "Успершно добавен жанр!";
+                message = "Успешно добавен жанр!";
                 this.messageService.AddNotificationAtDB(userId, message);
             }
 
             return message;
         }
 
-        public List<object> EditBook(AddGenreViewModel model, string userId)
+        public List<object> EditGenre(AddGenreViewModel model, string userId)
         {
             var result = new List<object>();
             var message = "Жанра се дублира с друг!";
@@ -56,9 +57,8 @@
             {
                 var genre = this.context.Genres.FirstOrDefault(g => g.Id == model.Id);
                 genre.Name = model.Name;
-                this.context.Genres.Add(genre);
                 this.context.SaveChanges();
-                message = "Успершно редактиран жанр!";
+                message = "Успешно редактиран жанр!";
                 this.messageService.AddNotificationAtDB(userId, message);
             }
 
@@ -67,7 +67,7 @@
             return result;
         }
 
-        public AddGenreViewModel GetBookDataById(string genreId)
+        public AddGenreViewModel GetGenreDataById(string genreId)
         {
             var genre = this.context.Genres.FirstOrDefault(g => g.Id == genreId);
             var model = new AddGenreViewModel()
@@ -78,7 +78,7 @@
             return model;
         }
 
-        public AddGenreViewModel PreparedAddBookPage()
+        public AddGenreViewModel PreparedAddGenrePage()
         {
             var model = new AddGenreViewModel();
             return model;

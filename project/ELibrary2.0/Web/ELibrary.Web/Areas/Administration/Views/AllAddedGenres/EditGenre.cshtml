@@ -4,7 +4,7 @@
     ViewData["Title"] = "Добавяне на нова жанр";
 }
 
-<form asp-action="AddGenre" enctype="multipart/form-data">
+<form asp-action="GenreEditing" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-12">
             @if (ViewData["message"] != null)
@@ -27,9 +27,9 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-5">
         </div>
-        <input type="submit" value="Добави" class="col-md-1 btn btn-primary" />
+        <input type="submit" value="Редактирай" class="col-md-2 btn btn-primary" />
 
     </div>
 </form>

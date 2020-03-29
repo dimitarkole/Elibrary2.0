@@ -1,6 +1,8 @@
 ﻿namespace ELibrary.Web.Controllers
 {
     using ELibrary.Data.Models;
+    using ELibrary.Services.Contracts.Admin;
+    using ELibrary.Services.Contracts.BaseServices;
     using ELibrary.Services.Contracts.CommonResurcesServices;
     using ELibrary.Web.Areas.Identity.Pages.Account;
     using ELibrary.Web.ViewModels.CommonResurces;
@@ -20,7 +22,22 @@
         protected readonly ILogger<LogoutModel> logger;
         protected readonly IHostingEnvironment hostingEnvironment;
 
-        public BaseController(INotificationService notificationService, IGenreService genreService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IHostingEnvironment hostingEnvironment)
+        protected readonly IViewBooksService homeService;
+        protected readonly IViewBookService viewBookService;
+        protected readonly IAllLibrariesService allLibraryService;
+        protected readonly IRoleService roleService;
+
+        public BaseController(
+            IViewBooksService homeService,
+            IViewBookService viewBookService,
+            IAllLibrariesService allLibraryService,
+            IRoleService roleService,
+            INotificationService notificationService,
+            IGenreService genreService,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            ILogger<LogoutModel> logger,
+            IHostingEnvironment hostingEnvironment)
         {
             this.notificationService = notificationService;
             this.genreService = genreService;
@@ -28,12 +45,11 @@
             this.signInManager = signInManager;
             this.logger = logger;
             this.hostingEnvironment = hostingEnvironment;
-        }
 
-        public BaseController(
-            INotificationService notificationService)
-        {
-            this.notificationService = notificationService;
+            this.homeService= homeService;
+            this.viewBookService= viewBookService;
+            this.allLibraryService= allLibraryService;
+            this.roleService= roleService;
         }
 
         protected void StartUp()

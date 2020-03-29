@@ -88,7 +88,9 @@
             services.AddTransient<IAllUsersService, AllUsersService>();
             services.AddTransient<IStatsAdminService, StatsAdminService>();
             services.AddTransient<IRoleService, RoleService>();
-
+            services.AddTransient<IAddPaymentPlanService, AddPaymenPlantService>();
+            services.AddTransient<IAllPaymentPlansService, AllPaymentPlansService>();
+            
             // common services
             services.AddTransient<IGenreService, GenreService>();
             services.AddTransient<INotificationService, NotificationService>();
@@ -99,8 +101,8 @@
 
             services.AddTransient<IViewBooksService, ViewBooksService>();
             services.AddTransient<IViewBookService, ViewBookService>();
-            services.AddTransient<IAllLibraryService, AllLibraryService>();
-
+            services.AddTransient<IAllLibrariesService, AllLibrariesService>();
+            services.AddTransient<IViewLibraryService, ViewLibraryService>();
 
             // Library services
             services.AddTransient<IAddBookService, AddBookService>();
@@ -110,9 +112,9 @@
             services.AddTransient<IAllAddedBooksService, AllAddedBooksService>();
             services.AddTransient<IStatsLibraryService, StatsLibraryService>();
 
-            // Library services
+            // User services
             services.AddTransient<ITakenBooksService, TakenBooksService>();
-
+            services.AddTransient<IStatsUserService, StatsUserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
