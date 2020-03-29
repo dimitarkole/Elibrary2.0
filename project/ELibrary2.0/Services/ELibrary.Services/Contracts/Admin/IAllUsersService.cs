@@ -18,6 +18,8 @@
 
         Dictionary<string, object> DeleteUser(AllUsersViewModel model, string userId, string adminId);
 
+        AllUsersViewModel SearchUsesrs(AllUsersViewModel model);
+
         AllUsersViewModel ChangeActivePage(
          AllUsersViewModel model,
          int newPage);

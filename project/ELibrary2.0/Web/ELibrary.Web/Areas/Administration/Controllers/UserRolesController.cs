@@ -88,5 +88,14 @@
             var returnModel = this.allUsersService.ChangeActivePage(model, id);
             return this.View("Index", returnModel);
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult AllUsersSearch(AllUsersViewModel model, int id)
+        {
+            this.StartUp();
+            var returnModel = this.allUsersService.SearchUsesrs(model);
+            return this.View("Index", returnModel);
+        }
     }
 }

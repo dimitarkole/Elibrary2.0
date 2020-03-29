@@ -117,6 +117,12 @@
             return returnModel;
         }
 
+        public AllUsersViewModel SearchUsesrs(AllUsersViewModel model)
+        {
+            var returnModel = this.GetUsers(model);
+            return returnModel;
+        }
+
         public Dictionary<string, object> MakeAdminUser(string userId, string adminId)
         {
             var flag = false;
