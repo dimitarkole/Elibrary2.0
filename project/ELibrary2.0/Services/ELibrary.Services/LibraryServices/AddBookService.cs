@@ -184,8 +184,6 @@ namespace ELibrary.Services.LibraryServices
             return "Вече има такава книга в библиотеката Ви!";
         }
 
-
-
         private Book CreateNewBook(AddBookViewModel model, ApplicationUser user, string userId, Genre genreObj)
         {
             var newBook = new Book()

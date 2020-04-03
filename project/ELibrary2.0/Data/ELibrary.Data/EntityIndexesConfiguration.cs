@@ -1,5 +1,6 @@
 ﻿namespace ELibrary.Data
 {
+    using System;
     using System.Linq;
 
     using ELibrary.Data.Common.Models;
@@ -19,5 +20,6 @@
                 modelBuilder.Entity(deletableEntityType.ClrType).HasIndex(nameof(IDeletableEntity.IsDeleted));
             }
         }
+
     }
 }

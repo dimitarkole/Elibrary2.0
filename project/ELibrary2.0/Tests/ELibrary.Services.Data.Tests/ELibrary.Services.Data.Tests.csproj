@@ -16,6 +16,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     <PackageReference Include="Moq" Version="4.13.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
@@ -29,8 +30,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\ELibrary.Data\ELibrary.Data.csproj" />
+    <ProjectReference Include="..\..\ELibrary.Common\ELibrary.Common.csproj" />
     <ProjectReference Include="..\..\Services\ELibrary.Services.Data\ELibrary.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\ELibrary.Services\ELibrary.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UserServicesTests\" />
   </ItemGroup>
 
 </Project>

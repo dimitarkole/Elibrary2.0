@@ -17,16 +17,5 @@ namespace ELibrary.Services.Data.Tests.LibraryServicesTests
             this.addBookService = addBookService;
         }
 
-        [Test]
-        public void AddNewBookNotDublicated()
-        {
-            AddBookViewModel modelNewBook = new AddBookViewModel();
-
-            var result = this.addBookService.AddBook(modelNewBook, " ");
-            /*Axe axe = new Axe(10, 10);
-            Dummy dummy = new Dummy(10, 10);
-            axe.Attack(dummy);
-            Assert.AreEqual(9, axe.DurabilityPoints, "Axe Durability dosn't change after atack.");*/
-        }
     }
 }

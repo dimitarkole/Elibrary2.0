@@ -31,20 +31,24 @@
 
         public string AddGenre(AddGenreViewModel model, string userId)
         {
-            var message = "Жанра се дублира с друг!";
-            if (this.IsDublicated(model) == false)
-            {
-                var genre = new Genre()
+            /*var message = this.IsHasNullData(model);
+            if (message == null)
+            {*/
+               var message = "Жанра се дублира с друг!";
+                if (this.IsDublicated(model) == false)
                 {
-                    Name = model.Name,
-                };
+                    var genre = new Genre()
+                    {
+                        Name = model.Name,
+                    };
 
-                this.context.Genres.Add(genre);
-                this.context.SaveChanges();
+                    this.context.Genres.Add(genre);
+                    this.context.SaveChanges();
 
-                message = "Успешно добавен жанр!";
-                this.messageService.AddNotificationAtDB(userId, message);
-            }
+                    message = "Успешно добавен жанр!";
+                    this.messageService.AddNotificationAtDB(userId, message);
+                }
+            //}
 
             return message;
         }
@@ -93,6 +97,17 @@
             }
 
             return true;
+        }
+
+        private string IsHasNullData(AddGenreViewModel model)
+        {
+            StringBuilder result = new StringBuilder();
+            if (string.IsNullOrEmpty(model.Name) || string.IsNullOrWhiteSpace(model.Name) || model.Name.Length < 4)
+            {
+                result.Append("Името на жанра трябва да съдържа поне 3 символа!");
+            }
+
+            return result.ToString().Trim();
         }
     }
 }
