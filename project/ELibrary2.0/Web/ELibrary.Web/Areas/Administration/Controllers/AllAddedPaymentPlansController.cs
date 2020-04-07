@@ -12,6 +12,7 @@
     using ELibrary.Web.ViewModels.Administration;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
@@ -62,7 +63,7 @@
         {
             this.StartUp();
             var model = this.allPaymentPlansService.GetPaymentPlanData(id);
-            this.TempData["editPlanId"] = id;
+            this.HttpContext.Session.SetString("editPlanId", id);
             return this.View("EditPaymentPlan", model);
         }
 
@@ -80,7 +81,7 @@
         public IActionResult PaymentPlanEditing(AddPaymentPlanViewModel model, string id)
         {
             this.StartUp();
-            model.Id = this.TempData["editPlanId"].ToString();
+            model.Id = this.HttpContext.Session.GetString("editPlanId");
             var result = this.addPaymentPlantService.EditPaymentPlan(model, this.userId);
             this.ViewData["message"] = result[1];
             this.TempData["editPlanId"] = model.Id;

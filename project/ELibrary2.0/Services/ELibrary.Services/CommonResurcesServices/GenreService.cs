@@ -18,10 +18,12 @@
         {
             this.context = context;
         }
-
+         
         public List<GenreListViewModel> GetAllGenres()
         {
-            var genres = this.context.Genres.Select(g => new GenreListViewModel()
+            var genres = this.context.Genres
+                .Where(g => g.DeletedOn == null)
+                .Select(g => new GenreListViewModel()
             {
                 Id = g.Id,
                 Name = g.Name,

@@ -13,6 +13,6 @@
 
         AddGenreViewModel GetGenreDataById(string bookId);
 
-        List<object> EditGenre(AddGenreViewModel model, string userId);
+        Dictionary<string, object> EditGenre(AddGenreViewModel model, string userId);
     }
 }

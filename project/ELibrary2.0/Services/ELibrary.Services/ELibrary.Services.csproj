@@ -24,4 +24,9 @@
     <ProjectReference Include="..\..\Web\ELibrary.Web.ViewModels\ELibrary.Web.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>ELibrary.Services.Data.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 </Project>

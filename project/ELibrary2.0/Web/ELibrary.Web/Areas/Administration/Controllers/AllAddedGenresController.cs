@@ -12,6 +12,7 @@
     using ELibrary.Web.ViewModels.Administration;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
@@ -71,7 +72,7 @@
         {
             this.StartUp();
             var model = this.allGenresService.GetGenreData(id);
-            this.TempData["editPlanId"] = id;
+            this.HttpContext.Session.SetString("editPlanId", id);
             return this.View("EditGenre", model);
         }
 
@@ -80,10 +81,10 @@
         public IActionResult GenreEditing(AddGenreViewModel model, string id)
         {
             this.StartUp();
-            model.Id = this.TempData["editPlanId"].ToString();
+            model.Id = this.HttpContext.Session.GetString("editPlanId");
             var result = this.addGenreService.EditGenre(model, this.userId);
-            this.ViewData["message"] = result[1];
-            if (result[1].ToString().Contains("Успешно"))
+            this.ViewData["message"] = result["message"];
+            if (result["message"].ToString().Contains("Успешно"))
             {
                 return this.Index();
             }

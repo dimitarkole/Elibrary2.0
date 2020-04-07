@@ -1,4 +1,7 @@
-﻿namespace ELibrary.Services.Admin
+﻿using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("ELibrary.Tests")]
+namespace ELibrary.Services.Admin
 {
     using System;
     using System.Collections.Generic;
@@ -31,10 +34,10 @@
 
         public string AddGenre(AddGenreViewModel model, string userId)
         {
-            /*var message = this.IsHasNullData(model);
-            if (message == null)
-            {*/
-               var message = "Жанра се дублира с друг!";
+            var message = this.IsHasNullData(model);
+            if (string.IsNullOrEmpty(message))
+            {
+                message = "Жанра се дублира с друг!";
                 if (this.IsDublicated(model) == false)
                 {
                     var genre = new Genre()
@@ -48,15 +51,16 @@
                     message = "Успешно добавен жанр!";
                     this.messageService.AddNotificationAtDB(userId, message);
                 }
-            //}
+            }
 
             return message;
         }
 
-        public List<object> EditGenre(AddGenreViewModel model, string userId)
+        public Dictionary<string,object> EditGenre(AddGenreViewModel model, string userId)
         {
-            var result = new List<object>();
+            var result = new Dictionary<string,object>();
             var message = "Жанра се дублира с друг!";
+            var a = this.IsDublicated(model);
             if (this.IsDublicated(model) == false)
             {
                 var genre = this.context.Genres.FirstOrDefault(g => g.Id == model.Id);
@@ -66,8 +70,8 @@
                 this.messageService.AddNotificationAtDB(userId, message);
             }
 
-            result.Add(model);
-            result.Add(message);
+            result.Add("model", model);
+            result.Add("message", message);
             return result;
         }
 
@@ -88,18 +92,22 @@
             return model;
         }
 
-        private bool IsDublicated(AddGenreViewModel model)
+        internal bool IsDublicated(AddGenreViewModel model)
         {
-            var genre = this.context.Genres.FirstOrDefault(g => g.Name == model.Name);
-            if (genre == null)
+            try
             {
+                Genre genre = this.context.Genres.FirstOrDefault(g => g.Name == model.Name && g.DeletedOn == null);
+                return genre == null ? false : true;
+            }
+            catch (Exception)
+            {
+
                 return false;
             }
-
-            return true;
         }
 
-        private string IsHasNullData(AddGenreViewModel model)
+
+        internal string IsHasNullData(AddGenreViewModel model)
         {
             StringBuilder result = new StringBuilder();
             if (string.IsNullOrEmpty(model.Name) || string.IsNullOrWhiteSpace(model.Name) || model.Name.Length < 4)

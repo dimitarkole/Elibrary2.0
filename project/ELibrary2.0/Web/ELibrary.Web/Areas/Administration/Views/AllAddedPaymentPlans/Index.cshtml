@@ -86,7 +86,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <h5 class="col-md-12">
-                                @plan.Name.Substring(0, Math.Min(plan.Name.Length, 30))
+                                @plan.Name
                             </h5>
                             <small class="col-md-12">
                                 Едногодишна цена: @plan.PriceOneYear| Двугодишна цена: @plan.PriceTwoYears| Книги: @plan.CountBook
@@ -100,7 +100,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                @plan.Text.Substring(0, Math.Min(plan.Text.Length, 140))
+                                @plan.Text
                             </div>
                         </div>
                             
