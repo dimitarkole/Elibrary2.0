@@ -21,8 +21,6 @@
 
         public string CatalogNumber { get; set; }
 
-        public string VirtualOrReal { get; set; }
-
         public string Title { get; set; }
 
         public string Author { get; set; }
@@ -42,14 +40,11 @@
 
         public string Logo { get; set; }
 
-        public string EBookFile { get; set; }
 
         [Range(1, 10000)]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18, 2)")]
         public double Price { get; set; }
-
-        public string Currency { get; set; }
 
         public virtual ICollection<GetBook> GetBooks { get; set; }
 

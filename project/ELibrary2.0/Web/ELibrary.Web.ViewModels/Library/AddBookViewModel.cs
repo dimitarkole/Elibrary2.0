@@ -11,12 +11,6 @@ namespace ELibrary.Web.ViewModels.Library
     {
         public AddBookViewModel()
         {
-            this.Currencys = new List<string>();
-            this.Currencys.Add("$");
-            this.Currencys.Add("€");
-            this.Currencys.Add("LV");
-
-            this.VirtualOrReal = "Реална";
         }
 
         public string AvatarLocation { get; set; }
@@ -54,19 +48,11 @@ namespace ELibrary.Web.ViewModels.Library
         [Required(ErrorMessage = "Моля изберете жанр!")]
         public string GenreId { get; set; }
 
-
         public List<GenreListViewModel> Genres { get; set; }
 
         [Display(Name = "Price")]
         [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public double Price { get; set; }
-
-        public List<string> Currencys { get; set; }
-
-        [Display(Name = "Currency")]
-        public string Currency { get; set; }
-
-        public string EFormatString { get; set; }
 
         [Display(Name = "Review Text")]
         [StringLength(5000, MinimumLength = 5)]
@@ -76,8 +62,5 @@ namespace ELibrary.Web.ViewModels.Library
         [StringLength(500)]
         public string WhereIsBook { get; set; }
 
-        [Display(Name = "Virtual or Rela")]
-        [StringLength(100)]
-        public string VirtualOrReal { get; set; }
     }
 }

@@ -77,7 +77,6 @@ namespace ELibrary.Services.LibraryServices
                 {
                     book.Author = author;
                     book.CatalogNumber = catalogNumber;
-                    book.Currency = model.Currency;
                     book.Logo = model.LogoLocation;
                     book.Price = model.Price;
                     book.Review = model.Review;
@@ -85,8 +84,6 @@ namespace ELibrary.Services.LibraryServices
                     book.GenreId = genreId;
                     book.Title = title;
                     book.Genre = genreObj;
-                    book.EBookFile = model.EFormatString;
-                    book.VirtualOrReal = model.VirtualOrReal;
                     genreObj.Books.Add(book);
                     this.context.SaveChanges();
                     checkResult = "Успешно редактирана книга!";
@@ -111,8 +108,6 @@ namespace ELibrary.Services.LibraryServices
                 Genres = genres,
                 CatalogNumber = book.CatalogNumber,
                 LogoLocation = book.Logo,
-                Currency = book.Currency,
-                EFormatString = book.EBookFile,
                 Price = book.Price,
                 Review = book.Review,
                 WhereIsBook = book.WhereIsBook,
@@ -195,12 +190,10 @@ namespace ELibrary.Services.LibraryServices
                 UserId = userId,
                 CatalogNumber = model.CatalogNumber,
                 User = user,
-                Currency = model.Currency,
                 Logo = model.LogoLocation,
                 Price = model.Price,
                 Review = model.Review,
                 WhereIsBook = model.WhereIsBook,
-                VirtualOrReal = model.VirtualOrReal,
             };
             return newBook;
         }
