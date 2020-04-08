@@ -14,7 +14,7 @@
 
         public AddPaymentPlanViewModel GetPaymentPlanDataById(string planId);
 
-        public List<object> EditPaymentPlan(AddPaymentPlanViewModel model, string userId);
+        public Dictionary<string, object> EditPaymentPlan(AddPaymentPlanViewModel model, string userId);
 
     }
 }

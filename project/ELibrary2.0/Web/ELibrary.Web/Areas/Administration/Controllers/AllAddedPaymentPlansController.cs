@@ -83,7 +83,7 @@
             this.StartUp();
             model.Id = this.HttpContext.Session.GetString("editPlanId");
             var result = this.addPaymentPlantService.EditPaymentPlan(model, this.userId);
-            this.ViewData["message"] = result[1];
+            this.ViewData["message"] = result["message"];
             this.TempData["editPlanId"] = model.Id;
             return this.View("EditPaymentPlan", model);
         }

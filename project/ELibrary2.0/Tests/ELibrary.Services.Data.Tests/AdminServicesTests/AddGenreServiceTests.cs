@@ -22,20 +22,15 @@
 
     public class AddGenreServiceTests : TransientDbContextProvider
     {
-        private readonly string unitTestUserId;
         private readonly Mock<IGenreService> genreServiceMock;
         private readonly Mock<INotificationService> messageServiceMock;
         private readonly Mock<AddGenreService> addGenreServiceMock;
 
         public AddGenreServiceTests()
         {
-            var mockSet = new Mock<DbSet<Genre>>();
-
-            this.unitTestUserId = GlobalConstants.UnitTestAdminId;
             this.genreServiceMock = new Mock<IGenreService>();
             this.messageServiceMock = new Mock<INotificationService>();
             this.addGenreServiceMock = new Mock<AddGenreService>(this.context, this.genreServiceMock.Object, this.messageServiceMock.Object);
-           // this.contextMock.Setup(x => x).Returns(() => null);
         }
 
         [Theory]
@@ -43,7 +38,7 @@
         [InlineData(null, "Името на жанра трябва да съдържа поне 3 символа!")]
         [InlineData("a", "Името на жанра трябва да съдържа поне 3 символа!")]
         [InlineData("abc", "Името на жанра трябва да съдържа поне 3 символа!")]
-        public async Task AddNewGenreAtDB(string genreName, string expectedResult)
+        public void AddNewGenreAtDB(string genreName, string expectedResult)
         {
             // Arrange
             var modelMock = new Mock<AddGenreViewModel>();
@@ -58,23 +53,20 @@
 
         [Theory]
         [InlineData("New Ganre", "New Ganre Name", "Успешно редактиран жанр!")]
-        public void EditGenreAtDB( string genreName, string newGenreName, string expectedResult)
+        [InlineData("New Ganre", null, "Името на жанра трябва да съдържа поне 3 символа!")]
+        [InlineData("New Ganre", "a", "Името на жанра трябва да съдържа поне 3 символа!")]
+        [InlineData("New Ganre", "abc", "Името на жанра трябва да съдържа поне 3 символа!")]
+
+        public void EditGenreAtDB(string genreName, string newGenreName, string expectedResult)
         {
             // Arrange
-            var genre = new Genre()
-            {
-                Name = genreName,
-            };
-            this.context.Genres.Add(genre);
-            this.context.SaveChanges();
-            var id = genre.Id;
+            var id = this.AddGenreAtContextReturnId(genreName);
             var modelMock = new Mock<AddGenreViewModel>();
             modelMock.Object.Id = id;
             modelMock.Object.Name = genreName;
-            
-           
+
             modelMock.Object.Name = newGenreName;
-            
+
             // Act
             var result = this.addGenreServiceMock.Object.EditGenre(modelMock.Object, this.unitTestUserId);
 
@@ -83,16 +75,46 @@
         }
 
         [Fact]
-        public void DublicateGenreAtDB()
+        public void DublicateAddGenreAtDB()
         {
             // Arrange
             var modelMock = new Mock<AddGenreViewModel>();
             modelMock.Object.Name = "New Genre";
             this.addGenreServiceMock.Object.AddGenre(modelMock.Object, this.unitTestUserId);
+
+            // act
             string result = this.addGenreServiceMock.Object.AddGenre(modelMock.Object, this.unitTestUserId);
 
             // Assert
             Assert.Equal("Жанра се дублира с друг!", result);
+        }
+
+        [Fact]
+        public void DublicateEditGenreAtDB()
+        {
+            // Arrange
+            this.AddGenreAtContextReturnId("New Genre");
+            var id = this.AddGenreAtContextReturnId("Editing Genre");
+            var modelMock = new Mock<AddGenreViewModel>();
+            modelMock.Object.Name = "New Genre";
+            modelMock.Object.Id = id;
+
+            // Act
+            var result = this.addGenreServiceMock.Object.EditGenre(modelMock.Object, this.unitTestUserId);
+
+            // Assert
+            Assert.Equal("Жанра се дублира с друг!", result["message"]);
+        }
+
+        private string AddGenreAtContextReturnId(string genreName)
+        {
+            var genre = new Genre()
+            {
+                Name = genreName,
+            };
+            this.context.Genres.Add(genre);
+            this.context.SaveChanges();
+            return genre.Id;
         }
     }
 }

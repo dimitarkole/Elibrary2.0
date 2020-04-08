@@ -59,15 +59,18 @@ namespace ELibrary.Services.Admin
         public Dictionary<string,object> EditGenre(AddGenreViewModel model, string userId)
         {
             var result = new Dictionary<string,object>();
-            var message = "Жанра се дублира с друг!";
-            var a = this.IsDublicated(model);
-            if (this.IsDublicated(model) == false)
+            var message = this.IsHasNullData(model);
+            if (string.IsNullOrEmpty(message))
             {
-                var genre = this.context.Genres.FirstOrDefault(g => g.Id == model.Id);
-                genre.Name = model.Name;
-                this.context.SaveChanges();
-                message = "Успешно редактиран жанр!";
-                this.messageService.AddNotificationAtDB(userId, message);
+                message = "Жанра се дублира с друг!";
+                if (this.IsDublicated(model) == false)
+                {
+                    var genre = this.context.Genres.FirstOrDefault(g => g.Id == model.Id);
+                    genre.Name = model.Name;
+                    this.context.SaveChanges();
+                    message = "Успешно редактиран жанр!";
+                    this.messageService.AddNotificationAtDB(userId, message);
+                }
             }
 
             result.Add("model", model);
@@ -105,7 +108,6 @@ namespace ELibrary.Services.Admin
                 return false;
             }
         }
-
 
         internal string IsHasNullData(AddGenreViewModel model)
         {
