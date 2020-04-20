@@ -40,7 +40,7 @@
             if (string.IsNullOrEmpty(message))
             {
                 message = this.CheckDublicateBookAdd(title, author, catalogNumber, userId);
-                if (message == null)
+                if (string.IsNullOrEmpty(message))
                 {
                     var user = this.context.Users.FirstOrDefault(u => u.Id == userId);
                     var genreObj = this.context.Genres.FirstOrDefault(g =>
@@ -76,7 +76,7 @@
             {
                 message = this.CheckDublicateBookEdit(title, author, catalogNumber, userId, bookId);
 
-                if (message == null)
+                if (string.IsNullOrEmpty(message))
                 {
                     var genreObj = this.context.Genres.FirstOrDefault(g =>
                       g.Id == genreId
@@ -102,6 +102,7 @@
                 }
 
             }
+
             result.Add("message", message);
             return result;
         }
@@ -167,55 +168,60 @@
 
         internal string CheckDublicateBookAdd(string title, string author, string catalogNumber, string userId)
         {
-            var bookCheker1 = this.context.Books.Where(b =>
+            StringBuilder result = new StringBuilder();
+            var bookCheker1 = this.context.Books.FirstOrDefault(b =>
                    b.Title == title
                    && b.Author == author
                    && b.UserId == userId
                    && b.DeletedOn == null
-                   && b.CatalogNumber.Equals(catalogNumber) == true)
-               .ToList();
-            if (bookCheker1.Count == 0)
+                   && b.CatalogNumber != catalogNumber);
+
+            if (bookCheker1 != null)
             {
-                var bookCheker2 = this.context.Books.FirstOrDefault(b =>
+                result.AppendLine("Вече има такава книга в библиотеката Ви!");
+            }
+
+            var bookCheker2 = this.context.Books.FirstOrDefault(b =>
                   b.CatalogNumber == catalogNumber
                   && b.UserId == userId
                   && b.DeletedOn == null);
-                if (bookCheker2 != null)
-                {
-                    return "Каталожният номер доблира каталожния номер на друга книга!";
-                }
-
-                return null;
+            if (bookCheker2 != null)
+            {
+                result.AppendLine("Каталожният номер доблира каталожния номер на друга книга!");
             }
 
-            return "Вече има такава книга в библиотеката Ви!";
+            return result.ToString().Trim();
         }
 
         internal string CheckDublicateBookEdit(string title, string author, string catalogNumber, string userId, string bookId)
         {
-            var bookCheker1 = this.context.Books.Where(b =>
-                       b.Id != bookId
-                       && b.Title == title
-                       && b.Author == author
-                       && b.UserId == userId
-                       && b.CatalogNumber.Equals(catalogNumber) == true
-                       && b.DeletedOn == null)
-                   .ToList();
-            if (bookCheker1.Count == 0)
-            {
-                var bookCheker2 = this.context.Books.FirstOrDefault(b =>
-                       b.Id != bookId
-                       && b.CatalogNumber == catalogNumber
-                       && b.DeletedOn == null);
-                if (bookCheker2 != null)
-                {
-                    return "Каталожният номер доблира каталожния номер на друга книга!";
-                }
 
-                return null;
+            StringBuilder result = new StringBuilder();
+            var bookCheker1 = this.context.Books.FirstOrDefault(b =>
+                b.Id != bookId
+                && b.Title == title
+                && b.Author == author
+                && b.UserId == userId
+                && b.DeletedOn == null
+                && b.CatalogNumber != catalogNumber);
+
+            if (bookCheker1 != null)
+            {
+                result.AppendLine("Вече има такава книга в библиотеката Ви!");
             }
 
-            return "Вече има такава книга в библиотеката Ви!";
+            var bookCheker2 = this.context.Books.FirstOrDefault(b =>
+                b.Id != bookId
+                && b.CatalogNumber == catalogNumber
+                && b.UserId == userId
+                && b.DeletedOn == null);
+            if (bookCheker2 != null)
+            {
+                result.AppendLine("Каталожният номер доблира каталожния номер на друга книга!");
+            }
+
+            return result.ToString().Trim();
+
         }
 
         internal Book CreateNewBook(AddBookViewModel model, ApplicationUser user, string userId, Genre genreObj)

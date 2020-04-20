@@ -52,25 +52,59 @@
             Assert.Equal(expectedResult, result);
         }
 
-        /*[Theory]
-        [InlineData("0001", "author", "title", "some review of book", "Успешно добавена книга!")]
-        public void DublicateAddNewBookAtDBTest(string catalogNumber, string author, string title, string review, string expectedResult)
+        [Fact]
+        public void DublicateBook_ByCatalogNumber_AddingBookAtDB_Test()
         {
+            string catalogNumber = "0001";
+            string author = "author";
+            string title = "title";
+            string review = "some review of book";
+            string expectedResult = "Каталожният номер доблира каталожния номер на друга книга!";
+
             // Arrange
             var modelMock = new Mock<AddBookViewModel>();
             modelMock.Object.Author = author;
-            modelMock.Object.CatalogNumber = catalogNumber;
             var genreId = this.AddGenreAtDb("Genre");
             modelMock.Object.GenreId = genreId;
-            modelMock.Object.Review = review;
             modelMock.Object.Title = title;
+            modelMock.Object.CatalogNumber = catalogNumber;
+            modelMock.Object.Review = review;
+
+            this.AddBookAtDb(title, author, catalogNumber, genreId, review);
 
             // Act
             string result = this.addBookService.Object.AddBook(modelMock.Object, this.unitTestUserId);
 
             // Assert
             Assert.Equal(expectedResult, result);
-        }*/
+        }
+
+        [Fact]
+        public void DublicateBook_ByNameAndAuthor_AddingBookAtDB_Test()
+        {
+            string catalogNumber = "0001";
+            string author = "author";
+            string title = "title";
+            string review = "some review of book";
+            string expectedResult = "Вече има такава книга в библиотеката Ви!";
+
+            // Arrange
+            var modelMock = new Mock<AddBookViewModel>();
+            modelMock.Object.Author = author;
+            var genreId = this.AddGenreAtDb("Genre");
+            modelMock.Object.GenreId = genreId;
+            modelMock.Object.Title = title;
+            modelMock.Object.CatalogNumber = catalogNumber + "D";
+            modelMock.Object.Review = review;
+
+            this.AddBookAtDb(title, author, catalogNumber, genreId, review);
+
+            // Act
+            string result = this.addBookService.Object.AddBook(modelMock.Object, this.unitTestUserId);
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
 
         [Theory]
         [InlineData("0001", "author", "title", "some review of book", "Успешно редактирана книга!")]
@@ -98,10 +132,67 @@
             Assert.Equal(expectedResult, result["message"]);
         }
 
-        private string AddBookAtDb(string title = "unit test book", string author = "author", string catalogNumber = "catalog Number", string genreName = "genre", string review = "review")
+        [Fact]
+        public void DublicateBook_ByCatalogNumber_EdingBookAtDB_Test()
         {
-            var genreId = this.AddGenreAtDb(genreName);
+            string catalogNumber = "0001";
+            string author = "author";
+            string title = "title";
+            string review = "some review of book";
+            string expectedResult = "Каталожният номер доблира каталожния номер на друга книга!";
 
+            // Arrange
+            var modelMock = new Mock<AddBookViewModel>();
+            modelMock.Object.Author = author;
+            var genreId = this.AddGenreAtDb("Genre");
+            modelMock.Object.GenreId = genreId;
+            modelMock.Object.Title = title;
+            modelMock.Object.CatalogNumber = catalogNumber;
+            modelMock.Object.Review = review;
+
+            this.AddBookAtDb(title, author, catalogNumber, genreId, review);
+            var bookId = this.AddBookAtDb(title, author, catalogNumber, genreId, review);
+            modelMock.Object.BookId = bookId;
+
+            // Act
+            Dictionary<string, object> result = this.addBookService.Object.EditBook(modelMock.Object, this.unitTestUserId);
+
+            // Assert
+            Assert.Equal(expectedResult, result["message"]);
+        }
+
+        [Fact]
+        public void DublicateBook_ByNameAndAuthor_EdingBookAtDB_Test()
+        {
+            string catalogNumber = "0001";
+            string author = "author";
+            string title = "title";
+            string review = "some review of book";
+            string expectedResult = "Вече има такава книга в библиотеката Ви!";
+
+            // Arrange
+            var modelMock = new Mock<AddBookViewModel>();
+            modelMock.Object.Author = author;
+            var genreId = this.AddGenreAtDb("Genre");
+            modelMock.Object.GenreId = genreId;
+            modelMock.Object.Title = title;
+            modelMock.Object.CatalogNumber = catalogNumber + "D";
+            modelMock.Object.Review = review;
+
+            this.AddBookAtDb(title, author, catalogNumber, genreId, review);
+            var bookId = this.AddBookAtDb(title, author, catalogNumber, genreId, review);
+            modelMock.Object.BookId = bookId;
+
+            // Act
+            Dictionary<string, object> result = this.addBookService.Object.EditBook(modelMock.Object, this.unitTestUserId);
+
+            // Assert
+            Assert.Equal(expectedResult, result["message"]);
+        }
+
+
+        private string AddBookAtDb(string title = "unit test book", string author = "author", string catalogNumber = "catalog Number", string genreId = "genreId", string review = "review")
+        {
             var book = new Book()
             {
                 Title = title,
@@ -109,6 +200,7 @@
                 CatalogNumber = catalogNumber,
                 GenreId = genreId,
                 Review = review,
+                UserId = this.unitTestUserId,
             };
             this.context.Books.Add(book);
             this.context.SaveChanges();
