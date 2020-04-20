@@ -1,15 +1,16 @@
-﻿using ELibrary.Data;
-using ELibrary.Data.Models;
-using ELibrary.Services.Contracts.CommonResurcesServices;
-using ELibrary.Services.Contracts.LibraryServices;
-using ELibrary.Web.ViewModels.Library;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ELibrary.Services.LibraryServices
+﻿namespace ELibrary.Services.LibraryServices
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    using ELibrary.Data;
+    using ELibrary.Data.Models;
+    using ELibrary.Services.Contracts.CommonResurcesServices;
+    using ELibrary.Services.Contracts.LibraryServices;
+    using ELibrary.Web.ViewModels.Library;
+
     public class AddBookService : IAddBookService
     {
         private ApplicationDbContext context;
@@ -33,67 +34,78 @@ namespace ELibrary.Services.LibraryServices
             var author = model.Author;
             var title = model.Title;
             var genreId = model.GenreId;
-
             var catalogNumber = model.CatalogNumber;
-            var result = this.CheckDublicateBookAdd(title, author, catalogNumber, userId);
-            if (result == null)
+
+            var message = this.IsHasNullData(model);
+            if (string.IsNullOrEmpty(message))
             {
-                var user = this.context.Users.FirstOrDefault(u => u.Id == userId);
-                var genreObj = this.context.Genres.FirstOrDefault(g =>
-                     g.Id == genreId
-                     && g.DeletedOn == null);
+                message = this.CheckDublicateBookAdd(title, author, catalogNumber, userId);
+                if (message == null)
+                {
+                    var user = this.context.Users.FirstOrDefault(u => u.Id == userId);
+                    var genreObj = this.context.Genres.FirstOrDefault(g =>
+                         g.Id == genreId
+                         && g.DeletedOn == null);
 
-                var newBook = this.CreateNewBook(model, user, userId, genreObj);
+                    var newBook = this.CreateNewBook(model, user, userId, genreObj);
 
-                this.context.Books.Add(newBook);
-                genreObj.Books.Add(newBook);
-                this.context.SaveChanges();
-                result = "Успешно добавена книга!";
-                this.messageService.AddNotificationAtDB(userId, result);
+                    this.context.Books.Add(newBook);
+                    genreObj.Books.Add(newBook);
+                    this.context.SaveChanges();
+                    message = "Успешно добавена книга!";
+                    this.messageService.AddNotificationAtDB(userId, message);
+                }
             }
 
-            return result;
+            return message;
         }
 
-        public List<object> EditBook(AddBookViewModel model, string userId)
+        public Dictionary<string, object> EditBook(AddBookViewModel model, string userId)
         {
+
             var author = model.Author;
             var title = model.Title;
             var genreId = model.GenreId;
             var bookId = model.BookId;
 
             var catalogNumber = model.CatalogNumber;
-            var checkResult = this.CheckDublicateBookEdit(title, author, catalogNumber, userId, bookId);
-            var result = new List<object>();
-            result.Add(model);
-            if (checkResult == null)
+            var message = this.IsHasNullData(model);
+            var result = new Dictionary<string, object>();
+            result.Add("model", model);
+            if (string.IsNullOrEmpty(message))
             {
-                var genreObj = this.context.Genres.FirstOrDefault(g =>
-                  g.Id == genreId
-                  && g.DeletedOn == null);
-                var book = this.context.Books.FirstOrDefault(b => b.Id == bookId);
-                model.Genres = this.genreService.GetAllGenres();
-                if (book != null)
-                {
-                    book.Author = author;
-                    book.CatalogNumber = catalogNumber;
-                    book.Logo = model.LogoLocation;
-                    book.Price = model.Price;
-                    book.Review = model.Review;
-                    book.WhereIsBook = model.WhereIsBook;
-                    book.GenreId = genreId;
-                    book.Title = title;
-                    book.Genre = genreObj;
-                    genreObj.Books.Add(book);
-                    this.context.SaveChanges();
-                    checkResult = "Успешно редактирана книга!";
-                    this.messageService.AddNotificationAtDB(userId, checkResult);
-                }
-            }
+                message = this.CheckDublicateBookEdit(title, author, catalogNumber, userId, bookId);
 
-            result.Add(checkResult);
+                if (message == null)
+                {
+                    var genreObj = this.context.Genres.FirstOrDefault(g =>
+                      g.Id == genreId
+                      && g.DeletedOn == null);
+                    var book = this.context.Books.FirstOrDefault(b => b.Id == bookId);
+                    model.Genres = this.genreService.GetAllGenres();
+                    if (book != null)
+                    {
+                        book.Author = author;
+                        book.CatalogNumber = catalogNumber;
+                        book.Logo = model.LogoLocation;
+                        book.Price = model.Price;
+                        book.Review = model.Review;
+                        book.WhereIsBook = model.WhereIsBook;
+                        book.GenreId = genreId;
+                        book.Title = title;
+                        book.Genre = genreObj;
+                        genreObj.Books.Add(book);
+                        this.context.SaveChanges();
+                        message = "Успешно редактирана книга!";
+                        this.messageService.AddNotificationAtDB(userId, message);
+                    }
+                }
+
+            }
+            result.Add("message", message);
             return result;
         }
+
 
         public AddBookViewModel GetBookDataById(string bookId)
         {
@@ -126,7 +138,34 @@ namespace ELibrary.Services.LibraryServices
             return model;
         }
 
-        private string CheckDublicateBookAdd(string title, string author, string catalogNumber, string userId)
+
+        internal string IsHasNullData(AddBookViewModel model)
+        {
+            StringBuilder result = new StringBuilder();
+            if (string.IsNullOrEmpty(model.Title) || string.IsNullOrWhiteSpace(model.Title) || model.Title.Length < 3)
+            {
+                result.Append("Името на книгата трябва да съдържа поне 2 символа!");
+            }
+
+            if (string.IsNullOrEmpty(model.Author) || string.IsNullOrWhiteSpace(model.Author) || model.Author.Length < 4)
+            {
+                result.Append("Името на автора трябва да съдържа поне 3 символа!");
+            }
+
+            if (string.IsNullOrEmpty(model.CatalogNumber) || string.IsNullOrWhiteSpace(model.CatalogNumber) || model.CatalogNumber.Length < 4)
+            {
+                result.Append("Каталожният номер на книгата трябва да съдържа поне 3 символа!");
+            }
+
+            if (string.IsNullOrEmpty(model.Review) || string.IsNullOrWhiteSpace(model.Review) || model.Review.Length < 11)
+            {
+                result.Append("Описанието на книгата трябва да съдържа поне 10 символа!");
+            }
+
+            return result.ToString().Trim();
+        }
+
+        internal string CheckDublicateBookAdd(string title, string author, string catalogNumber, string userId)
         {
             var bookCheker1 = this.context.Books.Where(b =>
                    b.Title == title
@@ -152,7 +191,7 @@ namespace ELibrary.Services.LibraryServices
             return "Вече има такава книга в библиотеката Ви!";
         }
 
-        private string CheckDublicateBookEdit(string title, string author, string catalogNumber, string userId, string bookId)
+        internal string CheckDublicateBookEdit(string title, string author, string catalogNumber, string userId, string bookId)
         {
             var bookCheker1 = this.context.Books.Where(b =>
                        b.Id != bookId
@@ -179,7 +218,7 @@ namespace ELibrary.Services.LibraryServices
             return "Вече има такава книга в библиотеката Ви!";
         }
 
-        private Book CreateNewBook(AddBookViewModel model, ApplicationUser user, string userId, Genre genreObj)
+        internal Book CreateNewBook(AddBookViewModel model, ApplicationUser user, string userId, Genre genreObj)
         {
             var newBook = new Book()
             {

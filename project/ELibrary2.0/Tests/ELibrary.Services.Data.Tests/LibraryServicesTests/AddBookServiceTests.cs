@@ -1,17 +1,18 @@
-﻿using ELibrary.Data.Models;
-using ELibrary.Services.Admin;
-using ELibrary.Services.Contracts.CommonResurcesServices;
-using ELibrary.Services.Contracts.LibraryServices;
-using ELibrary.Services.LibraryServices;
-using ELibrary.Web.ViewModels.Library;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
-
-namespace ELibrary.Services.Data.Tests.LibraryServicesTests
+﻿namespace ELibrary.Services.Data.Tests.LibraryServicesTests
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    using ELibrary.Data.Models;
+    using ELibrary.Services.Admin;
+    using ELibrary.Services.Contracts.CommonResurcesServices;
+    using ELibrary.Services.Contracts.LibraryServices;
+    using ELibrary.Services.LibraryServices;
+    using ELibrary.Web.ViewModels.Library;
+    using Moq;
+    using Xunit;
+
     public class AddBookServiceTests : TransientDbContextProvider
     {
         private readonly Mock<IGenreService> genreServiceMock;
@@ -27,19 +28,22 @@ namespace ELibrary.Services.Data.Tests.LibraryServicesTests
             this.addBookService = new Mock<AddBookService>(this.context, this.genreServiceMock.Object, this.messageServiceMock.Object);
         }
 
-
         [Theory]
-       // [InlineData("New Ganre", "Успешно добавен жанр!")]
-        public void AddNewGenreAtDB(string categotyNumbre, string author, string review, string expectedResult)
+        [InlineData("0001", "author", "title", "some review of book", "Успешно добавена книга!")]
+        [InlineData("0001", null, "title", "some review of book", "Името на автора трябва да съдържа поне 3 символа!")]
+        [InlineData("0001", "author", null, "some review of book", "Името на книгата трябва да съдържа поне 2 символа!")]
+        [InlineData("01", "author", "title", "some review of book", "Каталожният номер на книгата трябва да съдържа поне 3 символа!")]
+        [InlineData("0001", "author", "title", null, "Описанието на книгата трябва да съдържа поне 10 символа!")]
+        public void AddNewBookAtDBTest(string catalogNumber, string author, string title, string review, string expectedResult)
         {
             // Arrange
             var modelMock = new Mock<AddBookViewModel>();
             modelMock.Object.Author = author;
-            modelMock.Object.CatalogNumber = categotyNumbre;
+            modelMock.Object.CatalogNumber = catalogNumber;
             var genreId = this.AddGenreAtDb("Genre");
             modelMock.Object.GenreId = genreId;
             modelMock.Object.Review = review;
-            modelMock.Object.Review = review;
+            modelMock.Object.Title = title;
 
             // Act
             string result = this.addBookService.Object.AddBook(modelMock.Object, this.unitTestUserId);
@@ -48,6 +52,68 @@ namespace ELibrary.Services.Data.Tests.LibraryServicesTests
             Assert.Equal(expectedResult, result);
         }
 
+        /*[Theory]
+        [InlineData("0001", "author", "title", "some review of book", "Успешно добавена книга!")]
+        public void DublicateAddNewBookAtDBTest(string catalogNumber, string author, string title, string review, string expectedResult)
+        {
+            // Arrange
+            var modelMock = new Mock<AddBookViewModel>();
+            modelMock.Object.Author = author;
+            modelMock.Object.CatalogNumber = catalogNumber;
+            var genreId = this.AddGenreAtDb("Genre");
+            modelMock.Object.GenreId = genreId;
+            modelMock.Object.Review = review;
+            modelMock.Object.Title = title;
+
+            // Act
+            string result = this.addBookService.Object.AddBook(modelMock.Object, this.unitTestUserId);
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }*/
+
+        [Theory]
+        [InlineData("0001", "author", "title", "some review of book", "Успешно редактирана книга!")]
+        [InlineData("0001", null, "title", "some review of book", "Името на автора трябва да съдържа поне 3 символа!")]
+        [InlineData("0001", "author", null, "some review of book", "Името на книгата трябва да съдържа поне 2 символа!")]
+        [InlineData("01", "author", "title", "some review of book", "Каталожният номер на книгата трябва да съдържа поне 3 символа!")]
+        [InlineData("0001", "author", "title", null, "Описанието на книгата трябва да съдържа поне 10 символа!")]
+        public void EditBookAtDBTest(string catalogNumber, string author, string title, string review, string expectedResult)
+        {
+            // Arrange
+            var modelMock = new Mock<AddBookViewModel>();
+            var bookId = this.AddBookAtDb();
+            modelMock.Object.Author = author;
+            modelMock.Object.CatalogNumber = catalogNumber;
+            var genreId = this.AddGenreAtDb("Genre");
+            modelMock.Object.GenreId = genreId;
+            modelMock.Object.Review = review;
+            modelMock.Object.Title = title;
+            modelMock.Object.BookId = bookId;
+
+            // Act
+            var result = this.addBookService.Object.EditBook(modelMock.Object, this.unitTestUserId);
+
+            // Assert
+            Assert.Equal(expectedResult, result["message"]);
+        }
+
+        private string AddBookAtDb(string title = "unit test book", string author = "author", string catalogNumber = "catalog Number", string genreName = "genre", string review = "review")
+        {
+            var genreId = this.AddGenreAtDb(genreName);
+
+            var book = new Book()
+            {
+                Title = title,
+                Author = author,
+                CatalogNumber = catalogNumber,
+                GenreId = genreId,
+                Review = review,
+            };
+            this.context.Books.Add(book);
+            this.context.SaveChanges();
+            return book.Id;
+        }
 
         private string AddGenreAtDb(string genreName)
         {

@@ -102,7 +102,7 @@
             }
 
             var result = this.addBookService.EditBook(model, this.userId);
-            this.ViewData["message"] = result[1];
+            this.ViewData["message"] = result["message"];
             var returnModel = this.allAddedBooksServices.PreparedPage(this.userId);
             return this.View("AddedBooks", returnModel);
         }

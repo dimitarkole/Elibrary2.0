@@ -35,7 +35,7 @@
         [InlineData("New plan5", 100, 200, null, 200, "Текстът към абонаметния план трябва да съдържа поне 3 символа!")]
         [InlineData("New plan6", 100, 200, "some text", -200, "Броя на книгите трябва да бъде по-голям от 0!")]
 
-        public void AddNewPlanAtDB(string planName, double priceOneYear, double priceTwoYears,  string text, int countBook,  string expectedResult)
+        public void AddNewPlanAtDBTest(string planName, double priceOneYear, double priceTwoYears,  string text, int countBook,  string expectedResult)
         {
             // Arrange
             var modelMock = new Mock<AddPaymentPlanViewModel>();
@@ -53,7 +53,7 @@
         }
 
         [Fact]
-        public void DublicateAddNewPlanDublicateByName()
+        public void DublicateAddNewPlanDublicateByNameTest()
         {
             // Arrange
             this.AddPlanAtContextReturnId("Plan name A");
@@ -72,7 +72,7 @@
         }
 
         [Fact]
-        public void DublicateAddNewPlanDublicateByBookCount()
+        public void DublicateAddNewPlanDublicateByBookCountTest()
         {
             // Arrange
             this.AddPlanAtContextReturnId("Plan name A");
@@ -100,7 +100,7 @@
         [InlineData("Edeted plan", 100, 200, null, 200, "Текстът към абонаметния план трябва да съдържа поне 3 символа!")]
         [InlineData("Edeted plan", 100, 200, "some text", -200, "Броя на книгите трябва да бъде по-голям от 0!")]
 
-        public void EditPlanAtDB(string planName, double priceOneYear, double priceTwoYears, string text, int countBook, string expectedResult)
+        public void EditPlanAtDBTest(string planName, double priceOneYear, double priceTwoYears, string text, int countBook, string expectedResult)
         {
             // Arrange
             var modelMock = new Mock<AddPaymentPlanViewModel>();
@@ -120,7 +120,7 @@
         }
 
         [Fact]
-        public void DublicateEditPlanDublicateByName()
+        public void DublicateEditPlanDublicateByNameTest()
         {
             // Arrange
             this.AddPlanAtContextReturnId("Plan name A");
@@ -139,7 +139,7 @@
         }
 
         [Fact]
-        public void DublicateEditPlanDublicateByBookCount()
+        public void DublicateEditPlanDublicateByBookCountTest()
         {
             // Arrange
             this.AddPlanAtContextReturnId("Plan name A");
@@ -158,7 +158,6 @@
             // Assert
             Assert.Equal("Броя на книгите се доблира с друг план!", result["message"]);
         }
-
 
         private string AddPlanAtContextReturnId(string planName)
         {

@@ -14,6 +14,6 @@
 
         AddBookViewModel GetBookDataById(string genreId);
 
-        List<object> EditBook(AddBookViewModel model, string userId);
+        Dictionary<string, object> EditBook(AddBookViewModel model, string userId);
     }
 }

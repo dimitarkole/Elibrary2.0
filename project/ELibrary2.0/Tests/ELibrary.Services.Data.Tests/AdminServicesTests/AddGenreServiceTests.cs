@@ -38,7 +38,7 @@
         [InlineData(null, "Името на жанра трябва да съдържа поне 3 символа!")]
         [InlineData("a", "Името на жанра трябва да съдържа поне 3 символа!")]
         [InlineData("abc", "Името на жанра трябва да съдържа поне 3 символа!")]
-        public void AddNewGenreAtDB(string genreName, string expectedResult)
+        public void AddNewGenreAtDBTest(string genreName, string expectedResult)
         {
             // Arrange
             var modelMock = new Mock<AddGenreViewModel>();
@@ -56,8 +56,7 @@
         [InlineData("New Ganre", null, "Името на жанра трябва да съдържа поне 3 символа!")]
         [InlineData("New Ganre", "a", "Името на жанра трябва да съдържа поне 3 символа!")]
         [InlineData("New Ganre", "abc", "Името на жанра трябва да съдържа поне 3 символа!")]
-
-        public void EditGenreAtDB(string genreName, string newGenreName, string expectedResult)
+        public void EditGenreAtDBTest(string genreName, string newGenreName, string expectedResult)
         {
             // Arrange
             var id = this.AddGenreAtContextReturnId(genreName);
@@ -75,7 +74,7 @@
         }
 
         [Fact]
-        public void DublicateAddGenreAtDB()
+        public void DublicateAddGenreAtDBTest()
         {
             // Arrange
             var modelMock = new Mock<AddGenreViewModel>();
@@ -90,7 +89,7 @@
         }
 
         [Fact]
-        public void DublicateEditGenreAtDB()
+        public void DublicateEditGenreAtDBTest()
         {
             // Arrange
             this.AddGenreAtContextReturnId("New Genre");
