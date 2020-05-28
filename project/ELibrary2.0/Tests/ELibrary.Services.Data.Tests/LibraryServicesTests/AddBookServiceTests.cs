@@ -190,6 +190,34 @@
             Assert.Equal(expectedResult, result["message"]);
         }
 
+        [Fact]
+        public void NotDublicateBook_ByNameAndAuthor_EdingBookAtDB_Test()
+        {
+            string catalogNumber = "0001";
+            string author = "author";
+            string title = "title";
+            string review = "some review of book";
+            string expectedResult = "Успешно редактирана книга!";
+
+            // Arrange
+            var modelMock = new Mock<AddBookViewModel>();
+            modelMock.Object.Author = author;
+            var genreId = this.AddGenreAtDb("Genre");
+            modelMock.Object.GenreId = genreId;
+            modelMock.Object.Title = title + " t";
+            modelMock.Object.CatalogNumber = catalogNumber + "D";
+            modelMock.Object.Review = review;
+
+            this.AddBookAtDb(title, author, catalogNumber, genreId, review);
+            var bookId = this.AddBookAtDb(title, author, catalogNumber, genreId, review);
+            modelMock.Object.BookId = bookId;
+
+            // Act
+            Dictionary<string, object> result = this.addBookService.Object.EditBook(modelMock.Object, this.unitTestUserId);
+
+            // Assert
+            Assert.Equal(expectedResult, result["message"]);
+        }
 
         private string AddBookAtDb(string title = "unit test book", string author = "author", string catalogNumber = "catalog Number", string genreId = "genreId", string review = "review")
         {
